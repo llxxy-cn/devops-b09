@@ -1,0 +1,7 @@
+debug = true
+
+[registry."docker.io"]
+  mirrors = ["m.daocloud.io/docker.io"]
+
+[worker.oci]
+  max-parallelism = 1

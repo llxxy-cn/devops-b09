@@ -1,0 +1,172 @@
+Name:      m.daocloud.io/docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
+MediaType: application/vnd.oci.image.index.v1+json
+Digest:    sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
+           
+Manifests: 
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:8fb4cfa1a2616d7b8e0c2175cc6ad68f5729c34ea8488c0b360d2934b7be9024
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/amd64
+  Annotations: 
+    org.opencontainers.image.source:          https://github.com/docker-library/python.git#d2a898cb88e46203577eabc62cdcf6e92aaee176:3.13/slim-trixie
+    org.opencontainers.image.url:             https://hub.docker.com/_/python
+    org.opencontainers.image.version:         3.13.16-slim-trixie
+    com.docker.official-images.bashbrew.arch: amd64
+    org.opencontainers.image.base.digest:     sha256:918311b7b6c4c6f68b232ba516584925f6c78ad82b6fd534b98979df6438e483
+    org.opencontainers.image.base.name:       debian:trixie-slim
+    org.opencontainers.image.created:         2026-10-06T01:55:23Z
+    org.opencontainers.image.revision:        d2a898cb88e46203577eabc62cdcf6e92aaee176
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:930a2ac22a09fb9178833c870cf8bb8177d601c49651a2f77e91fa84af278046
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest:              sha256:8fb4cfa1a2616d7b8e0c2175cc6ad68f5729c34ea8488c0b360d2934b7be9024
+    vnd.docker.reference.type:                attestation-manifest
+    com.docker.official-images.bashbrew.arch: amd64
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:66d0de80d3768cfc341ba2d07b0495d8240748dd6dc1648248854a8c1d822615
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/arm/v5
+  Annotations: 
+    org.opencontainers.image.source:          https://github.com/docker-library/python.git#d2a898cb88e46203577eabc62cdcf6e92aaee176:3.13/slim-trixie
+    org.opencontainers.image.url:             https://hub.docker.com/_/python
+    org.opencontainers.image.version:         3.13.16-slim-trixie
+    com.docker.official-images.bashbrew.arch: arm32v5
+    org.opencontainers.image.base.digest:     sha256:dbc392c622e7b6974de6c1923c46b70ba614fd9d4fb10da0911d24d1e62454b7
+    org.opencontainers.image.base.name:       debian:trixie-slim
+    org.opencontainers.image.created:         2026-10-06T01:59:28Z
+    org.opencontainers.image.revision:        d2a898cb88e46203577eabc62cdcf6e92aaee176
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:3f9870c06eedf6b3f5ad95f6cee68cf89467beb1ac0ab6d4ad17ddb38777c853
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    com.docker.official-images.bashbrew.arch: arm32v5
+    vnd.docker.reference.digest:              sha256:66d0de80d3768cfc341ba2d07b0495d8240748dd6dc1648248854a8c1d822615
+    vnd.docker.reference.type:                attestation-manifest
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:87e443029b94af7bccfecd546d9f154d91bc727a75e57b2e53048121f20080f0
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/arm/v7
+  Annotations: 
+    org.opencontainers.image.created:         2026-10-06T02:40:01Z
+    org.opencontainers.image.revision:        d2a898cb88e46203577eabc62cdcf6e92aaee176
+    org.opencontainers.image.source:          https://github.com/docker-library/python.git#d2a898cb88e46203577eabc62cdcf6e92aaee176:3.13/slim-trixie
+    org.opencontainers.image.url:             https://hub.docker.com/_/python
+    org.opencontainers.image.version:         3.13.16-slim-trixie
+    com.docker.official-images.bashbrew.arch: arm32v7
+    org.opencontainers.image.base.digest:     sha256:7b9750e81f0da658a9dea52ae99ed35bbaf98abb4984e057947d18a2da2b87f1
+    org.opencontainers.image.base.name:       debian:trixie-slim
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:688a10d5ac6da346f330e27cef4f4c536dec874535a27f66e51fc52a437c053a
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    com.docker.official-images.bashbrew.arch: arm32v7
+    vnd.docker.reference.digest:              sha256:87e443029b94af7bccfecd546d9f154d91bc727a75e57b2e53048121f20080f0
+    vnd.docker.reference.type:                attestation-manifest
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:cf97c3b79da1c706532c7042f851654d97d3b88c8ca6520acda9cf4479ea9b14
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/arm64/v8
+  Annotations: 
+    org.opencontainers.image.base.name:       debian:trixie-slim
+    org.opencontainers.image.created:         2026-10-06T01:59:13Z
+    org.opencontainers.image.revision:        d2a898cb88e46203577eabc62cdcf6e92aaee176
+    org.opencontainers.image.source:          https://github.com/docker-library/python.git#d2a898cb88e46203577eabc62cdcf6e92aaee176:3.13/slim-trixie
+    org.opencontainers.image.url:             https://hub.docker.com/_/python
+    org.opencontainers.image.version:         3.13.16-slim-trixie
+    com.docker.official-images.bashbrew.arch: arm64v8
+    org.opencontainers.image.base.digest:     sha256:a2ca65377c251208de42e1a2722cb949211236c161b634f6f3663754e2d06850
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:6e44a6fc41111dbc9f283403bee4c74ea572c7782e6cabea0ab97a95bd0947e7
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.type:                attestation-manifest
+    com.docker.official-images.bashbrew.arch: arm64v8
+    vnd.docker.reference.digest:              sha256:cf97c3b79da1c706532c7042f851654d97d3b88c8ca6520acda9cf4479ea9b14
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:33f2ed6c37a2c8c66c7d9e1f2f9ca47d1ef89e2127e6c7a83f3d4eeab6c9bd8f
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/386
+  Annotations: 
+    org.opencontainers.image.url:             https://hub.docker.com/_/python
+    org.opencontainers.image.version:         3.13.16-slim-trixie
+    com.docker.official-images.bashbrew.arch: i386
+    org.opencontainers.image.base.digest:     sha256:2a0e51379197f8ad59a9736ed1dd0acb9ab90b8a0c71908a792e48ed38044de5
+    org.opencontainers.image.base.name:       debian:trixie-slim
+    org.opencontainers.image.created:         2026-10-06T01:54:26Z
+    org.opencontainers.image.revision:        d2a898cb88e46203577eabc62cdcf6e92aaee176
+    org.opencontainers.image.source:          https://github.com/docker-library/python.git#d2a898cb88e46203577eabc62cdcf6e92aaee176:3.13/slim-trixie
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:2a9123ecffc709d691328f29e0f894cd51be1e2199bf8f0cda0968bb336fcdf6
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest:              sha256:33f2ed6c37a2c8c66c7d9e1f2f9ca47d1ef89e2127e6c7a83f3d4eeab6c9bd8f
+    vnd.docker.reference.type:                attestation-manifest
+    com.docker.official-images.bashbrew.arch: i386
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:a4801deff62bd439b63aeb2ac4a55d5ee35cce412adb0460e1405c51c80a20fb
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/ppc64le
+  Annotations: 
+    org.opencontainers.image.source:          https://github.com/docker-library/python.git#d2a898cb88e46203577eabc62cdcf6e92aaee176:3.13/slim-trixie
+    org.opencontainers.image.url:             https://hub.docker.com/_/python
+    org.opencontainers.image.version:         3.13.16-slim-trixie
+    com.docker.official-images.bashbrew.arch: ppc64le
+    org.opencontainers.image.base.digest:     sha256:0b675684a76c6f792a69e35abd30baaaedb6ed66234c398f2add624106814ff5
+    org.opencontainers.image.base.name:       debian:trixie-slim
+    org.opencontainers.image.created:         2026-10-06T07:06:05Z
+    org.opencontainers.image.revision:        d2a898cb88e46203577eabc62cdcf6e92aaee176
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:179dba7599fa62976165bd8972f444b265ff06ba919693374dca3801521bf64b
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    com.docker.official-images.bashbrew.arch: ppc64le
+    vnd.docker.reference.digest:              sha256:a4801deff62bd439b63aeb2ac4a55d5ee35cce412adb0460e1405c51c80a20fb
+    vnd.docker.reference.type:                attestation-manifest
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:848e9bfd3b4d552a8b03b3b9c75e8fd896b667ed00e6e212c1f2ced9db54cebe
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/riscv64
+  Annotations: 
+    org.opencontainers.image.url:             https://hub.docker.com/_/python
+    org.opencontainers.image.version:         3.13.16-slim-trixie
+    com.docker.official-images.bashbrew.arch: riscv64
+    org.opencontainers.image.base.digest:     sha256:c6d58429cec88e03b2fe5c3d285bf90517be50b20bc1151b1b5a436d05865a9d
+    org.opencontainers.image.base.name:       debian:trixie-slim
+    org.opencontainers.image.created:         2026-10-09T08:09:13Z
+    org.opencontainers.image.revision:        d2a898cb88e46203577eabc62cdcf6e92aaee176
+    org.opencontainers.image.source:          https://github.com/docker-library/python.git#d2a898cb88e46203577eabc62cdcf6e92aaee176:3.13/slim-trixie
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:40515fb741b1bfbb8a16c5c3d14fd306630aaeb171d9285718e2226fef5babce
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    com.docker.official-images.bashbrew.arch: riscv64
+    vnd.docker.reference.digest:              sha256:848e9bfd3b4d552a8b03b3b9c75e8fd896b667ed00e6e212c1f2ced9db54cebe
+    vnd.docker.reference.type:                attestation-manifest
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:499988c6af323ac7eff17f7f3d162133f21e18f6b37ee7c0b31ba25279ae5d62
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/s390x
+  Annotations: 
+    org.opencontainers.image.url:             https://hub.docker.com/_/python
+    org.opencontainers.image.version:         3.13.16-slim-trixie
+    com.docker.official-images.bashbrew.arch: s390x
+    org.opencontainers.image.base.digest:     sha256:e081eba2bd0cad190f03f0580e07f35c4c51f19ba19fe3c9243b3a48426ecc3e
+    org.opencontainers.image.base.name:       debian:trixie-slim
+    org.opencontainers.image.created:         2026-10-06T02:14:16Z
+    org.opencontainers.image.revision:        d2a898cb88e46203577eabc62cdcf6e92aaee176
+    org.opencontainers.image.source:          https://github.com/docker-library/python.git#d2a898cb88e46203577eabc62cdcf6e92aaee176:3.13/slim-trixie
+               
+  Name:        m.daocloud.io/docker.io/library/python:3.13-slim@sha256:a1a8f44a6892d972459ddd8a61cb2f0c663b6986439795d040e6fef5a7b4a2bb
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    com.docker.official-images.bashbrew.arch: s390x
+    vnd.docker.reference.digest:              sha256:499988c6af323ac7eff17f7f3d162133f21e18f6b37ee7c0b31ba25279ae5d62
+    vnd.docker.reference.type:                attestation-manifest

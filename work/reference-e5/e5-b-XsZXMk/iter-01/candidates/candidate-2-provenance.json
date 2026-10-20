@@ -1,0 +1,13 @@
+{
+  "candidate_id": 2,
+  "iteration": "iter-01",
+  "strategy": "error-driven",
+  "provider_display_name": "Deepseek",
+  "model_version": null,
+  "acquisition": "User pasted the second model answer following the manual-transfer workflow",
+  "source": "User message in current task on 2026-10-13",
+  "status": "RECEIVED_NOT_BUILT",
+  "build_result": null,
+  "program_verification_result": null,
+  "note": "Exact model version and generation parameters were not supplied. Instruction order differs from candidate 1."
+}

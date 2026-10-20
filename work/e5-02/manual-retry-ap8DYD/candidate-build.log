@@ -1,0 +1,32 @@
+#0 building with "e5-241880585" instance using docker-container driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 320B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 57B done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
+#4 resolve docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 54B done
+#5 DONE 0.0s
+
+#6 [2/5] WORKDIR /work
+#6 CACHED
+
+#7 [3/5] COPY main.c Makefile ./
+#7 CACHED
+
+#8 [4/5] RUN apt-get update     && apt-get install -y --no-install-recommends build-essential     && rm -rf /var/lib/apt/lists/*
+#8 0.548 Hit:1 http://deb.debian.org/debian trixie InRelease
+#8 0.739 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+#8 1.389 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+#8 1.819 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]

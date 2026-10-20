@@ -1,0 +1,10 @@
+{
+  "candidate_file": "DeepSeek-E5.Dockerfile",
+  "sha256": "ede21b0fab394071641526e2fccefc41565efb00de6fb54d9d5b906aebeb535d",
+  "provider": "DeepSeek",
+  "acquisition": "Manual transfer of E5 error-driven prompt; no API call in CI",
+  "model_version": "Not recorded",
+  "selection": "E5 candidate 1; teaching selection normalized line continuations",
+  "source_evidence": "E5-B/e5-b-XsZXMk/iter-02/Dockerfile",
+  "scope": "Recorded teaching fixture, not a new model generation result"
+}

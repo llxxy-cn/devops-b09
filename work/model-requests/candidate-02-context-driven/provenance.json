@@ -1,0 +1,17 @@
+{
+  "candidate_id": "candidate-02-context-driven",
+  "provider": "DeepSeek",
+  "model_version": null,
+  "model_version_note": "界面未显示具体版本",
+  "strategy": "context-driven",
+  "generated_at": null,
+  "recorded_at": "2026-10-20T11:28:56.993668+08:00",
+  "is_recorded_replay": false,
+  "manual_changes": [],
+  "build_status": "NOT_BUILT",
+  "files": {
+    "work/model-requests/candidate-02-context-driven/prompt.txt": "5afa6dde1876a3120c02d547fd0ffde7e27150bf7c8122d736d4f88060d0d616",
+    "work/model-requests/candidate-02-context-driven/model-response.txt": "496f2fa2dde4e59b9828e8ef736c1541845054af031272894e680d771cde0df1",
+    "work/model-requests/candidate-02-context-driven/Dockerfile": "32ed5561db10f7d4b2596a5c694c7ae614acb4f0f5ed1d18d4dde1b339e8391c"
+  }
+}

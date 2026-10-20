@@ -1,0 +1,25 @@
+{
+  "candidate_id": "candidate-01-error-driven",
+  "provider": "Codex（本次对话）",
+  "model_version": null,
+  "model_version_note": "界面未显示具体版本",
+  "strategy": "error-driven",
+  "generated_at": null,
+  "recorded_at": "2026-10-20T11:28:56.993467+08:00",
+  "is_recorded_replay": false,
+  "manual_changes": [],
+  "build_status": "SUCCEEDED",
+  "files": {
+    "work/model-requests/candidate-01-error-driven/prompt.txt": "e7018bf8b485c64a31d5911665885c935d28355a53344408ae80c5babe49f618",
+    "work/model-requests/candidate-01-error-driven/model-response.txt": "3fea65d283254657b4f0226a2f3d582663f505fc69e5e0c8ee62947152087f11",
+    "work/model-requests/candidate-01-error-driven/Dockerfile": "ede21b0fab394071641526e2fccefc41565efb00de6fb54d9d5b906aebeb535d"
+  },
+  "selected": true,
+  "selection_reason": "补齐 Make 和 C 编译工具，保留原指令顺序；已通过手工构建及同镜像禁网运行验证。",
+  "build_exit_code": 0,
+  "image_id": "sha256:b4435be7a948f51cf6a4dfae899c735defb78c0fb154ac87216e1042a1f54796",
+  "verify_exit_code": 0,
+  "output_matches": true,
+  "evidence_dir": "work/e5-02/manual-retry-dEvaLX",
+  "candidate_sha256": "ede21b0fab394071641526e2fccefc41565efb00de6fb54d9d5b906aebeb535d"
+}

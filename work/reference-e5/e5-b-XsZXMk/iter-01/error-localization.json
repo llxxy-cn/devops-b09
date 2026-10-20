@@ -1,0 +1,32 @@
+{
+  "provenance": "SCRIPT_FROM_ACTUAL_BUILD_LOG",
+  "build_exit_code": 1,
+  "build_log": "build-retry.log",
+  "keyword_matches": [
+    {
+      "line": 33,
+      "text": "#8 ERROR: process \"/bin/sh -c make\" did not complete successfully: exit code: 127",
+      "keywords": [
+        "error"
+      ]
+    },
+    {
+      "line": 46,
+      "text": "ERROR: failed to build: failed to solve: process \"/bin/sh -c make\" did not complete successfully: exit code: 127",
+      "keywords": [
+        "error"
+      ]
+    }
+  ],
+  "root_cause_lines": [
+    {
+      "line": 32,
+      "text": "#8 0.221 /bin/sh: 1: make: not found"
+    },
+    {
+      "line": 36,
+      "text": "0.221 /bin/sh: 1: make: not found"
+    }
+  ],
+  "note": "Root-cause extraction here is a fixture-specific teaching rule. The two prompts are teaching adaptations, not verbatim paper templates."
+}

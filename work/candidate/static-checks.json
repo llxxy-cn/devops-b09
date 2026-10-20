@@ -1,0 +1,29 @@
+{
+  "kind": "STATIC_ONLY_NO_DOCKER_BUILD",
+  "historical_candidates": [
+    {
+      "candidate_path": "work/reference-e5/e5-b-XsZXMk/iter-01/candidates/candidate-1.Dockerfile",
+      "sha256": "ede21b0fab394071641526e2fccefc41565efb00de6fb54d9d5b906aebeb535d",
+      "static_constraints_pass": true,
+      "error": null,
+      "build_result": null
+    },
+    {
+      "candidate_path": "work/reference-e5/e5-b-XsZXMk/iter-01/candidates/candidate-2.Dockerfile",
+      "sha256": "510dc459a9a3830aabdf35b32c15b0c22a3c3299982950e40378d4a3227b9788",
+      "static_constraints_pass": true,
+      "error": null,
+      "build_result": null
+    },
+    {
+      "candidate_path": "work/reference-e5/e5-b-XsZXMk/iter-01/candidates/candidate-3.Dockerfile",
+      "sha256": "f4c86d4ee120d8a9114b1454d3eb23b5014eb326cc5b524cb291bc3f67e4eccd",
+      "static_constraints_pass": true,
+      "error": null,
+      "build_result": null
+    }
+  ],
+  "selected_replay_sha256": "ede21b0fab394071641526e2fccefc41565efb00de6fb54d9d5b906aebeb535d",
+  "selected_replay_constraints_pass": true,
+  "normalized_1_equals_3": true
+}

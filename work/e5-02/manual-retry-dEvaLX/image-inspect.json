@@ -1,0 +1,49 @@
+[
+    {
+        "Id": "sha256:b4435be7a948f51cf6a4dfae899c735defb78c0fb154ac87216e1042a1f54796",
+        "RepoTags": [],
+        "RepoDigests": [],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-20T07:29:41.553047035Z",
+        "Config": {
+            "Env": [
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+                "PYTHON_VERSION=3.13.16",
+                "PYTHON_SHA256=f4b1bfb3c79b5bb11b8d228a12504163b4c0dab4d679828d8f5f26b6cb6ab35d"
+            ],
+            "Cmd": [
+                "./hello"
+            ],
+            "WorkingDir": "/work",
+            "ArgsEscaped": true
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 605060010,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62",
+                "sha256:285510654d1d6a26507ed6576cae8fa995ba16469050787032499e9a34cbe9f5",
+                "sha256:acbf34fa608c522642659b109edfd70959b7c26593ea51141f3d339cc1875cfd",
+                "sha256:d175833b7147479e4e08f4f5d9dd2055b5ee746dc2f73520462468538d168bf6",
+                "sha256:34dea6e4d77ec88eb9ce8a37d476a564246ffa91f0b14dff4c06843cb04de242",
+                "sha256:058b017119904f2a923f531883d5eadff48cd9800f2a33dcf2fda88566ce9446",
+                "sha256:a13bbd09d58274ead81ec5fa2a8e807ae815cc943adae7683971d7cdf846e017",
+                "sha256:c997cc4fecaf3204d78f6c26a59fcbdb87983c8568d1939f3939d9a152b94f98"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-10-20T07:29:52.275887979Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:b4435be7a948f51cf6a4dfae899c735defb78c0fb154ac87216e1042a1f54796",
+            "size": 1813,
+            "annotations": {
+                "org.opencontainers.image.created": "2026-10-20T07:29:50Z"
+            }
+        }
+    }
+]

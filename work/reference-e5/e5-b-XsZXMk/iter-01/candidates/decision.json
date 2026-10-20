@@ -1,0 +1,23 @@
+{
+  "strategy": "error-driven",
+  "selection_rule": "R2_WITH_LINE_CONTINUATION_NORMALIZATION",
+  "selected_candidate": 1,
+  "matching_candidates": [
+    1,
+    3
+  ],
+  "comparison_profile": "Strip boundary whitespace and fold backslash-newline continuations; retain instruction order and original candidate files.",
+  "raw_text_identical": false,
+  "reason": "Candidates 1 and 3 have the same logical instructions after formatting normalization; candidate 2 changes COPY/RUN order. Choose the first member of the matching pair.",
+  "course_adaptation": "This formatting normalization is an explicit teaching implementation choice, not a verified reproduction of the original tool parser.",
+  "r1_history_check": "All three differ from the recorded failed Dockerfile by adding toolchain installation; no other previously-built candidates were supplied.",
+  "model_acquisition": "Human transfer to Deepseek conversations; exact model version not supplied.",
+  "candidate_sha256": {
+    "1": "ede21b0fab394071641526e2fccefc41565efb00de6fb54d9d5b906aebeb535d",
+    "2": "510dc459a9a3830aabdf35b32c15b0c22a3c3299982950e40378d4a3227b9788",
+    "3": "f4c86d4ee120d8a9114b1454d3eb23b5014eb326cc5b524cb291bc3f67e4eccd"
+  },
+  "validation_status": "NOT_BUILT",
+  "build_result": null,
+  "program_verification_result": null
+}

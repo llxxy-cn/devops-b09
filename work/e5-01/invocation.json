@@ -1,0 +1,8 @@
+{
+  "track": "B",
+  "stage": "e5",
+  "time_utc": "2026-10-20T02:58:42.515838+00:00",
+  "image": "course1020-draft:local",
+  "packaging_entrypoint": "cloud-v1",
+  "replay": false
+}
