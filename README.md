@@ -10,8 +10,10 @@
 
 课程服务器若已配置命名 Buildx 实例，可在 B 轨道 E6/E7 使用可选的
 `--builder NAME`。入口会先执行 `docker buildx inspect NAME`，仅把
-`~/.docker/buildx` 只读挂载进服务容器，并设置 `BUILDX_BUILDER`；不会挂载
-`~/.docker/config.json`。不传该参数时保持默认 Docker 构建行为。
+`~/.docker/buildx` 只读挂载到服务容器暂存路径，再复制到容器内可写的
+`/tmp/.docker/buildx`，并设置 `BUILDX_BUILDER`；不会挂载
+`~/.docker/config.json`。可写副本只保存于一次性服务容器。不传该参数时保持
+默认 Docker 构建行为。
 
 第 2 人 E6 服务器命令：
 

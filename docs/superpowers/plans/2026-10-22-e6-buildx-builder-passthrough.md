@@ -13,7 +13,7 @@
 - `--builder NAME` 仅允许用于 B 轨道的 `e6` 和 `gate`。
 - 不修改 `work/candidate/Dockerfile`、候选 SHA256、`services/draft/draft/autobuild.py` 或两轮构建逻辑。
 - 不修改宿主机 Docker daemon 配置，不重启共享 Docker 服务。
-- 只读挂载宿主机 `~/.docker/buildx` 到容器 `/tmp/.docker/buildx`；不得挂载 `~/.docker/config.json` 或完整 `~/.docker`。
+- 只读挂载宿主机 `~/.docker/buildx` 到容器 `/tmp/buildx-source`，再复制到一次性容器内可写的 `/tmp/.docker/buildx`；不得挂载 `~/.docker/config.json` 或完整 `~/.docker`。
 - 保留现有 Docker socket 挂载、socket 组号和服务容器 `HOME=/tmp`。
 - 最终验证继续使用第二轮同一镜像 ID、`--network none`、退出码 0 和输出 `hello E3`。
 - 未传 `--builder` 时命令与证据格式保持向后兼容。
@@ -78,7 +78,7 @@ class DockerBuilderTests(unittest.TestCase):
                 result = resolve_builder_run_args("e5-241880585", home)
             self.assertEqual(result, [
                 "-e", "BUILDX_BUILDER=e5-241880585",
-                "--mount", f"type=bind,src={buildx.resolve()},dst=/tmp/.docker/buildx,readonly",
+                "--mount", f"type=bind,src={buildx.resolve()},dst=/tmp/buildx-source,readonly",
             ])
             run.assert_called_once_with(
                 ["docker", "buildx", "inspect", "e5-241880585"],
@@ -167,7 +167,7 @@ def resolve_builder_run_args(builder, home=None):
         raise BuilderConfigurationError(f"Buildx metadata directory is missing: {buildx}")
     return [
         "-e", f"BUILDX_BUILDER={builder}",
-        "--mount", f"type=bind,src={buildx},dst=/tmp/.docker/buildx,readonly",
+        "--mount", f"type=bind,src={buildx},dst=/tmp/buildx-source,readonly",
     ]
 ```
 
@@ -227,7 +227,7 @@ class LabCloudBuilderTests(unittest.TestCase):
         self.addCleanup(holder.cleanup)
         builder_args = [
             "-e", "BUILDX_BUILDER=e5-241880585",
-            "--mount", "type=bind,src=/root/.docker/buildx,dst=/tmp/.docker/buildx,readonly",
+            "--mount", "type=bind,src=/root/.docker/buildx,dst=/tmp/buildx-source,readonly",
         ]
         with patch.object(lab_cloud.sys, "platform", "linux"), \
              patch("lab_cloud.resolve_builder_run_args", return_value=builder_args), \
@@ -242,7 +242,7 @@ class LabCloudBuilderTests(unittest.TestCase):
         self.assertEqual(code, 0)
         command = execute.call_args.args[0]
         self.assertIn("BUILDX_BUILDER=e5-241880585", command)
-        self.assertIn("type=bind,src=/root/.docker/buildx,dst=/tmp/.docker/buildx,readonly", command)
+        self.assertIn("type=bind,src=/root/.docker/buildx,dst=/tmp/buildx-source,readonly", command)
         self.assertEqual(command.count("/var/run/docker.sock:/var/run/docker.sock"), 1)
 
     def test_gate_forwards_builder_name(self):
@@ -355,14 +355,14 @@ class GateBuilderCommandTests(unittest.TestCase):
     def test_service_command_includes_builder_and_preserves_security_options(self):
         builder = [
             "-e", "BUILDX_BUILDER=e5-241880585",
-            "--mount", "type=bind,src=/root/.docker/buildx,dst=/tmp/.docker/buildx,readonly",
+            "--mount", "type=bind,src=/root/.docker/buildx,dst=/tmp/buildx-source,readonly",
         ]
         command = service_command(
             "e7-draft:test", Path("/source"), Path("/candidate"), Path("/evidence"),
             Path("/cid"), "hello E3", 600, 30, builder, 0, 0, 999,
         )
         self.assertIn("BUILDX_BUILDER=e5-241880585", command)
-        self.assertIn("type=bind,src=/root/.docker/buildx,dst=/tmp/.docker/buildx,readonly", command)
+        self.assertIn("type=bind,src=/root/.docker/buildx,dst=/tmp/buildx-source,readonly", command)
         self.assertIn("/var/run/docker.sock:/var/run/docker.sock", command)
         self.assertEqual(command[command.index("--network") + 1], "bridge")
         self.assertEqual(command[command.index("--expected-output") + 1], "hello E3")
@@ -373,7 +373,7 @@ class GateBuilderCommandTests(unittest.TestCase):
             Path("/cid"), "hello E3", 600, 30, [], 0, 0, 999,
         )
         self.assertFalse(any(item.startswith("BUILDX_BUILDER=") for item in command))
-        self.assertFalse(any("/tmp/.docker/buildx" in item for item in command))
+        self.assertFalse(any("/tmp/buildx-source" in item for item in command))
 
 
 if __name__ == "__main__":
@@ -496,7 +496,8 @@ git commit -m "feat: reuse named Buildx builder in E7 gate"
 ```markdown
 课程服务器若已配置命名 Buildx 实例，可在 B 轨道 E6/E7 使用可选的
 `--builder NAME`。入口会先执行 `docker buildx inspect NAME`，仅把
-`~/.docker/buildx` 只读挂载进服务容器，并设置 `BUILDX_BUILDER`；不会挂载
+`~/.docker/buildx` 只读挂载到服务容器暂存路径，再复制到一次性容器内可写的
+`/tmp/.docker/buildx`，并设置 `BUILDX_BUILDER`；不会挂载
 `~/.docker/config.json`。不传该参数时保持默认 Docker 构建行为。
 
 第 2 人 E6 服务器命令：

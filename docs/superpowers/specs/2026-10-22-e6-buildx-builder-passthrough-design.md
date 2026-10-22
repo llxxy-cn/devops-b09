@@ -45,12 +45,18 @@ python3 scripts/lab_cloud.py e6 \
 3. 找到当前宿主用户的 `~/.docker/buildx` 目录。
 4. 启动 DRAFT 服务容器时：
    - 设置 `BUILDX_BUILDER=NAME`。
-   - 将宿主机 `~/.docker/buildx` 只读挂载到容器的 `/tmp/.docker/buildx`。
+   - 将宿主机 `~/.docker/buildx` 只读挂载到容器的 `/tmp/buildx-source`。
+   - 启动命令把该暂存目录复制到容器内可写的 `/tmp/.docker/buildx`；Buildx
+     可以更新 activity 元数据，但宿主机目录保持只读且不受影响。
    - 继续使用现有的 `/var/run/docker.sock` 挂载和 docker 组号。
 5. 容器内现有的 `docker build` 命令由 Buildx 插件选择指定构建器。
 6. `autobuild.py` 继续生成原有的两次 attempt、镜像 ID 和 verification 报告。
 
 只挂载 `buildx` 子目录，不挂载 `~/.docker/config.json`，从而避免向服务容器暴露宿主机 Registry 登录信息。
+
+服务器验证发现 Buildx v0.37.1 会在构建开始时更新 `activity` 文件，因此不能
+直接把只读源作为其工作目录。使用一次性容器内副本保持了原安全边界，同时满足
+Buildx 的运行时写入要求。
 
 ## 校验与错误处理
 
