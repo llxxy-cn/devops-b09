@@ -10,6 +10,12 @@ import subprocess
 import sys
 import uuid
 
+from docker_builder import (
+    BuilderConfigurationError,
+    resolve_builder_run_args,
+    validate_builder_scope,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 TRACK = 'A' if (ROOT / 'services/buildchecker').is_dir() else 'B'
 SERVICE = 'buildchecker' if TRACK == 'A' else 'draft'
@@ -51,11 +57,17 @@ def main(argv=None):
     choice.add_argument('--candidate', help='B e6/gate: Dockerfile saved from your own model response')
     choice.add_argument('--replay', action='store_true', help='B e6/gate: explicitly use the supplied recorded DeepSeek response')
     parser.add_argument('--build-timeout', type=int, default=600)
+    parser.add_argument('--builder', help='B e6/gate: reuse a named host Buildx instance')
     args = parser.parse_args(argv)
     if sys.platform != 'linux':
         parser.error('Run after SSH login on the Linux cloud host; Windows is not the experiment host')
     if args.build_timeout <= 0:
         parser.error('Build timeout must be positive')
+    try:
+        validate_builder_scope(args.builder, TRACK, args.stage)
+        builder_run_args = resolve_builder_run_args(args.builder)
+    except BuilderConfigurationError as exc:
+        parser.error(str(exc))
     if TRACK == 'B' and args.stage in ('e6', 'gate') and not (args.candidate or args.replay):
         parser.error('Specify --candidate PATH or --replay; replay is not fresh model generation')
     if args.fixed and (TRACK != 'A' or args.stage != 'e6'):
@@ -68,7 +80,7 @@ def main(argv=None):
     if output == ROOT / 'work' or (output.exists() and any(output.iterdir())):
         parser.error('Use a fresh directory below work/; previous evidence is preserved')
     output.mkdir(parents=True, exist_ok=True)
-    meta = {'track': TRACK, 'stage': args.stage, 'time_utc': datetime.now(timezone.utc).isoformat(), 'image': args.image, 'packaging_entrypoint': 'cloud-v1', 'replay': args.replay}
+    meta = {'track': TRACK, 'stage': args.stage, 'time_utc': datetime.now(timezone.utc).isoformat(), 'image': args.image, 'packaging_entrypoint': 'cloud-v1', 'replay': args.replay, 'builder': args.builder}
     (output / 'invocation.json').write_text(json.dumps(meta, indent=2), encoding='utf-8')
     print(f'EVIDENCE_DIR={output}', flush=True)
     if args.stage == 'build':
@@ -83,6 +95,8 @@ def main(argv=None):
         if TRACK == 'B':
             candidate = (ROOT / args.candidate).resolve() if args.candidate else ROOT / 'fixtures/ci-candidates/DeepSeek-E5.Dockerfile'
             command += ['--candidate', str(candidate), '--build-timeout', str(args.build_timeout)]
+            if args.builder:
+                command += ['--builder', args.builder]
         return execute(command, output / 'driver', 12 * args.build_timeout + 1200)
     if TRACK == 'A':
         if args.stage == 'e5':
@@ -126,7 +140,7 @@ def main(argv=None):
     (output / 'invocation.json').write_text(json.dumps(meta, indent=2), encoding='utf-8')
     evidence = output / 'evidence'
     evidence.mkdir()
-    return execute(container(['--network', 'bridge', '--cidfile', str(output / 'service-container-id.txt'), '--group-add', str(Path('/var/run/docker.sock').stat().st_gid), '-v', '/var/run/docker.sock:/var/run/docker.sock', '--mount', f'type=bind,src={candidate},dst=/inputs/Dockerfile,readonly', '--mount', f'type=bind,src={evidence},dst=/evidence']) + [args.image, 'python3', '-m', 'draft', 'auto-build', '--fixture', '/app/fixtures/draft', '--candidate', '/inputs/Dockerfile', '--out', '/evidence', '--expected-output', 'hello E3', '--timeout', str(args.build_timeout)], output / 'runner', 2 * args.build_timeout + 180)
+    return execute(container(['--network', 'bridge', '--cidfile', str(output / 'service-container-id.txt'), '--group-add', str(Path('/var/run/docker.sock').stat().st_gid), '-v', '/var/run/docker.sock:/var/run/docker.sock', *builder_run_args, '--mount', f'type=bind,src={candidate},dst=/inputs/Dockerfile,readonly', '--mount', f'type=bind,src={evidence},dst=/evidence']) + [args.image, 'python3', '-m', 'draft', 'auto-build', '--fixture', '/app/fixtures/draft', '--candidate', '/inputs/Dockerfile', '--out', '/evidence', '--expected-output', 'hello E3', '--timeout', str(args.build_timeout)], output / 'runner', 2 * args.build_timeout + 180)
 
 if __name__ == '__main__':
     try:
