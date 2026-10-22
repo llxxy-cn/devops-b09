@@ -27,7 +27,7 @@ class LabCloudBuilderTests(unittest.TestCase):
         self.addCleanup(holder.cleanup)
         builder_args = [
             "-e", "BUILDX_BUILDER=e5-241880585",
-            "--mount", "type=bind,src=/root/.docker/buildx,dst=/tmp/.docker/buildx,readonly",
+            "--mount", "type=bind,src=/root/.docker/buildx,dst=/tmp/buildx-source,readonly",
         ]
         real_stat = Path.stat
 
@@ -50,10 +50,13 @@ class LabCloudBuilderTests(unittest.TestCase):
         command = execute.call_args.args[0]
         self.assertIn("BUILDX_BUILDER=e5-241880585", command)
         self.assertIn(
-            "type=bind,src=/root/.docker/buildx,dst=/tmp/.docker/buildx,readonly",
+            "type=bind,src=/root/.docker/buildx,dst=/tmp/buildx-source,readonly",
             command,
         )
         self.assertEqual(command.count("/var/run/docker.sock:/var/run/docker.sock"), 1)
+        image = command.index(lab_cloud.IMAGE)
+        self.assertEqual(command[image + 1:image + 3], ["sh", "-c"])
+        self.assertIn("cp -R /tmp/buildx-source", command[image + 3])
 
     def test_gate_forwards_builder_name(self):
         holder, out = self.fresh_out("gate")

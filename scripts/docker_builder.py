@@ -39,5 +39,15 @@ def resolve_builder_run_args(builder, home=None):
         raise BuilderConfigurationError(f"Buildx metadata directory is missing: {buildx}")
     return [
         "-e", f"BUILDX_BUILDER={builder}",
-        "--mount", f"type=bind,src={buildx},dst=/tmp/.docker/buildx,readonly",
+        "--mount", f"type=bind,src={buildx},dst=/tmp/buildx-source,readonly",
     ]
+
+
+def wrap_builder_command(command, enabled):
+    if not enabled:
+        return list(command)
+    prepare = (
+        'set -eu; mkdir -p "$HOME/.docker"; '
+        'cp -R /tmp/buildx-source "$HOME/.docker/buildx"; exec "$@"'
+    )
+    return ["sh", "-c", prepare, "buildx-init", *command]

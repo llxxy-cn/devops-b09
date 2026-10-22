@@ -8,7 +8,11 @@ import re
 import shutil
 import subprocess
 
-from docker_builder import BuilderConfigurationError, resolve_builder_run_args
+from docker_builder import (
+    BuilderConfigurationError,
+    resolve_builder_run_args,
+    wrap_builder_command,
+)
 
 def evaluate(name, code, report):
     if name == "invalid-candidate":
@@ -97,6 +101,12 @@ def check_artifacts(name, evidence, report):
 def service_command(image, source, candidate, evidence, cidfile, expected,
                     build_timeout, verify_timeout, builder_run_args,
                     uid, gid, socket_gid):
+    workflow = [
+        "python3", "-m", "draft", "auto-build",
+        "--fixture", "/fixture", "--candidate", "/candidate.Dockerfile",
+        "--out", "/evidence", "--expected-output", expected,
+        "--timeout", str(build_timeout), "--verify-timeout", str(verify_timeout),
+    ]
     return [
         "docker", "run", "--rm", "--network", "bridge",
         "--user", f"{uid}:{gid}", "-e", "HOME=/tmp",
@@ -107,10 +117,7 @@ def service_command(image, source, candidate, evidence, cidfile, expected,
         "--mount", f"type=bind,src={source},dst=/fixture,readonly",
         "--mount", f"type=bind,src={candidate},dst=/candidate.Dockerfile,readonly",
         "--mount", f"type=bind,src={evidence},dst=/evidence",
-        image, "python3", "-m", "draft", "auto-build",
-        "--fixture", "/fixture", "--candidate", "/candidate.Dockerfile",
-        "--out", "/evidence", "--expected-output", expected,
-        "--timeout", str(build_timeout), "--verify-timeout", str(verify_timeout),
+        image, *wrap_builder_command(workflow, bool(builder_run_args)),
     ]
 
 def main():

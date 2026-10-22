@@ -8,6 +8,7 @@ from docker_builder import (
     BuilderConfigurationError,
     resolve_builder_run_args,
     validate_builder_scope,
+    wrap_builder_command,
 )
 
 TEST_TMP = Path(__file__).resolve().parents[2] / "work"
@@ -30,7 +31,7 @@ class DockerBuilderTests(unittest.TestCase):
                 result = resolve_builder_run_args("e5-241880585", home)
             self.assertEqual(result, [
                 "-e", "BUILDX_BUILDER=e5-241880585",
-                "--mount", f"type=bind,src={buildx.resolve()},dst=/tmp/.docker/buildx,readonly",
+                "--mount", f"type=bind,src={buildx.resolve()},dst=/tmp/buildx-source,readonly",
             ])
             run.assert_called_once_with(
                 ["docker", "buildx", "inspect", "e5-241880585"],
@@ -64,6 +65,18 @@ class DockerBuilderTests(unittest.TestCase):
             validate_builder_scope("e5-241880585", "B", "build")
         with self.assertRaisesRegex(BuilderConfigurationError, "only supported"):
             validate_builder_scope("e5-241880585", "A", "e6")
+
+    def test_builder_command_copies_readonly_metadata_before_execution(self):
+        command = wrap_builder_command(["python3", "-m", "draft"], True)
+        self.assertEqual(command[:2], ["sh", "-c"])
+        self.assertIn('cp -R /tmp/buildx-source "$HOME/.docker/buildx"', command[2])
+        self.assertEqual(command[3:], ["buildx-init", "python3", "-m", "draft"])
+
+    def test_default_command_does_not_add_a_shell_wrapper(self):
+        self.assertEqual(
+            wrap_builder_command(["python3", "-m", "draft"], False),
+            ["python3", "-m", "draft"],
+        )
 
 
 if __name__ == "__main__":

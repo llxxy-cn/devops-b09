@@ -8,7 +8,7 @@ class GateBuilderCommandTests(unittest.TestCase):
     def test_service_command_includes_builder_and_preserves_security_options(self):
         builder = [
             "-e", "BUILDX_BUILDER=e5-241880585",
-            "--mount", "type=bind,src=/root/.docker/buildx,dst=/tmp/.docker/buildx,readonly",
+            "--mount", "type=bind,src=/root/.docker/buildx,dst=/tmp/buildx-source,readonly",
         ]
         command = service_command(
             "e7-draft:test", Path("/source"), Path("/candidate"), Path("/evidence"),
@@ -16,12 +16,15 @@ class GateBuilderCommandTests(unittest.TestCase):
         )
         self.assertIn("BUILDX_BUILDER=e5-241880585", command)
         self.assertIn(
-            "type=bind,src=/root/.docker/buildx,dst=/tmp/.docker/buildx,readonly",
+            "type=bind,src=/root/.docker/buildx,dst=/tmp/buildx-source,readonly",
             command,
         )
         self.assertIn("/var/run/docker.sock:/var/run/docker.sock", command)
         self.assertEqual(command[command.index("--network") + 1], "bridge")
         self.assertEqual(command[command.index("--expected-output") + 1], "hello E3")
+        image = command.index("e7-draft:test")
+        self.assertEqual(command[image + 1:image + 3], ["sh", "-c"])
+        self.assertIn("cp -R /tmp/buildx-source", command[image + 3])
 
     def test_service_command_without_builder_matches_previous_shape(self):
         command = service_command(

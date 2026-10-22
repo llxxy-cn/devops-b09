@@ -14,6 +14,7 @@ from docker_builder import (
     BuilderConfigurationError,
     resolve_builder_run_args,
     validate_builder_scope,
+    wrap_builder_command,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -140,7 +141,8 @@ def main(argv=None):
     (output / 'invocation.json').write_text(json.dumps(meta, indent=2), encoding='utf-8')
     evidence = output / 'evidence'
     evidence.mkdir()
-    return execute(container(['--network', 'bridge', '--cidfile', str(output / 'service-container-id.txt'), '--group-add', str(Path('/var/run/docker.sock').stat().st_gid), '-v', '/var/run/docker.sock:/var/run/docker.sock', *builder_run_args, '--mount', f'type=bind,src={candidate},dst=/inputs/Dockerfile,readonly', '--mount', f'type=bind,src={evidence},dst=/evidence']) + [args.image, 'python3', '-m', 'draft', 'auto-build', '--fixture', '/app/fixtures/draft', '--candidate', '/inputs/Dockerfile', '--out', '/evidence', '--expected-output', 'hello E3', '--timeout', str(args.build_timeout)], output / 'runner', 2 * args.build_timeout + 180)
+    workflow = ['python3', '-m', 'draft', 'auto-build', '--fixture', '/app/fixtures/draft', '--candidate', '/inputs/Dockerfile', '--out', '/evidence', '--expected-output', 'hello E3', '--timeout', str(args.build_timeout)]
+    return execute(container(['--network', 'bridge', '--cidfile', str(output / 'service-container-id.txt'), '--group-add', str(Path('/var/run/docker.sock').stat().st_gid), '-v', '/var/run/docker.sock:/var/run/docker.sock', *builder_run_args, '--mount', f'type=bind,src={candidate},dst=/inputs/Dockerfile,readonly', '--mount', f'type=bind,src={evidence},dst=/evidence']) + [args.image, *wrap_builder_command(workflow, bool(args.builder))], output / 'runner', 2 * args.build_timeout + 180)
 
 if __name__ == '__main__':
     try:
