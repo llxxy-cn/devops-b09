@@ -15,7 +15,7 @@
 `~/.docker/config.json`。可写副本只保存于一次性服务容器。不传该参数时保持
 默认 Docker 构建行为。
 
-第 2 人 E6 服务器命令：
+E6 服务器命令：
 
 ```bash
 python3 scripts/lab_cloud.py e6 \
