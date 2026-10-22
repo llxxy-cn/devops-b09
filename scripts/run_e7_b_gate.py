@@ -8,6 +8,8 @@ import re
 import shutil
 import subprocess
 
+from docker_builder import BuilderConfigurationError, resolve_builder_run_args
+
 def evaluate(name, code, report):
     if name == "invalid-candidate":
         if code != 1 or report.get("status") != "FAILED" or "required project/build/runtime" not in report.get("error", "") or report.get("attempts"):
@@ -91,12 +93,33 @@ def check_artifacts(name, evidence, report):
         if "no such" not in error:
             raise ValueError("Cleanup check failed for an unrelated reason")
 
+
+def service_command(image, source, candidate, evidence, cidfile, expected,
+                    build_timeout, verify_timeout, builder_run_args,
+                    uid, gid, socket_gid):
+    return [
+        "docker", "run", "--rm", "--network", "bridge",
+        "--user", f"{uid}:{gid}", "-e", "HOME=/tmp",
+        "--group-add", str(socket_gid),
+        "-v", "/var/run/docker.sock:/var/run/docker.sock",
+        *builder_run_args,
+        "--cidfile", str(cidfile),
+        "--mount", f"type=bind,src={source},dst=/fixture,readonly",
+        "--mount", f"type=bind,src={candidate},dst=/candidate.Dockerfile,readonly",
+        "--mount", f"type=bind,src={evidence},dst=/evidence",
+        image, "python3", "-m", "draft", "auto-build",
+        "--fixture", "/fixture", "--candidate", "/candidate.Dockerfile",
+        "--out", "/evidence", "--expected-output", expected,
+        "--timeout", str(build_timeout), "--verify-timeout", str(verify_timeout),
+    ]
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--image", default="e7-draft:ta1020001")
     parser.add_argument("--candidate", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--build-timeout", type=int, default=300)
+    parser.add_argument("--builder", help="Reuse a named host Buildx instance")
     parser.add_argument("--case", action="append", choices=("success", "wrong-output", "invalid-candidate", "build-failed", "runtime-timeout"), help="Run selected cases only; repeat flag for multiple cases")
     parser.add_argument("--inject-bad-oracle", action="store_true")
     args = parser.parse_args()
@@ -105,6 +128,10 @@ def main():
     cases = list(dict.fromkeys(args.case or ("success", "wrong-output", "invalid-candidate", "build-failed", "runtime-timeout")))
     if os.name != "posix":
         parser.error("Run on the Ubuntu host using Docker CLI")
+    try:
+        builder_run_args = resolve_builder_run_args(args.builder)
+    except BuilderConfigurationError as exc:
+        parser.error(str(exc))
     root = Path(__file__).resolve().parents[1]
     fixture, candidate, output = root / "fixtures/draft", Path(args.candidate).resolve(), Path(args.out).resolve()
     if not fixture.is_dir() or not candidate.is_file():
@@ -164,14 +191,12 @@ def main():
             # Buildx may obtain registry credentials/tokens from the CLI-side
             # session, so the service needs networking even with a host daemon.
             # The untrusted built program is still run with --network none by auto_build.
-            command = ["docker", "run", "--rm", "--network", "bridge", "--user", f"{os.getuid()}:{os.getgid()}", "-e", "HOME=/tmp",
-                       "--group-add", str(Path("/var/run/docker.sock").stat().st_gid), "-v", "/var/run/docker.sock:/var/run/docker.sock",
-                       "--cidfile", str(case / "service-container-id.txt"),
-                       "--mount", f"type=bind,src={source},dst=/fixture,readonly",
-                       "--mount", f"type=bind,src={path},dst=/candidate.Dockerfile,readonly",
-                       "--mount", f"type=bind,src={evidence},dst=/evidence", args.image,
-                       "python3", "-m", "draft", "auto-build", "--fixture", "/fixture", "--candidate", "/candidate.Dockerfile",
-                       "--out", "/evidence", "--expected-output", expected, "--timeout", str(args.build_timeout), "--verify-timeout", "1" if name == "runtime-timeout" else "30"]
+            command = service_command(
+                args.image, source, path, evidence, case / "service-container-id.txt",
+                expected, args.build_timeout, 1 if name == "runtime-timeout" else 30,
+                builder_run_args, os.getuid(), os.getgid(),
+                Path("/var/run/docker.sock").stat().st_gid,
+            )
             code = run_logged(command, case, timeout=2 * args.build_timeout + 120)
             row = {"case": name, "passed": False, "exit_code": code}
             try:
