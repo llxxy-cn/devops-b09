@@ -1,0 +1,43 @@
+#0 building with "e5-241880585" instance using docker-container driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 320B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 57B done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
+#4 resolve docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 54B done
+#5 DONE 0.0s
+
+#6 [3/5] COPY main.c Makefile ./
+#6 CACHED
+
+#7 [2/5] WORKDIR /work
+#7 CACHED
+
+#8 [4/5] RUN apt-get update     && apt-get install -y --no-install-recommends build-essential     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [5/5] RUN make
+#9 CACHED
+
+#10 exporting to oci image format
+#10 exporting layers done
+#10 exporting manifest sha256:b4435be7a948f51cf6a4dfae899c735defb78c0fb154ac87216e1042a1f54796 done
+#10 exporting config sha256:e0af37ae7e9ff4a437918dd407425168b0ab90b6030fa5785dd996877f891e00 done
+#10 sending tarball
+#10 sending tarball 1.9s done
+#10 DONE 1.9s
+
+#11 importing to docker
+#11 DONE 0.0s
