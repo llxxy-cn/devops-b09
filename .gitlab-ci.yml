@@ -39,6 +39,10 @@ e7-b-quality-gate:
       python3 -m compileall -q services/draft/draft scripts
       python3 scripts/secret_scan.py . --history 2>&1 \
         | tee "$CI_EVIDENCE_DIR/source-scan.log"
+      sha256sum fixtures/ci-candidates/DeepSeek-E5-CI.Dockerfile \
+        > "$CI_EVIDENCE_DIR/ci-candidate-sha256.txt"
+      cp fixtures/ci-candidates/provenance-ci.json \
+        "$CI_EVIDENCE_DIR/ci-candidate-provenance.json"
 
       docker buildx build \
         --builder "$BUILDX_BUILDER_NAME" \
@@ -55,7 +59,7 @@ e7-b-quality-gate:
       python3 scripts/lab_cloud.py gate \
         --image "$CI_IMAGE" \
         --builder "$BUILDX_BUILDER_NAME" \
-        --candidate fixtures/ci-candidates/DeepSeek-E5.Dockerfile \
+        --candidate fixtures/ci-candidates/DeepSeek-E5-CI.Dockerfile \
         --out "$CI_EVIDENCE_DIR/gate-run" \
         --build-timeout 600 2>&1 \
         | tee "$CI_EVIDENCE_DIR/gate-console.log"
