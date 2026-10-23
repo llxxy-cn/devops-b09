@@ -1,0 +1,16 @@
+..........F................                                              [100%]
+=================================== FAILURES ===================================
+__________________ test_intentionally_wrong_version_exit_code __________________
+
+    def test_intentionally_wrong_version_exit_code():
+        """Keep this wrong until the failed-pipeline merge block is recorded."""
+>       assert main(["version"]) == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = main(['version'])
+
+tests/test_ci_reject_demo.py:8: AssertionError
+----------------------------- Captured stdout call -----------------------------
+draft 0.2.0-teaching
+=========================== short test summary info ============================
+FAILED tests/test_ci_reject_demo.py::test_intentionally_wrong_version_exit_code
+1 failed, 26 passed in 0.15s
