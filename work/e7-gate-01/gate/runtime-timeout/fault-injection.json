@@ -1,0 +1,11 @@
+{
+  "type": "DELAYED_CONTAINER_START",
+  "delay_seconds": 10,
+  "verify_timeout_seconds": 1,
+  "source_files_changed": [],
+  "changed_files": [
+    "fixture/Dockerfile.broken",
+    "candidate.Dockerfile"
+  ],
+  "note": "Controlled test mutation, not an additional model response"
+}

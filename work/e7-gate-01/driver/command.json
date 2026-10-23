@@ -1,0 +1,12 @@
+[
+  "/home/cindy83/miniconda3/bin/python3",
+  "scripts/run_e7_b_gate.py",
+  "--image",
+  "course1020-draft:local",
+  "--out",
+  "/home/cindy83/devops/devops-e5/work/e7-gate-01/gate",
+  "--candidate",
+  "/home/cindy83/devops/devops-e5/work/candidate/Dockerfile",
+  "--build-timeout",
+  "600"
+]
