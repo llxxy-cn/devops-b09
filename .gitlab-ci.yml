@@ -13,6 +13,7 @@ variables:
   GIT_DEPTH: "0"
   BUILDX_BUILDER_NAME: "e5-241880585"
   CI_IMAGE: "course1020-draft:ci-${CI_PIPELINE_ID}-${CI_JOB_ID}"
+  CI_CANDIDATE_IMAGE: "course1020-e7-candidate:ci-${CI_PIPELINE_ID}-${CI_JOB_ID}"
   CI_EVIDENCE_DIR: "work/ci-${CI_PIPELINE_ID}-${CI_JOB_ID}"
 
 e7-b-quality-gate:
@@ -56,6 +57,18 @@ e7-b-quality-gate:
       docker run --rm --network none "$CI_IMAGE" pytest 2>&1 \
         | tee "$CI_EVIDENCE_DIR/unit-tests.log"
 
+      # Complete the shared repair layer once before the per-case 600-second
+      # workflow budget starts. All five gate cases reuse this BuildKit cache.
+      docker buildx build \
+        --builder "$BUILDX_BUILDER_NAME" \
+        --load \
+        --progress=plain \
+        -f fixtures/ci-candidates/DeepSeek-E5-CI.Dockerfile \
+        -t "$CI_CANDIDATE_IMAGE" \
+        fixtures/draft 2>&1 | tee "$CI_EVIDENCE_DIR/candidate-warm-build.log"
+      docker run --rm --network none "$CI_CANDIDATE_IMAGE" 2>&1 \
+        | tee "$CI_EVIDENCE_DIR/candidate-warm-run.log"
+
       python3 scripts/lab_cloud.py gate \
         --image "$CI_IMAGE" \
         --builder "$BUILDX_BUILDER_NAME" \
@@ -65,6 +78,7 @@ e7-b-quality-gate:
         | tee "$CI_EVIDENCE_DIR/gate-console.log"
   after_script:
     - docker image rm -f "$CI_IMAGE" >/dev/null 2>&1 || true
+    - docker image rm -f "$CI_CANDIDATE_IMAGE" >/dev/null 2>&1 || true
   artifacts:
     name: "e7-b-evidence-${CI_PIPELINE_ID}-${CI_JOB_ID}"
     when: always

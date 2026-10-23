@@ -1,13 +1,15 @@
 {
   "candidate_file": "DeepSeek-E5-CI.Dockerfile",
-  "candidate_sha256": "d80752d32e9b39bd6e77f402db1aceb954da8d01fd712391d94f9ef658eea639",
+  "candidate_sha256": "f85b68355a51039487c1c3588778a4e92cdefff69486c272b61fdf27cc88b8a6",
   "derived_from": "DeepSeek-E5.Dockerfile",
   "original_sha256": "ede21b0fab394071641526e2fccefc41565efb00de6fb54d9d5b906aebeb535d",
   "provider": "DeepSeek",
   "acquisition": "CI derivative of the recorded E5 manual model response; no model or API call",
   "changes": [
     "Use the Aliyun Debian mirror because deb.debian.org exceeded the 600 second build budget on the course server",
-    "Move the added dependency-install RUN before COPY so the five E7 fault scenarios reuse one dependency layer"
+    "Install only make, the Tiny C Compiler, and C library headers needed by this fixture because the 82.9 MB build-essential set also exceeded the 600 second budget",
+    "Expose tcc as cc so the unchanged Makefile performs a real C compilation",
+    "Keep the added dependency-install RUN before COPY so the five E7 fault scenarios reuse one dependency layer"
   ],
   "preserved_constraints": [
     "digest-pinned original base image",
