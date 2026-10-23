@@ -1,0 +1,1 @@
+f85b68355a51039487c1c3588778a4e92cdefff69486c272b61fdf27cc88b8a6  fixtures/ci-candidates/DeepSeek-E5-CI.Dockerfile
