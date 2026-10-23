@@ -1,0 +1,69 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+stages:
+  - quality-gate
+
+variables:
+  GIT_DEPTH: "0"
+  BUILDX_BUILDER_NAME: "e5-241880585"
+  CI_IMAGE: "course1020-draft:ci-${CI_PIPELINE_ID}-${CI_JOB_ID}"
+  CI_EVIDENCE_DIR: "work/ci-${CI_PIPELINE_ID}-${CI_JOB_ID}"
+
+e7-b-quality-gate:
+  stage: quality-gate
+  tags:
+    - devops-e5-shell
+  timeout: 40m
+  resource_group: e7-b-docker-gate
+  interruptible: false
+  script:
+    - |
+      set -euo pipefail
+      mkdir -p "$CI_EVIDENCE_DIR"
+      printf '%s\n' "$CI_COMMIT_SHA" > "$CI_EVIDENCE_DIR/commit.txt"
+      printf '%s\n' "$CI_PIPELINE_URL" > "$CI_EVIDENCE_DIR/pipeline-url.txt"
+      printf '%s\n' "$CI_JOB_URL" > "$CI_EVIDENCE_DIR/job-url.txt"
+
+      test -S /var/run/docker.sock
+      docker version 2>&1 | tee "$CI_EVIDENCE_DIR/docker-version.txt"
+      docker buildx version 2>&1 | tee "$CI_EVIDENCE_DIR/buildx-version.txt"
+      docker buildx inspect --bootstrap "$BUILDX_BUILDER_NAME" 2>&1 \
+        | tee "$CI_EVIDENCE_DIR/buildx-inspect.txt"
+
+      python3 -m compileall -q services/draft/draft scripts
+      python3 scripts/secret_scan.py . --history 2>&1 \
+        | tee "$CI_EVIDENCE_DIR/source-scan.log"
+
+      docker buildx build \
+        --builder "$BUILDX_BUILDER_NAME" \
+        --load \
+        --progress=plain \
+        -f services/draft/Dockerfile \
+        -t "$CI_IMAGE" \
+        . 2>&1 | tee "$CI_EVIDENCE_DIR/build.log"
+      docker image inspect "$CI_IMAGE" > "$CI_EVIDENCE_DIR/service-image-inspect.json"
+
+      docker run --rm --network none "$CI_IMAGE" pytest 2>&1 \
+        | tee "$CI_EVIDENCE_DIR/unit-tests.log"
+
+      python3 scripts/lab_cloud.py gate \
+        --image "$CI_IMAGE" \
+        --builder "$BUILDX_BUILDER_NAME" \
+        --candidate fixtures/ci-candidates/DeepSeek-E5.Dockerfile \
+        --out "$CI_EVIDENCE_DIR/gate-run" \
+        --build-timeout 600 2>&1 \
+        | tee "$CI_EVIDENCE_DIR/gate-console.log"
+  after_script:
+    - docker image rm -f "$CI_IMAGE" >/dev/null 2>&1 || true
+  artifacts:
+    name: "e7-b-evidence-${CI_PIPELINE_ID}-${CI_JOB_ID}"
+    when: always
+    expire_in: 14 days
+    paths:
+      - "work/ci-${CI_PIPELINE_ID}-${CI_JOB_ID}/"
