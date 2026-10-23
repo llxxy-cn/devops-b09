@@ -1,0 +1,14 @@
+[
+  "/usr/bin/python3",
+  "scripts/run_e7_b_gate.py",
+  "--image",
+  "course1020-draft:241880359-e7",
+  "--out",
+  "/root/241880359/devops-e5/work/e7-server-241880359-01/gate",
+  "--candidate",
+  "/root/241880359/devops-e5/work/candidate/Dockerfile",
+  "--build-timeout",
+  "600",
+  "--builder",
+  "e5-241880585"
+]

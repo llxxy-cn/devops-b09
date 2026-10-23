@@ -1,0 +1,68 @@
+[
+    {
+        "Id": "sha256:44f8993a34eb5f2d74e852e21c84d054bee815884f2cb4d88cea4ed2ecc2e2de",
+        "RepoTags": [
+            "course1020-draft:241880359-e7"
+        ],
+        "RepoDigests": [
+            "course1020-draft@sha256:44f8993a34eb5f2d74e852e21c84d054bee815884f2cb4d88cea4ed2ecc2e2de"
+        ],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-23T05:16:44.966288795Z",
+        "Config": {
+            "User": "app",
+            "Env": [
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+                "PYTHON_VERSION=3.13.14",
+                "PYTHON_SHA256=639e43243c620a308f968213df9e00f2f8f62332f7adbaa7a7eeb9783057c690",
+                "LC_ALL=C.UTF-8",
+                "TZ=UTC",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1"
+            ],
+            "Cmd": [
+                "python3",
+                "-m",
+                "draft",
+                "--help"
+            ],
+            "WorkingDir": "/app",
+            "ArgsEscaped": true
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 501603368,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:f4f8b983b714f130e2cff99176baa26352db6a55d3622e10ada40f2b4720a4eb",
+                "sha256:7ef9ddba6965cfcb2dcd5bf24e61737a0031c2d9be2b3377339111ab1ad3f0f2",
+                "sha256:ef9f8c7c1d6b6b918d5e93cba9a7de4c837e3047ca733296bd396d9a413ae64f",
+                "sha256:fde42b5dd2510411f5cd411982dd5fa72f546553ccba3e5260f33a3da21bbf8f",
+                "sha256:ec8e2367623005d79b95bad4761e4a345bdf31110d729d0ab42ad75f980d7b10",
+                "sha256:6c12c0b82ddb931e5c6be3ad2019526ce5c4228983bf7cbf6393ecc677b2f3f4",
+                "sha256:09cd31da14c31e4078d9cd919d028cac8dcef756a94f10e916267a32e8562abb",
+                "sha256:3b21f6756f2e8a580b8d5b1ba59fe332e3124ab90032cdbecc7441555184a5d4",
+                "sha256:f846cf9f27ea011729b6672c36f7624a47894056068c018b690d6785ba930dc5",
+                "sha256:900fd9abff707e0ba91f37fb2dc28288d6059e28c177de3acc4cc5c1d9983109",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:926e9e3da0acc81215b2bed6ec064559b75fd5cf9ea8f42f07b16029b1649d4e",
+                "sha256:9e903c9503ec0b9e2bf9f93acd137b3a9ac72e5ed6b8facb47d9252ecdc620bd"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-10-23T05:16:46.630418398Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:44f8993a34eb5f2d74e852e21c84d054bee815884f2cb4d88cea4ed2ecc2e2de",
+            "size": 2768,
+            "annotations": {
+                "io.containerd.image.name": "docker.io/library/course1020-draft:241880359-e7",
+                "org.opencontainers.image.created": "2026-10-23T05:16:45Z",
+                "org.opencontainers.image.ref.name": "241880359-e7"
+            }
+        }
+    }
+]
