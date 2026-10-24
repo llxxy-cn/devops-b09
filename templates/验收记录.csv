@@ -1,0 +1,24 @@
+﻿编号,轨道,阶段,项目,状态,证据路径或URL,说明
+C01,共同,环境,云主机与Docker,PARTIAL,docs/实验报告.md; work/e7-ci-merge-gate-241880585/main-final/invocation.json,云服务器与Docker真实运行通过；3.5 GiB仍低于doctor最低4 GiB，不将该项自检记为通过
+C02,共同,E5,真实复现与差异,PASS,templates/实验报告.md; work/e5-02/iter-01/build-retry.log,已说明课程小样例、人工候选和论文完整搜索的差异
+C03,共同,E6,输入哈希报告日志,PASS,work/e7-server-241880359-01/gate/success/evidence/result.json; docs/整合证据核对结果.json,以包内服务器正常场景完整证据核验；不冒充缺失的第2人专用运行目录
+C04,共同,E7,自主扩展测试,PASS,services/draft/tests/test_e7_preflight.py; work/e7-ci-merge-gate-241880585/main-final/unit-tests.log,新增非空目录保护和CMD篡改预检2项；另加CI演示测试后最终27项服务单测通过
+C05,共同,CI,正常失败恢复及artifact,PASS,.gitlab-ci.yml; work/e7-ci-merge-gate-241880585/evidence-index.md; work/e7-ci-merge-gate-241880585/main-final/gate-result.json,失败343613、恢复343616、最终343619；always归档14天；完整Artifact个数来自组员报告
+C06,共同,CI,必需检查与实际拒绝合并,PASS,work/e7-ci-merge-gate-241880585/screenshots/01-main-protected-branch.png; work/e7-ci-merge-gate-241880585/screenshots/02-pipelines-must-succeed.png; work/e7-ci-merge-gate-241880585/screenshots/03-failed-pipeline-merge-blocked.png; work/e7-ci-merge-gate-241880585/screenshots/04-same-mr-recovered.png,GitLab UI证据：最新流水线必须成功；MR !5失败时合并被阻止，修复后恢复；CLI/API拒绝响应另列CI08
+A01,A,E6,MD/RD精确证据与修复,N/A,templates/实验报告.md,本交付为B轨道，不验收A轨道
+A02,A,E7,三次一致及故障场景,N/A,templates/实验报告.md,本交付为B轨道，不验收A轨道
+B01,B,E5,缺失make及候选来源,PASS,work/e5-02/iter-01/; work/model-requests/; work/candidate/provenance.json,初始build=1、采集脚本=0；两类真实回复；选中候选手工build=0且禁网run=0，hello E3
+B02,B,E6,构建和同镜像运行验证,PASS,work/e7-server-241880359-01/gate/success/evidence/; docs/整合证据核对结果.json,第一轮MISSING_MAKE/build=1，第二轮build=0；同一完整image ID禁网run=0；已离线运行证据核验器
+B03,B,E7,五场景与超时清理,PASS,work/e7-ci-merge-gate-241880585/main-final/results.csv; work/e7-server-241880359-01/gate/runtime-timeout/evidence/cleanup-check/,最终CI六项passed=true；服务器早期完整原始场景补证，超时后inspect为[]且No such container
+CI01,B,CI,Linux Shell Runner接入,PASS,.gitlab-ci.yml; docs/E7_CI与合并门禁验收报告.md; work/e7-ci-merge-gate-241880585/main-final/invocation.json,Runner devops-e5 Linux Docker shell；标签devops-e5-shell；Shell executor；构建器e5-241880585
+CI02,B,CI,main分支保护,PASS,work/e7-ci-merge-gate-241880585/screenshots/01-main-protected-branch.png; work/e7-ci-merge-gate-241880585/screenshots/02-pipelines-must-succeed.png,Maintainers可合并；No one可直接推送；关闭强推；流水线必须成功；跳过不算成功
+CI03,B,CI,故意失败及UI合并拦截,PASS,work/e7-ci-merge-gate-241880585/failure/unit-tests.log; work/e7-ci-merge-gate-241880585/screenshots/03-failed-pipeline-merge-blocked.png; https://git.nju.edu.cn/241880585/devops-e5/-/pipelines/343613,MR !5，cd88108a；Pipeline343613/Job686098；1 failed和26 passed，assert 0 == 1；合并被阻止
+CI04,B,CI,同一MR修复与恢复,PASS,work/e7-ci-merge-gate-241880585/recovery/gate-result.json; work/e7-ci-merge-gate-241880585/screenshots/04-same-mr-recovered.png; https://git.nju.edu.cn/241880585/devops-e5/-/pipelines/343616,同一MR !5，3fc27ca6；Pipeline343616/Job686115；27 passed、六项gate通过，恢复准备合并
+CI05,B,CI,最终MR合并,PASS,work/e7-ci-merge-gate-241880585/screenshots/05-mr-merged.png; https://git.nju.edu.cn/241880585/devops-e5/-/merge_requests/5,截图状态已合并，merge commit 523ca700a2f1b7a64347008c57cf3029722dfe3a；绝对合并时间另列CI10
+CI06,B,CI,最终main流水线,PASS,work/e7-ci-merge-gate-241880585/main-final/commit.txt; work/e7-ci-merge-gate-241880585/main-final/unit-tests.log; work/e7-ci-merge-gate-241880585/main-final/results.csv; https://git.nju.edu.cn/241880585/devops-e5/-/pipelines/343619,523ca700，Pipeline343619/Job686121；27 passed，六项gate通过；不用于证明后续文档提交已通过
+CI07,B,CI,最终Artifact完整离线归档,PARTIAL,work/e7-ci-merge-gate-241880585/evidence-index.md; docs/E7_CI与合并门禁验收报告.md; work/e7-ci-merge-gate-241880585/main-final/,报告记录最终Artifact186文件，本包CI精选30文件；完整186文件ZIP未附入，需补备份
+CI08,B,CI,普通CLI或API合并拒绝响应,NOT_PROVIDED,work/e7-ci-merge-gate-241880585/screenshots/03-failed-pipeline-merge-blocked.png,UI拦截已核验；包内无另行发起的普通合并命令、HTTP响应或拒绝退出码，不编造此证据
+CI09,B,CI,课程GitHub指定设置的GitLab替代认定,NEEDS_CONFIRMATION,.gitlab-ci.yml; work/e7-ci-merge-gate-241880585/screenshots/01-main-protected-branch.png; work/e7-ci-merge-gate-241880585/screenshots/02-pipelines-must-succeed.png,实际为GitLab，不宣称strict/enforce_admins/App ID字段已按GitHub形式配置；由教师确认平台替代
+CI10,B,CI,合并绝对时间与保护API导出,NOT_PROVIDED,work/e7-ci-merge-gate-241880585/screenshots/05-mr-merged.png,截图仅显示相对时间及merge commit；无绝对mergedAt或保护API原始导出，未推断填写
+E601,B,E6,第2人专用原始运行目录归档,PARTIAL,templates/实验报告.md; work/e7-server-241880359-01/gate/success/evidence/,work/build-e6-241880481-03及work/e6-own-241880481-03未随包附入；功能有服务器gate完整证据交叉核验
+R01,B,报告,总报告与验收记录整合,PASS,templates/实验报告.md; docs/实验报告.md; templates/验收记录.csv; docs/整合证据核对结果.json,两份报告同步；本次只更新文档与验收记录，不改源码、原始日志、截图或CI结果

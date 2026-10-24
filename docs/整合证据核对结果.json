@@ -1,0 +1,188 @@
+{
+  "review_date": "2026-10-24",
+  "scope": "Offline consistency checks of supplied archive, plus visual inspection of five screenshots. No Docker builds or live CI rerun.",
+  "input_archive_sha256": "fde84b2a83620116e381299d44e87266c9c25e36cbb05ee222192c3e8d904f95",
+  "input_file_count": 454,
+  "supplementary_branch_archives": [
+    {
+      "archive": "devops-e5-feat-e7-tests.zip",
+      "sha256": "523bbacefcc636a94f97083ef50deded86eaf806ee6f723b41b13fd51135bc52",
+      "files": 278,
+      "missing_from_main": [],
+      "different_from_main": [
+        "docs/E7测试验收报告.md"
+      ],
+      "different_evidence_files": []
+    },
+    {
+      "archive": "devops-e5-feat-e7-server-evidence-241880359.zip",
+      "sha256": "be07f171c77a275d7443f16b24300fe607e97c0ec4b73197b3adc9dab739b77a",
+      "files": 419,
+      "missing_from_main": [],
+      "different_from_main": [],
+      "different_evidence_files": []
+    }
+  ],
+  "validated_main_commit": "523ca700a2f1b7a64347008c57cf3029722dfe3a",
+  "pipeline": "https://git.nju.edu.cn/241880585/devops-e5/-/pipelines/343619",
+  "job": "https://git.nju.edu.cn/241880585/devops-e5/-/jobs/686121",
+  "unit_tests": 27,
+  "gate_cases": 6,
+  "ci_curated_files_in_archive": 30,
+  "full_artifact_files_reported_by_teammate": 186,
+  "full_artifact_zips_in_archive": [],
+  "e6_saved_evidence_consistency_check": {
+    "passed": true,
+    "trace_id": "e6-b-1a2f6d3600fc465fb14e572feca0d669",
+    "baseline_failure": "MISSING_MAKE",
+    "fixed_build_exit_code": 0,
+    "verify_exit_code": 0,
+    "verified_output": "hello E3",
+    "candidate_sha256": "ede21b0fab394071641526e2fccefc41565efb00de6fb54d9d5b906aebeb535d",
+    "image_id": "sha256:b4435be7a948f51cf6a4dfae899c735defb78c0fb154ac87216e1042a1f54796",
+    "scope": "Saved evidence consistency; does not independently rerun builds"
+  },
+  "checks": [
+    {
+      "check": "失败提交SHA",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/failure/commit.txt"
+    },
+    {
+      "check": "恢复提交SHA",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/recovery/commit.txt"
+    },
+    {
+      "check": "最终已验证main SHA",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/main-final/commit.txt"
+    },
+    {
+      "check": "错误断言确实导致失败",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/failure/unit-tests.log"
+    },
+    {
+      "check": "recovery 六项gate通过且JSON/CSV一致",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/recovery/gate-result.json; work/e7-ci-merge-gate-241880585/recovery/results.csv"
+    },
+    {
+      "check": "recovery 27项单测通过",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/recovery/unit-tests.log"
+    },
+    {
+      "check": "recovery 预构建候选实际输出",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/recovery/candidate-warm-run.log"
+    },
+    {
+      "check": "recovery CI候选字节哈希",
+      "passed": true,
+      "evidence": "fixtures/ci-candidates/DeepSeek-E5-CI.Dockerfile; work/e7-ci-merge-gate-241880585/recovery/ci-candidate-sha256.txt"
+    },
+    {
+      "check": "main-final 六项gate通过且JSON/CSV一致",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/main-final/gate-result.json; work/e7-ci-merge-gate-241880585/main-final/results.csv"
+    },
+    {
+      "check": "main-final 27项单测通过",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/main-final/unit-tests.log"
+    },
+    {
+      "check": "main-final 预构建候选实际输出",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/main-final/candidate-warm-run.log"
+    },
+    {
+      "check": "main-final CI候选字节哈希",
+      "passed": true,
+      "evidence": "fixtures/ci-candidates/DeepSeek-E5-CI.Dockerfile; work/e7-ci-merge-gate-241880585/main-final/ci-candidate-sha256.txt"
+    },
+    {
+      "check": "服务器正常场景两轮构建/输入哈希/同镜像运行校验",
+      "passed": true,
+      "evidence": "work/e7-server-241880359-01/gate/success/evidence/"
+    },
+    {
+      "check": "服务器wrong-output状态",
+      "passed": true,
+      "evidence": "work/e7-server-241880359-01/gate/wrong-output/evidence/result.json"
+    },
+    {
+      "check": "服务器build-failed状态",
+      "passed": true,
+      "evidence": "work/e7-server-241880359-01/gate/build-failed/evidence/result.json"
+    },
+    {
+      "check": "服务器runtime-timeout状态",
+      "passed": true,
+      "evidence": "work/e7-server-241880359-01/gate/runtime-timeout/evidence/result.json"
+    },
+    {
+      "check": "无效候选在构建前拒绝",
+      "passed": true,
+      "evidence": "work/e7-server-241880359-01/gate/invalid-candidate/stdout.log"
+    },
+    {
+      "check": "超时容器inspect不再存在",
+      "passed": true,
+      "evidence": "work/e7-server-241880359-01/gate/runtime-timeout/evidence/cleanup-check"
+    },
+    {
+      "check": "服务器完整gate通过",
+      "passed": true,
+      "evidence": "work/e7-server-241880359-01/gate/gate-result.json"
+    },
+    {
+      "check": "服务器gate入口退出0",
+      "passed": true,
+      "evidence": "work/e7-server-241880359-01/driver/exit-code.json"
+    },
+    {
+      "check": "E5真实缺make",
+      "passed": true,
+      "evidence": "work/e5-02/iter-01/"
+    },
+    {
+      "check": "E5候选构建和运行退出0",
+      "passed": true,
+      "evidence": "work/e5-02/manual-retry-dEvaLX"
+    },
+    {
+      "check": "E5镜像ID匹配",
+      "passed": true,
+      "evidence": "work/e5-02/manual-retry-dEvaLX"
+    },
+    {
+      "check": "E5两类原始回复存在",
+      "passed": true,
+      "evidence": "work/model-requests/"
+    },
+    {
+      "check": "五张管理与MR截图均在包内",
+      "passed": true,
+      "evidence": "work/e7-ci-merge-gate-241880585/screenshots/01-main-protected-branch.png; work/e7-ci-merge-gate-241880585/screenshots/02-pipelines-must-succeed.png; work/e7-ci-merge-gate-241880585/screenshots/03-failed-pipeline-merge-blocked.png; work/e7-ci-merge-gate-241880585/screenshots/04-same-mr-recovered.png; work/e7-ci-merge-gate-241880585/screenshots/05-mr-merged.png"
+    }
+  ],
+  "screenshot_observations": {
+    "01": "main: Maintainers may merge; No one may push; force push disabled.",
+    "02": "Pipelines must succeed enabled; skipped pipelines treated as success disabled; approval count 0 supported by MR screenshots.",
+    "03": "MR !5, commit cd88108a, pipeline 343613 failed, merge blocked by required successful pipeline.",
+    "04": "Same MR !5, commit 3fc27ca6, pipeline 343616 passed, ready to merge.",
+    "05": "Same MR !5 marked merged; merge commit 523ca700."
+  },
+  "limitations": [
+    "Original E6 work/build-e6-241880481-03 and work/e6-own-241880481-03 directories are not included; use the complete server gate success scenario for verifiable equivalent E6 behavior.",
+    "186 artifact files is stated in the teammate report; the archive includes curated files, not the three complete artifact zip archives.",
+    "Merge block is proved by UI screenshot. No separate rejected CLI/API merge request response or exit code is included.",
+    "GitLab controls differ from GitHub strict/enforce_admins/App-bound required check fields; exact GitHub policy parity and teacher acceptance are not proved.",
+    "Visible 3.5 GiB memory remains below the doctor minimum of 4 GiB; successful tests do not change this fact.",
+    "No absolute mergedAt timestamp or GitLab protection API export is included.",
+    "ZIP has no .git history; its current HEAD cannot be inferred from directory name. Use the recorded verified commit instead."
+  ]
+}
