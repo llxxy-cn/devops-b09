@@ -76,9 +76,14 @@ def scan(p, old=None):
 def patch(p,report):
     if report['commit']!=run(['git','rev-parse','HEAD'],p).strip(): raise ValueError('STALE_REPORT')
     original=(p/'Makefile').read_text(); changed=original; edits=[]
+    seen = set()
     for f in report['findings']:
         if f['type']!='MISSING': continue
         t,d=f['target'],f['dependency']
+        edge = (t, d)
+        if edge in seen:
+            continue
+        seen.add(edge)
         if not re.fullmatch(r'[\w./-]+',d) or '..' in Path(d).parts or Path(d).is_absolute(): raise ValueError('UNSAFE_PATH')
         if not (p/d).is_file(): raise ValueError('MISSING_INPUT')
         m=re.search(r'^'+re.escape(t)+r': (.*)$',changed,re.M)
