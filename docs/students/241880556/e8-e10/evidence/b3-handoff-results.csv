@@ -1,0 +1,7 @@
+style,case,passed
+direct,test-rejection,True
+direct,build-rejection,True
+direct,accepted,True
+macro,accepted,True
+mixed,accepted,True
+direct,patch-rejection,True
