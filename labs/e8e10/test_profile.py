@@ -40,3 +40,37 @@ class ProfileTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'UNSUPPORTED_FLAGS'):scan(self.p)
 
 if __name__=='__main__':unittest.main()
+
+class B1InputTests241880481(unittest.TestCase):
+    """B1: independent expectations for report inputs and source preservation."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.p = Path(self.tmp.name) / 'sample'
+        fixture(self.p)
+        self.report = scan(self.p)
+        self.before = (self.p / 'Makefile').read_bytes()
+
+    def test_redundant_only_produces_no_patch(self):
+        self.report['findings'] = [
+            {'type': 'REDUNDANT', 'target': 'main.o',
+             'dependency': 'unused.h'}
+        ]
+        diff, plan = patch(self.p, self.report)
+        self.assertEqual(diff, '')
+        self.assertEqual(plan, [])
+        self.assertEqual(
+            (self.p / 'Makefile').read_bytes(), self.before
+        )
+
+    def test_unknown_target_rejected_without_source_change(self):
+        self.report['findings'] = [
+            {'type': 'MISSING', 'target': 'unknown.o',
+             'dependency': 'config.h'}
+        ]
+        with self.assertRaisesRegex(ValueError, '^UNSUPPORTED_TARGET$'):
+            patch(self.p, self.report)
+        self.assertEqual(
+            (self.p / 'Makefile').read_bytes(), self.before
+        )
