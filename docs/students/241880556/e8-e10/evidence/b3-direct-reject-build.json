@@ -1,0 +1,9 @@
+{
+  "accepted": false,
+  "checks": {
+    "patch_applies": true
+  },
+  "error": "COMMAND_FAILED ['make', 'app']\ngcc -O0 -c main.c -o main.o\nmain.c:1:1: error: unknown type name ‘this’\n    1 | this is invalid C;\n      | ^~~~\nmain.c:1:9: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘invalid’\n    1 | this is invalid C;\n      |         ^~~~~~~\nmain.c:1:9: error: unknown type name ‘invalid’\nmake: *** [Makefile:5: main.o] Error 1\n",
+  "source_unchanged": true,
+  "rollback": true
+}

@@ -1,0 +1,15 @@
+{
+  "track": "B",
+  "passed": true,
+  "rows": 6,
+  "accepted_styles": [
+    "direct",
+    "macro",
+    "mixed"
+  ],
+  "rejection_cases": [
+    "test-rejection",
+    "build-rejection",
+    "patch-rejection"
+  ]
+}
