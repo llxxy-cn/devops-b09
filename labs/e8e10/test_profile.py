@@ -1,6 +1,6 @@
 import json, tempfile, unittest
 from pathlib import Path
-from lab import fixture,scan,patch,commit
+from lab import fixture,scan,patch,commit,validate
 
 class ProfileTests(unittest.TestCase):
     def setUp(self):
@@ -38,6 +38,30 @@ class ProfileTests(unittest.TestCase):
     def test_unsupported_configuration_rejected(self):
         (self.p/'Makefile').write_text((self.p/'Makefile').read_text().replace('-O0','-include unknown.h'))
         with self.assertRaisesRegex(ValueError,'UNSUPPORTED_FLAGS'):scan(self.p)
+
+class B3ValidationTests241880556(unittest.TestCase):
+    """B3: a build failure rejects the candidate and preserves the source."""
+
+    def test_build_failure_keeps_original_makefile(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            project = root / 'sample'
+            fixture(project)
+            diff, _ = patch(project, scan(project))
+            candidate = root / 'candidate.patch'
+            candidate.write_text(diff)
+            before = (project / 'Makefile').read_bytes()
+
+            (project / 'main.c').write_text('this is invalid C;\n')
+            result = validate(project, candidate, root / 'validation')
+
+            self.assertTrue(result['checks']['patch_applies'])
+            self.assertFalse(result['checks'].get('build', False))
+            self.assertIn('COMMAND_FAILED', result['error'])
+            self.assertFalse(result['accepted'])
+            self.assertTrue(result['rollback'])
+            self.assertTrue(result['source_unchanged'])
+            self.assertEqual((project / 'Makefile').read_bytes(), before)
 
 if __name__=='__main__':unittest.main()
 
