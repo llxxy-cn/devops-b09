@@ -1,0 +1,2 @@
+ACCEPTED_ALL_CHECKS_PASS {'accepted': True, 'checks': {'patch_applies': True, 'build': True, 'test': True, 'header_change': True, 'no_missing': True}, 'error': None, 'source_unchanged': False, 'rollback': False}
+STEP_EXIT_CODE=0

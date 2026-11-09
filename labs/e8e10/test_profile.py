@@ -63,6 +63,124 @@ class B3ValidationTests241880556(unittest.TestCase):
             self.assertTrue(result['source_unchanged'])
             self.assertEqual((project / 'Makefile').read_bytes(), before)
 
+class B4PersonalTests241880585(unittest.TestCase):
+    def test_e8_patch_preserves_compile_recipe_bytes(self):
+        from lab import run
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            project = root / 'sample'
+            fixture(project)
+            makefile = project / 'Makefile'
+            before = makefile.read_bytes()
+
+            diff, plan = patch(project, scan(project))
+            self.assertEqual(makefile.read_bytes(), before)
+            self.assertEqual(
+                plan,
+                [{'target': 'main.o', 'dependency': 'config.h', 'style': 'direct'}],
+            )
+
+            candidate = root / 'candidate.patch'
+            candidate.write_text(diff)
+            run(['git', 'apply', str(candidate.resolve())], project)
+
+            self.assertEqual(
+                makefile.read_bytes(),
+                before.replace(
+                    b'main.o: main.c unused.h\n',
+                    b'main.o: main.c unused.h config.h\n',
+                ),
+            )
+
+    def test_e9_shared_macro_changes_another_targets_dependencies(self):
+        from lab import run
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            project = root / 'sample'
+            fixture(project, 'macro')
+            makefile = project / 'Makefile'
+            makefile.write_text(makefile.read_text().replace(
+                'helper.o: helper.c\n',
+                'helper.o: helper.c $(DEPS)\n',
+            ))
+            commit(project, 'test: share DEPS across two targets')
+
+            report = scan(project)
+            self.assertNotIn('config.h', report['declared']['helper.o'])
+            diff, plan = patch(project, report)
+            self.assertEqual(
+                plan,
+                [{'target': 'main.o', 'dependency': 'config.h', 'style': 'macro'}],
+            )
+
+            candidate = root / 'candidate.patch'
+            candidate.write_text(diff)
+            run(['git', 'apply', str(candidate.resolve())], project)
+
+            findings = {
+                (item['type'], item['target'], item['dependency'])
+                for item in scan(project)['findings']
+            }
+            self.assertNotIn(('MISSING', 'main.o', 'config.h'), findings)
+            self.assertIn(('REDUNDANT', 'helper.o', 'config.h'), findings)
+
+    def test_e10_rejects_partial_fix_even_when_build_and_tests_pass(self):
+        from lab import validate
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            project = root / 'sample'
+            fixture(project)
+            source = project / 'main.c'
+            source.write_text('#include "extra.h"\n' + source.read_text())
+            commit(project, 'test: add a second missing header')
+
+            report = scan(project)
+            missing = {
+                (item['target'], item['dependency'])
+                for item in report['findings']
+                if item['type'] == 'MISSING'
+            }
+            self.assertEqual(missing, {
+                ('main.o', 'config.h'),
+                ('main.o', 'extra.h'),
+            })
+
+            partial_report = dict(report, findings=[
+                item for item in report['findings']
+                if item['type'] == 'MISSING' and item['dependency'] == 'config.h'
+            ])
+            makefile = project / 'Makefile'
+            before = makefile.read_bytes()
+            diff, _ = patch(project, partial_report)
+            candidate = root / 'partial.patch'
+            candidate.write_text(diff)
+
+            evidence = root / 'validation'
+            result = validate(project, candidate, evidence)
+            self.assertEqual(result['checks'], {
+                'patch_applies': True,
+                'build': True,
+                'test': True,
+                'header_change': True,
+                'no_missing': False,
+            })
+            self.assertIsNone(result['error'])
+            self.assertFalse(result['accepted'])
+            self.assertTrue(result['rollback'])
+            self.assertTrue(result['source_unchanged'])
+            self.assertEqual(makefile.read_bytes(), before)
+
+            recheck = json.loads((evidence / 'recheck.json').read_text())
+            remaining = {
+                (item['target'], item['dependency'])
+                for item in recheck['findings']
+                if item['type'] == 'MISSING'
+            }
+            self.assertEqual(remaining, {('main.o', 'extra.h')})
+
 if __name__=='__main__':unittest.main()
 
 class B1InputTests241880481(unittest.TestCase):
