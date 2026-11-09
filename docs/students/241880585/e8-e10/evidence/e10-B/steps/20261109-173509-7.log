@@ -1,0 +1,2 @@
+B_GATE_PASS [{'case': 'test-rejection', 'passed': True}, {'case': 'accepted', 'passed': True}, {'case': 'patch-rejection', 'passed': True}]
+STEP_EXIT_CODE=0
