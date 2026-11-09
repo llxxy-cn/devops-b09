@@ -1,0 +1,26 @@
+[
+  {
+    "style": "direct",
+    "project": "direct",
+    "commit": "822a65bcbbec4bbf211da126f4ff6770bbb06308",
+    "report": "direct-report.json",
+    "patch": "direct.patch",
+    "plan": "direct-plan.json"
+  },
+  {
+    "style": "macro",
+    "project": "macro",
+    "commit": "671fb821efc974cd83b9cdc81b9f403d106acae1",
+    "report": "macro-report.json",
+    "patch": "macro.patch",
+    "plan": "macro-plan.json"
+  },
+  {
+    "style": "mixed",
+    "project": "mixed",
+    "commit": "d330a77a827b84259aa969f3add3faa63b957157",
+    "report": "mixed-report.json",
+    "patch": "mixed.patch",
+    "plan": "mixed-plan.json"
+  }
+]

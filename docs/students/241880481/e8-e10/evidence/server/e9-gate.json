@@ -1,0 +1,25 @@
+{
+  "track": "B",
+  "stage": "E9",
+  "passed": true,
+  "rows": [
+    {
+      "style": "direct",
+      "report_commit": "e0f10f4d831fce0bf60ba473e7949ca48d6c6974",
+      "patch_applies": true,
+      "source_unchanged": true
+    },
+    {
+      "style": "macro",
+      "report_commit": "05fb48c733225095e62c05e1b5e4956cbb30d48d",
+      "patch_applies": true,
+      "source_unchanged": true
+    },
+    {
+      "style": "mixed",
+      "report_commit": "8f240e83fc6be114ed1c97826976f87e87d75ce6",
+      "patch_applies": true,
+      "source_unchanged": true
+    }
+  ]
+}
