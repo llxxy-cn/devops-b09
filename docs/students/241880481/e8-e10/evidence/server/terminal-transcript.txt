@@ -1,0 +1,155 @@
+root@iZbp106a3t3mzz3nfabuakZ:~/devops-students/241880481/draft# IMAGE="course-e8e10:241880481"
+docker image inspect "$IMAGE" --format '{{.Id}}'
+sha256:dea80da01e6ada32362ac221423048dc9e3ffaac4763858fce560fdd6887eeef
+root@iZbp106a3t3mzz3nfabuakZ:~/devops-students/241880481/draft# set -o pipefail
+
+BASE="work/b1-server-20261109"
+IMAGE="course-e8e10:241880481"
+mkdir -p "$BASE"
+
+git rev-parse HEAD > "$BASE/student-source-commit.txt"
+docker image inspect "$IMAGE" --format '{{.Id}}' \
+  > "$BASE/environment-image-id.txt"
+
+docker run --rm --network none \
+  --user "$(id -u):$(id -g)" \
+  -e HOME=/tmp \
+  -v "$PWD:/course" -w /course \
+  "$IMAGE" \
+  python3 -m unittest discover -s labs/e8e10 -p 'test*.py' -v \
+  2>&1 | tee "$BASE/all-unit-tests.log"
+
+test "${PIPESTATUS[0]}" -eq 0
+test_duplicate_findings_produce_same_patch_as_single_finding (test_b2_241880359.B2PatchTests241880359.test_duplicate_findings_produce_same_patch_as_single_finding) ... ok
+test_redundant_only_produces_no_patch (test_profile.B1InputTests241880481.test_redundant_only_produces_no_patch) ... ok
+test_unknown_target_rejected_without_source_change (test_profile.B1InputTests241880481.test_unknown_target_rejected_without_source_change) ... ok
+test_build_failure_keeps_original_makefile (test_profile.B3ValidationTests241880556.test_build_failure_keeps_original_makefile) ... ok
+test_include_added_invalidates_cache (test_profile.ProfileTests.test_include_added_invalidates_cache) ... ok
+test_independent_known_edges (test_profile.ProfileTests.test_independent_known_edges) ... ok
+test_old_report_rejected (test_profile.ProfileTests.test_old_report_rejected) ... ok
+test_patch_preserves_redundant_dependency (test_profile.ProfileTests.test_patch_preserves_redundant_dependency) ... ok
+test_unchanged_reuses_both_targets (test_profile.ProfileTests.test_unchanged_reuses_both_targets) ... ok
+test_unsafe_dependency_rejected (test_profile.ProfileTests.test_unsafe_dependency_rejected) ... ok
+test_unsupported_configuration_rejected (test_profile.ProfileTests.test_unsupported_configuration_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.295s
+
+OK
+root@iZbp106a3t3mzz3nfabuakZ:~/devops-students/241880481/draft# OUT9="work/e9-B-241880481-20261109-server-01"
+test ! -e "$OUT9"
+
+docker run --rm --network none --cap-add SYS_PTRACE \
+  --user "$(id -u):$(id -g)" \
+  -e HOME=/tmp -e PYTHONPATH=/course \
+  -v "$PWD:/course" -w /course \
+  "$IMAGE" \
+  python3 work/b1-e9-e10-20261109/run_b1_manual.py \
+  e9 --out "$OUT9" \
+  2>&1 | tee "$BASE/e9-server-run.log"
+
+test "${PIPESTATUS[0]}" -eq 0
+B1_E9_GATE_PASS [{"style": "direct", "report_commit": "e0f10f4d831fce0bf60ba473e7949ca48d6c6974", "patch_applies": true, "source_unchanged": true}, {"style": "macro", "report_commit": "05fb48c733225095e62c05e1b5e4956cbb30d48d", "patch_applies": true, "source_unchanged": true}, {"style": "mixed", "report_commit": "8f240e83fc6be114ed1c97826976f87e87d75ce6", "patch_applies": true, "source_unchanged": true}]
+root@iZbp106a3t3mzz3nfabuakZ:~/devops-students/241880481/draft# OUT10="work/e10-B-241880481-20261109-server-01"
+test ! -e "$OUT10"
+
+docker run --rm --network none --cap-add SYS_PTRACE \
+  --user "$(id -u):$(id -g)" \
+  -e HOME=/tmp -e PYTHONPATH=/course \
+  -v "$PWD:/course" -w /course \
+  "$IMAGE" \
+  python3 work/b1-e9-e10-20261109/run_b1_manual.py \
+  e10 --out "$OUT10" \
+  2>&1 | tee "$BASE/e10-server-run.log"
+
+test "${PIPESTATUS[0]}" -eq 0
+B1_E10_GATE_PASS [{"case": "test-rejection", "passed": true}, {"case": "accepted", "passed": true}, {"case": "patch-rejection", "passed": true}]
+root@iZbp106a3t3mzz3nfabuakZ:~/devops-students/241880481/draft#
+root@iZbp106a3t3mzz3nfabuakZ:~/devops-students/241880481/draft# for OUT in "$OUT9" "$OUT10"; do
+  cp "$BASE/student-source-commit.txt" "$OUT/student-source-commit.txt"
+  cp "$BASE/environment-image-id.txt" "$OUT/environment-image-id.txt"
+done
+
+cat "$OUT9/gate.json"
+cat "$OUT10/gate.json"
+cat "$OUT10/reject-test/validation.json"
+cat "$OUT10/accept/validation.json"
+cat "$OUT10/reject-patch/validation.json"
+
+grep -n '"type": "MISSING"' \
+  "$OUT10/recheck-buildchecker/findings.json" || echo 'MISSING=0'
+{
+  "track": "B",
+  "stage": "E9",
+  "passed": true,
+  "rows": [
+    {
+      "style": "direct",
+      "report_commit": "e0f10f4d831fce0bf60ba473e7949ca48d6c6974",
+      "patch_applies": true,
+      "source_unchanged": true
+    },
+    {
+      "style": "macro",
+      "report_commit": "05fb48c733225095e62c05e1b5e4956cbb30d48d",
+      "patch_applies": true,
+      "source_unchanged": true
+    },
+    {
+      "style": "mixed",
+      "report_commit": "8f240e83fc6be114ed1c97826976f87e87d75ce6",
+      "patch_applies": true,
+      "source_unchanged": true
+    }
+  ]
+}
+{
+  "track": "B",
+  "stage": "E10",
+  "passed": true,
+  "rows": 3,
+  "buildchecker_missing": 0,
+  "final_program_output": "1"
+}
+{
+  "accepted": false,
+  "checks": {
+    "patch_applies": true,
+    "build": true,
+    "test": false,
+    "header_change": true,
+    "no_missing": true
+  },
+  "error": null,
+  "source_unchanged": true,
+  "rollback": true
+}
+{
+  "accepted": true,
+  "checks": {
+    "patch_applies": true,
+    "build": true,
+    "test": true,
+    "header_change": true,
+    "no_missing": true
+  },
+  "error": null,
+  "source_unchanged": false,
+  "rollback": false
+}
+{
+  "accepted": false,
+  "checks": {},
+  "error": "COMMAND_FAILED ['git', 'apply', '--check', '/course/work/e10-B-241880481-20261109-server-01/broken.patch']\nerror: No valid patches in input (allow with \"--allow-empty\")\n",
+  "source_unchanged": true,
+  "rollback": true
+}
+MISSING=0
+root@iZbp106a3t3mzz3nfabuakZ:~/devops-students/241880481/draft# SERVER_PACK="/root/241880481/B1-E9-E10-SERVER-20261109-01.tar.gz"
+
+tar -czf "$SERVER_PACK" \
+  "$BASE" "$OUT9" "$OUT10"
+
+sha256sum "$SERVER_PACK"
+dcdd708fd39afa7bf02688efa738cc93a35fee23fb67352f011e4188f9f517de  /root/241880481/B1-E9-E10-SERVER-20261109-01.tar.gz
+root@iZbp106a3t3mzz3nfabuakZ:~/devops-students/241880481/draft#
