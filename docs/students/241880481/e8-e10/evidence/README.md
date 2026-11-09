@@ -33,3 +33,19 @@ project-status 文件分别表示命令无错误输出、原项目 Git 工作区
 这些 `work/` 路径按仓库规则忽略；仓库外归档包用于保存完整原始目录。
 归档包为 `B1-E9-E10-20261109-01.tar.gz`，SHA256：
 `9A552A09D30A1434108A19C2FB94CC4EEA22E35BAA01340C896643A3DEA5F617`。
+
+## 课程服务器复跑
+
+`server/` 是在课程服务器 Ubuntu 22.04、Linux/amd64 Docker 中生成并从服务器
+归档包核验后复制的关键证据：
+
+- 外层源码 SHA：`d21c0370967025311ff5d56b61839d54b0ed5511`
+- 镜像 ID：`sha256:dea80da01e6ada32362ac221423048dc9e3ffaac4763858fce560fdd6887eeef`
+- E9 OUT：`work/e9-B-241880481-20261109-server-01`
+- E10 OUT：`work/e10-B-241880481-20261109-server-01`
+- 11 项单测通过；E9 三风格通过；E10 三场景通过；BuildChecker `MISSING=0`。
+- `server/terminal-transcript.txt`：学生回传的服务器运行终端原始文本。
+- `server/archive-sha256.txt`：服务器归档文件名与 SHA256。
+
+服务器完整包：`B1-E9-E10-SERVER-20261109-01.tar.gz`，SHA256：
+`DCDD708FD39AFA7BF02688EFA738CC93A35FEE23FB67352F011E4188F9F517DE`。
