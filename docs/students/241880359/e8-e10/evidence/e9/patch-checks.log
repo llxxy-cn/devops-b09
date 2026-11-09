@@ -1,0 +1,6 @@
+=== direct ===
+PASS: patch applies; source worktree clean
+=== macro ===
+PASS: patch applies; source worktree clean
+=== mixed ===
+PASS: patch applies; source worktree clean
