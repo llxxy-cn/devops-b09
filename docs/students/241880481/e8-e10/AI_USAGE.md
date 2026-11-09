@@ -6,9 +6,9 @@
 E9/E10 的可复现实验命令，整理证据索引、个人报告和 ADR。候选 Patch 由课程
 确定性 `patch()` 函数生成，不是由外部 LLM 猜测 Makefile 修改。
 
-人工操作：学生启动 Docker Desktop 完成本地预检，并通过 SSH 登录课程服务器，
+人工操作：启动 Docker Desktop 完成本地预检，并通过 SSH 登录课程服务器，
 上传已核验的 Git bundle 和执行脚本，逐段运行服务器命令，最后下载服务器证据包。
-未授权、未执行 GitHub push、PR 创建或 main 合并。
+学生完成个人分支 push 并创建 PR #7；4 项 Actions 检查通过后由组长合入 main，合并提交为 4119a7f。
 
 AI 执行与人工核查：
 

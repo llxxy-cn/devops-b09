@@ -49,3 +49,11 @@ project-status 文件分别表示命令无错误输出、原项目 Git 工作区
 
 服务器完整包：`B1-E9-E10-SERVER-20261109-01.tar.gz`，SHA256：
 `DCDD708FD39AFA7BF02688EFA738CC93A35FEE23FB67352F011E4188F9F517DE`。
+
+## GitHub 交付
+
+- 个人最终提交：`17db5f1784a1da9e01d779aad92935fc7185db78`
+- PR：https://github.com/llxxy-cn/devops-b09/pull/7
+- Checks：4 项全部通过
+- 合并提交：`4119a7fe87d22be15d61bb5348f9ec39ef114679`
+- 状态：已合入 `main`
