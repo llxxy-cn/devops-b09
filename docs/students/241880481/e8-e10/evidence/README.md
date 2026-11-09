@@ -1,0 +1,35 @@
+# B1 E9/E10 证据索引
+
+实验源码 SHA：`f8b13c4fd138670404f2e30f1347f50193291151`
+镜像 ID：`sha256:8a87e31f1a3f6a64aca0a3d63016d622993ac68a21945a8836e3e3a4c1e8006c`
+
+## 环境与测试
+
+- `environment-image-id.txt`：完整镜像 ID。
+- `environment-build-exit.txt`：镜像构建退出码。
+- `student-source-commit.txt`：E9/E10 运行时外层源码 SHA。
+- `all-unit-tests.log`：当前 main 上 11 项完整回归测试。
+
+## E9
+
+每个风格包含 `e9-<style>-input.json`、Patch、plan、apply-check 日志和项目状态。
+`e9-gate.json`、`e9-results.csv`、`e9-run.log` 为阶段汇总。空的 apply-check 和
+project-status 文件分别表示命令无错误输出、原项目 Git 工作区干净。
+
+## E10
+
+- `e10-fixed-md-report.json`、候选、计划和接受前后 Makefile 字节副本。
+- 三个 validation JSON 分别对应测试拒绝、正常接受和无效 Patch 拒绝。
+- 接受场景的全量构建及增量重编译日志。
+- BuildChecker findings、实际图、声明图和进程记录。
+- 最终构建日志、程序输出、results 和 gate。
+
+完整 OUT（含内部 `.git`、sandbox、trace 和全部日志）保留在：
+
+- `work/e9-B-241880481-20261109-01`
+- `work/e10-B-241880481-20261109-01`
+- `work/b1-e9-e10-20261109`
+
+这些 `work/` 路径按仓库规则忽略；仓库外归档包用于保存完整原始目录。
+归档包为 `B1-E9-E10-20261109-01.tar.gz`，SHA256：
+`9A552A09D30A1434108A19C2FB94CC4EEA22E35BAA01340C896643A3DEA5F617`。
