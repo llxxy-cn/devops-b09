@@ -1,2 +1,9 @@
 #include <stdio.h>
-int main(void) { puts("hello E3"); return 0; }
+
+#include "helper.h"
+
+int main(void)
+{
+    puts(helper_message());
+    return 0;
+}
