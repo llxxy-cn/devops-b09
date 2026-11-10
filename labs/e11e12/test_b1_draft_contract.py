@@ -1,5 +1,6 @@
 import unittest
 
+import prepare
 from draft.autobuild import classify_failure, prepare_candidate
 
 
@@ -23,6 +24,13 @@ class B1DraftContractTests(unittest.TestCase):
     def test_missing_make_is_classified(self):
         log = "/bin/sh: 1: make: not found\n"
         self.assertEqual(classify_failure(log), "MISSING_MAKE")
+
+    def test_prepare_uses_reachable_digest_pinned_base(self):
+        expected = (
+            "m.daocloud.io/docker.io/library/python:3.13-slim@sha256:"
+            "70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f"
+        )
+        self.assertEqual(getattr(prepare, "DRAFT_BASE_PIN", None), expected)
 
     def test_candidate_cannot_change_required_runtime_instruction(self):
         changed = CANDIDATE.replace(
