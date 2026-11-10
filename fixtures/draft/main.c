@@ -1,9 +1,12 @@
 #include <stdio.h>
 
+#include "extra.h"
 #include "helper.h"
 
 int main(void)
 {
-    puts(helper_message());
+    if (OUTPUT_ENABLED) {
+        puts(helper_message());
+    }
     return 0;
 }
