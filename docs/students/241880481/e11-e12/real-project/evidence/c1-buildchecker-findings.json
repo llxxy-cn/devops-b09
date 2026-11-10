@@ -2,7 +2,7 @@
   "status": "SUCCEEDED",
   "detector": "BUILDCHECKER_TEACHING",
   "detector_version": "0.2.0-teaching",
-  "trace_id": "e6-ec4cd87366c24ee4b9610b34e711aa2c",
+  "trace_id": "e6-3cbda0faf3ae4a2494d6ab229e9bf6ca",
   "findings": [
     {
       "type": "MISSING",
@@ -40,8 +40,8 @@
     "clean"
   ],
   "input_sha256": {
-    ".dockerignore": "4e2d01841cd05ae77ebcac6d7ed12f277fc7ab86506a5eb0186d2b7600e6487c",
-    "Dockerfile.broken": "5c24884b5c48b5476fe19f2596487bb9105093113b3df5428710c841adb9502d",
+    ".dockerignore": "e91d2c20f19aa7f956d31d836de07b57edde6a63e58d2cb70c774a97f3e1f935",
+    "Dockerfile.broken": "48d8ea53d277e3151b3e6d8f918bb1face3ea009e9376781a8567afd447b42b3",
     "Makefile": "1cadea746eca417a58a96057feb906ee36a4ad666851cd2ed095186677646643",
     "README.md": "907ff67119525c64f8f5431fdddbff72beb2c6588b4aee7a31b751242893aee6",
     "config.h": "680ec68eaf1d64e290f39e2f4ee9fade74c2aa460a475e8efa2b6d538a99c786",
@@ -57,7 +57,7 @@
     "-s",
     "4096",
     "-o",
-    "/course/work/b1-e11e12/real-project/buildchecker-run-UJwVEd/c1-report/trace/t",
+    "/course/work/b1-e11e12/real-project/isolated-buildchecker-d9edXI/c1-report/trace/t",
     "-e",
     "trace=%file,%process",
     "make",

@@ -1,13 +1,13 @@
 {
-  "schema_version": "b1-real-project-handoff-v1",
+  "schema_version": "b1-real-project-handoff-v2",
   "student_id": "241880481",
   "role": "B1 environment-project-draft",
   "status": "READY_FOR_INTERNAL_HANDOFF",
   "repository": "https://github.com/llxxy-cn/devops-b09",
   "branch": "student/241880481/e11-e12",
-  "project_subdir": "fixtures/draft",
-  "base_commit": "646b7a45814246142e064a9c13497257188ddc0d",
-  "target_commit": "3a4d08748169c57819b66795bfa706e2281d3fdc",
+  "project_subdir": "fixtures/e11e12-b1-real",
+  "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+  "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
   "build_command": "make clean && make",
   "test_command": "make test",
   "run_command": "./app",
@@ -18,6 +18,13 @@
     "target": "main.o",
     "dependency": "extra.h"
   },
+  "compatibility": {
+    "legacy_e7_fixture": "fixtures/draft",
+    "legacy_reference_commit": "e85c89d",
+    "legacy_fixture_restored": true,
+    "course_server_e7_full_gate": "BLOCKED_BY_DOCKER_HUB",
+    "formal_e7_validation": "GITHUB_ACTIONS"
+  },
   "buildchecker": {
     "image": "course-e11e12:241880481",
     "image_id": "sha256:af67372b3894b01f20af6f1560d3a088773f5ecf173be98e247a2facd9292ce6",
@@ -26,14 +33,16 @@
   },
   "draft": {
     "broken_failure_class": "MISSING_MAKE",
-    "broken_dockerfile_sha256": "5c24884b5c48b5476fe19f2596487bb9105093113b3df5428710c841adb9502d",
     "candidate_dockerfile": "candidate.Dockerfile",
-    "candidate_dockerfile_sha256": "0566960aef99846645922c723c53fb92159670981df6a539a76a47656fd404c0",
+    "candidate_dockerfile_sha256": "1fa4739abd325c84e0ed4b3bbdcbcaf39c7c500fc0d80ba4707216e5cbe21a64",
     "candidate_image": "b1-real-cmake:241880481",
-    "candidate_image_id": "sha256:0a3ed554094ba093f8cabdaa0ffdea14ed7c82dea241ee51a5fa942f97daeb24",
+    "candidate_image_id": "sha256:26d11433384c143d3a1e1b799a3d6f93f45045934671fe19627861e60ee313cb",
+    "draft_replay_image_id": "sha256:5171384d5e8c1a9972487ccbca8f62598f3a50797de28010025fddbe18872f02",
     "actual_output": "hello E3"
   },
   "regression": {
+    "e7_entry_tests": 12,
+    "e7_entry_status": "OK",
     "e8_e10_tests": 14,
     "e8_e10_status": "OK",
     "e11_e12_tests": 14,

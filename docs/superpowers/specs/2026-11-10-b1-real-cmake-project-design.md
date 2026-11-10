@@ -2,7 +2,7 @@
 
 ## 1. 目标
 
-将本仓库 `fixtures/draft` 作为 E11–E12 的真实 C/Make 项目，并制作两个连续提交：
+将本仓库 `fixtures/e11e12-b1-real` 作为 E11–E12 的真实 C/Make 项目，并制作两个连续提交：
 
 - C0：依赖完整，不存在 MD。
 - C1：增加真实头文件依赖，但 Makefile 故意遗漏该依赖，形成一个明确的 MD。
@@ -13,8 +13,8 @@ B1 负责环境、真实项目、Dockerfile、两个提交 SHA 和复现证据�
 ## 2. 项目接口
 
 - 仓库：`https://github.com/llxxy-cn/devops-b09`
-- 子目录：`fixtures/draft`
-- 请求参数：`project_subdir=fixtures/draft`
+- 子目录：`fixtures/e11e12-b1-real`
+- 请求参数：`project_subdir=fixtures/e11e12-b1-real`
 - 构建命令：`make clean && make`
 - 程序：`app`
 - 预期输出：`hello E3`
@@ -26,7 +26,7 @@ B1 负责环境、真实项目、Dockerfile、两个提交 SHA 和复现证据�
 C0 文件如下：
 
 ```text
-fixtures/draft/
+fixtures/e11e12-b1-real/
 ├── .dockerignore
 ├── Dockerfile.broken
 ├── Makefile
@@ -50,7 +50,7 @@ fixtures/draft/
 
 ## 4. C1 目标提交
 
-C1 在 C0 基础上增加 `fixtures/draft/extra.h`，并修改 `main.c`，使其实际包含和使用 `extra.h`。
+C1 在 C0 基础上增加 `fixtures/e11e12-b1-real/extra.h`，并修改 `main.c`，使其实际包含和使用 `extra.h`。
 
 Makefile 中 `main.o` 的依赖列表故意不加入 `extra.h`，预期只产生：
 
@@ -115,3 +115,16 @@ B1 不提前声称已完成 E12 全链或 A/B 正式联调。
 - E11–E12：14项测试。
 
 任何测试失败都不得作为最终交付。
+
+## 9. E7 兼容性修正
+
+根目录 `fixtures/draft` 是既有 E7 门禁的共享输入，不能改作 E11–E12
+真实项目。最终方案将旧目录恢复到变更前字节状态，并将真实项目隔离到
+`fixtures/e11e12-b1-real`。
+
+该隔离保证：
+
+- E7 继续使用原有单文件项目和 `hello` 构建目标。
+- E11–E12 使用独立多文件项目和 `app` 构建目标。
+- 两个实验不共享可变源码和 Makefile。
+- 新 C0、C1 是直接相邻提交。

@@ -1,8 +1,0 @@
---- fixtures/draft/Dockerfile.broken	2026-11-10 10:13:27.539472552 +0800
-+++ work/b1-e11e12/real-project/Dockerfile.broken.replay	2026-11-10 14:21:36.999219720 +0800
-@@ -1,4 +1,4 @@
--FROM python:3.13-slim
-+FROM m.daocloud.io/docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
- WORKDIR /work
- COPY main.c Makefile ./
- RUN make

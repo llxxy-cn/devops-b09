@@ -2,7 +2,7 @@ FROM m.daocloud.io/docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c
 
 WORKDIR /work
 
-COPY main.c helper.c helper.h config.h extra.h Makefile ./
+COPY . .
 
 RUN sed -i \
     -e 's|https\?://deb.debian.org/debian-security|https://mirrors.tuna.tsinghua.edu.cn/debian-security|g' \

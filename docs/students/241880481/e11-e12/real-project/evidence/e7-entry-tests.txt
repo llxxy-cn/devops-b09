@@ -1,0 +1,24 @@
+test_builder_command_copies_readonly_metadata_before_execution (tests.test_docker_builder.DockerBuilderTests) ... ok
+test_builder_scope_is_limited_to_b_e6_and_gate (tests.test_docker_builder.DockerBuilderTests) ... ok
+test_default_command_does_not_add_a_shell_wrapper (tests.test_docker_builder.DockerBuilderTests) ... ok
+test_missing_builder_is_rejected (tests.test_docker_builder.DockerBuilderTests) ... ok
+test_missing_buildx_metadata_is_rejected (tests.test_docker_builder.DockerBuilderTests) ... ok
+test_no_builder_preserves_default_command (tests.test_docker_builder.DockerBuilderTests) ... ok
+test_valid_builder_returns_only_env_and_readonly_buildx_mount (tests.test_docker_builder.DockerBuilderTests) ... ok
+test_builder_is_rejected_for_build_before_any_command_runs (tests.test_lab_cloud_builder.LabCloudBuilderTests) ... usage: python3 -m unittest [-h] [--out OUT] [--image IMAGE] [--fixed]
+                           [--candidate CANDIDATE | --replay]
+                           [--build-timeout BUILD_TIMEOUT] [--builder BUILDER]
+                           {doctor,build,e5,e6,gate}
+python3 -m unittest: error: --builder is only supported for B track e6/gate
+ok
+test_e6_adds_builder_options_to_service_container (tests.test_lab_cloud_builder.LabCloudBuilderTests) ... EVIDENCE_DIR=/root/devops-students/241880481/e11-e12-worktree/work/test-e6-mw5hc8ig
+ok
+test_gate_forwards_builder_name (tests.test_lab_cloud_builder.LabCloudBuilderTests) ... EVIDENCE_DIR=/root/devops-students/241880481/e11-e12-worktree/work/test-gate-t5nqmzmv
+ok
+test_service_command_includes_builder_and_preserves_security_options (tests.test_run_e7_b_gate_builder.GateBuilderCommandTests) ... ok
+test_service_command_without_builder_matches_previous_shape (tests.test_run_e7_b_gate_builder.GateBuilderCommandTests) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.007s
+
+OK

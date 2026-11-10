@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 将 `fixtures/draft` 制作为具有 C0/C1 两个连续提交的真实 C/Make 项目，并形成可复现的 B1 交接证据。
+**Goal:** 将 `fixtures/e11e12-b1-real` 制作为具有 C0/C1 两个连续提交的真实 C/Make 项目，并形成可复现的 B1 交接证据。
 
 **Architecture:** C0 使用 `main.c`、`helper.c`、`helper.h` 和 `config.h` 构成依赖完整的基线。C1 只增加并使用 `extra.h`，同时故意不把它加入 `main.o` 的 Makefile 依赖，从而形成唯一的 `MISSING main.o extra.h`。
 
@@ -11,7 +11,7 @@
 ## Global Constraints
 
 - 仓库必须为 `https://github.com/llxxy-cn/devops-b09`。
-- 项目子目录必须为 `fixtures/draft`。
+- 项目子目录必须为 `fixtures/e11e12-b1-real`。
 - 程序必须保持输出 `hello E3`。
 - C1 必须是 C0 的直接后继提交。
 - 候选镜像必须使用固定 digest 的 DaoCloud Python 基础镜像。
@@ -25,18 +25,18 @@
 
 **Files:**
 
-- Modify: `fixtures/draft/main.c`
-- Create: `fixtures/draft/helper.c`
-- Create: `fixtures/draft/helper.h`
-- Create: `fixtures/draft/config.h`
-- Modify: `fixtures/draft/Makefile`
-- Modify: `fixtures/draft/README.md`
-- Preserve: `fixtures/draft/Dockerfile.broken`
+- Modify: `fixtures/e11e12-b1-real/main.c`
+- Create: `fixtures/e11e12-b1-real/helper.c`
+- Create: `fixtures/e11e12-b1-real/helper.h`
+- Create: `fixtures/e11e12-b1-real/config.h`
+- Modify: `fixtures/e11e12-b1-real/Makefile`
+- Modify: `fixtures/e11e12-b1-real/README.md`
+- Preserve: `fixtures/e11e12-b1-real/Dockerfile.broken`
 
 **Interfaces:**
 
 - Produces: 可构建、输出 `hello E3`、无缺失依赖的 C0 完整提交 SHA。
-- Consumes: 现有 `fixtures/draft` 旧实验目录。
+- Consumes: 现有 `fixtures/e11e12-b1-real` 旧实验目录。
 
 - [ ] **Step 1: 保存修改前状态**
 
@@ -45,7 +45,7 @@
 ```bash
 git status --short --branch
 git log -1 --oneline
-find fixtures/draft -maxdepth 1 -type f -printf '%f\n' | sort
+find fixtures/e11e12-b1-real -maxdepth 1 -type f -printf '%f\n' | sort
 ```
 
 预期：工作区干净，当前提交为设计和计划提交之后的 HEAD。
@@ -133,12 +133,12 @@ clean:
 运行：
 
 ```bash
-make -C fixtures/draft clean
-make -C fixtures/draft
-make -C fixtures/draft test
-test "$(fixtures/draft/app)" = "hello E3"
-cc -MM fixtures/draft/main.c -Ifixtures/draft
-cc -MM fixtures/draft/helper.c -Ifixtures/draft
+make -C fixtures/e11e12-b1-real clean
+make -C fixtures/e11e12-b1-real
+make -C fixtures/e11e12-b1-real test
+test "$(fixtures/e11e12-b1-real/app)" = "hello E3"
+cc -MM fixtures/e11e12-b1-real/main.c -Ifixtures/e11e12-b1-real
+cc -MM fixtures/e11e12-b1-real/helper.c -Ifixtures/e11e12-b1-real
 ```
 
 预期：
@@ -154,8 +154,8 @@ cc -MM fixtures/draft/helper.c -Ifixtures/draft
 运行：
 
 ```bash
-make -C fixtures/draft clean
-git add fixtures/draft
+make -C fixtures/e11e12-b1-real clean
+git add fixtures/e11e12-b1-real
 git diff --cached --check
 git commit -m "feat: prepare B1 real C Make baseline"
 git rev-parse HEAD
@@ -169,9 +169,9 @@ git rev-parse HEAD
 
 **Files:**
 
-- Create: `fixtures/draft/extra.h`
-- Modify: `fixtures/draft/main.c`
-- Preserve without dependency change: `fixtures/draft/Makefile`
+- Create: `fixtures/e11e12-b1-real/extra.h`
+- Modify: `fixtures/e11e12-b1-real/main.c`
+- Preserve without dependency change: `fixtures/e11e12-b1-real/Makefile`
 
 **Interfaces:**
 
@@ -219,13 +219,13 @@ main.o: main.c helper.h
 运行：
 
 ```bash
-make -C fixtures/draft clean
-make -C fixtures/draft
-make -C fixtures/draft test
-test "$(fixtures/draft/app)" = "hello E3"
-cc -MM fixtures/draft/main.c -Ifixtures/draft
-grep -F 'main.o: main.c helper.h' fixtures/draft/Makefile
-! grep -E '^main\.o:.*extra\.h' fixtures/draft/Makefile
+make -C fixtures/e11e12-b1-real clean
+make -C fixtures/e11e12-b1-real
+make -C fixtures/e11e12-b1-real test
+test "$(fixtures/e11e12-b1-real/app)" = "hello E3"
+cc -MM fixtures/e11e12-b1-real/main.c -Ifixtures/e11e12-b1-real
+grep -F 'main.o: main.c helper.h' fixtures/e11e12-b1-real/Makefile
+! grep -E '^main\.o:.*extra\.h' fixtures/e11e12-b1-real/Makefile
 ```
 
 预期：
@@ -240,8 +240,8 @@ grep -F 'main.o: main.c helper.h' fixtures/draft/Makefile
 运行：
 
 ```bash
-make -C fixtures/draft clean
-git add fixtures/draft/main.c fixtures/draft/extra.h
+make -C fixtures/e11e12-b1-real clean
+git add fixtures/e11e12-b1-real/main.c fixtures/e11e12-b1-real/extra.h
 git diff --cached --check
 git commit -m "test: add B1 real missing dependency target"
 git rev-parse HEAD
@@ -259,7 +259,7 @@ git rev-parse HEAD^
 
 **Files:**
 
-- Preserve: `fixtures/draft/Dockerfile.broken`
+- Preserve: `fixtures/e11e12-b1-real/Dockerfile.broken`
 - Create: `docs/students/241880481/e11-e12/real-project/candidate.Dockerfile`
 - Create evidence under: `work/b1-e11e12/real-project/`
 
@@ -352,7 +352,7 @@ E11–E12：Ran 14 tests，OK
 {
   "student_id": "241880481",
   "repository": "https://github.com/llxxy-cn/devops-b09",
-  "project_subdir": "fixtures/draft",
+  "project_subdir": "fixtures/e11e12-b1-real",
   "base_commit": "<C0完整SHA>",
   "target_commit": "<C1完整SHA>",
   "build_command": "make clean && make",

@@ -1,0 +1,2 @@
+ISOLATION_RED: legacy fixtures/draft was changed
+ISOLATION_RED_EXIT_CODE=1

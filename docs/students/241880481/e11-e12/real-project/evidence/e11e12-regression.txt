@@ -18,4 +18,3 @@ test_same_key_same_request_same_job (test_contract.Contracts.test_same_key_same_
 Ran 14 tests in 0.004s
 
 OK
-E11_E12_REGRESSION_EXIT_CODE=0

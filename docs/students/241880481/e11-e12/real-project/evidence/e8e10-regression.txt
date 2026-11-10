@@ -14,7 +14,6 @@ test_unsafe_dependency_rejected (test_profile.ProfileTests.test_unsafe_dependenc
 test_unsupported_configuration_rejected (test_profile.ProfileTests.test_unsupported_configuration_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 1.516s
+Ran 14 tests in 1.509s
 
 OK
-E8_E10_REGRESSION_EXIT_CODE=0

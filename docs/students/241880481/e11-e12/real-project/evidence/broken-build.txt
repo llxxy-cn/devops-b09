@@ -1,44 +1,43 @@
 #0 building with "default" instance using docker driver
 
-#1 [internal] load build definition from Dockerfile.broken.replay
-#1 transferring dockerfile: 242B done
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 238B done
 #1 DONE 0.0s
 
 #2 [internal] load metadata for m.daocloud.io/docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
-#2 DONE 1.2s
+#2 DONE 0.0s
 
 #3 [internal] load .dockerignore
-#3 transferring context: 57B done
+#3 transferring context: 59B done
 #3 DONE 0.0s
 
 #4 [1/4] FROM m.daocloud.io/docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f
 #4 resolve m.daocloud.io/docker.io/library/python:3.13-slim@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f 0.0s done
 #4 DONE 0.0s
 
-#5 [2/4] WORKDIR /work
-#5 CACHED
+#5 [internal] load build context
+#5 transferring context: 1.76kB done
+#5 DONE 0.0s
 
-#6 [internal] load build context
-#6 transferring context: 629B done
-#6 DONE 0.0s
+#6 [2/4] WORKDIR /work
+#6 CACHED
 
-#7 [3/4] COPY main.c Makefile ./
-#7 DONE 0.0s
+#7 [3/4] COPY . .
+#7 CACHED
 
-#8 [4/4] RUN make
-#8 0.134 /bin/sh: 1: make: not found
-#8 ERROR: process "/bin/sh -c make" did not complete successfully: exit code: 127
+#8 [4/4] RUN make clean && make && make test
+#8 0.114 /bin/sh: 1: make: not found
+#8 ERROR: process "/bin/sh -c make clean && make && make test" did not complete successfully: exit code: 127
 ------
- > [4/4] RUN make:
-0.134 /bin/sh: 1: make: not found
+ > [4/4] RUN make clean && make && make test:
+0.114 /bin/sh: 1: make: not found
 ------
-Dockerfile.broken.replay:4
+Dockerfile:4
 --------------------
    2 |     WORKDIR /work
-   3 |     COPY main.c Makefile ./
-   4 | >>> RUN make
-   5 |     CMD ["./hello"]
+   3 |     COPY . .
+   4 | >>> RUN make clean && make && make test
+   5 |     CMD ["./app"]
    6 |
 --------------------
-ERROR: failed to build: failed to solve: process "/bin/sh -c make" did not complete successfully: exit code: 127
-BROKEN_BUILD_EXIT_CODE=1
+ERROR: failed to build: failed to solve: process "/bin/sh -c make clean && make && make test" did not complete successfully: exit code: 127
