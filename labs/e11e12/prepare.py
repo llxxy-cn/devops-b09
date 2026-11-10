@@ -5,6 +5,13 @@ from lab import fixture,commit,scan
 
 DRAFT_BASE_TAG='m.daocloud.io/docker.io/library/python:3.13-slim'
 DRAFT_BASE_PIN=DRAFT_BASE_TAG+'@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f'
+DRAFT_APT_MIRROR_RUN=(
+    "RUN sed -i "
+    "-e 's|https\\?://deb.debian.org/debian-security|https://mirrors.tuna.tsinghua.edu.cn/debian-security|g' "
+    "-e 's|https\\?://security.debian.org/debian-security|https://mirrors.tuna.tsinghua.edu.cn/debian-security|g' "
+    "-e 's|https\\?://deb.debian.org/debian|https://mirrors.tuna.tsinghua.edu.cn/debian|g' "
+    "/etc/apt/sources.list.d/debian.sources"
+)
 
 def main():
     root=ROOT/'data/integration-sample'
@@ -17,6 +24,7 @@ def main():
     target=commit(project,'integration C1 add project include')
     pin=f'FROM {DRAFT_BASE_PIN}'
     candidate=broken.replace(f'FROM {DRAFT_BASE_TAG}',pin).replace('RUN make app','RUN apt-get update && apt-get install -y --no-install-recommends build-essential && rm -rf /var/lib/apt/lists/*\nRUN make app')
+    candidate=candidate.replace('RUN apt-get update',DRAFT_APT_MIRROR_RUN+'\nRUN apt-get update')
     (root/'candidate.Dockerfile').write_text(candidate,encoding='utf-8')
     fixed=scan(project)
     save(root/'fixed-md.json',{'schema_version':'e11e12-1','kind':'fixed-md','status':'SUCCEEDED','commit':target,'data':fixed})

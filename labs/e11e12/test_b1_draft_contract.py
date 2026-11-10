@@ -32,6 +32,14 @@ class B1DraftContractTests(unittest.TestCase):
         )
         self.assertEqual(getattr(prepare, "DRAFT_BASE_PIN", None), expected)
 
+    def test_prepare_uses_reachable_debian_mirror(self):
+        mirror_run = getattr(prepare, "DRAFT_APT_MIRROR_RUN", None)
+        self.assertIsNotNone(mirror_run)
+        self.assertIn("mirrors.tuna.tsinghua.edu.cn", mirror_run)
+        self.assertIn(
+            "/etc/apt/sources.list.d/debian.sources", mirror_run
+        )
+
     def test_candidate_cannot_change_required_runtime_instruction(self):
         changed = CANDIDATE.replace(
             'CMD ["./app"]',
