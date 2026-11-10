@@ -1,0 +1,81 @@
+{
+  "status": "SUCCEEDED",
+  "detector": "BUILDCHECKER_TEACHING",
+  "detector_version": "0.2.0-teaching",
+  "trace_id": "e6-ec4cd87366c24ee4b9610b34e711aa2c",
+  "findings": [
+    {
+      "type": "MISSING",
+      "target": "main.o",
+      "dependency": "extra.h",
+      "evidence": [
+        {
+          "source": "system_call",
+          "trace_file": "t.14",
+          "line": 559,
+          "pid": 14,
+          "operation": "openat"
+        },
+        {
+          "source": "system_call",
+          "trace_file": "t.15",
+          "line": 23,
+          "pid": 15,
+          "operation": "openat"
+        }
+      ],
+      "declared_dependencies": [
+        "helper.h",
+        "main.c"
+      ]
+    }
+  ],
+  "scope": "Single Make process; one final output per recipe job; successful read-open observations",
+  "build_command": [
+    "make",
+    "app"
+  ],
+  "clean_command": [
+    "make",
+    "clean"
+  ],
+  "input_sha256": {
+    ".dockerignore": "4e2d01841cd05ae77ebcac6d7ed12f277fc7ab86506a5eb0186d2b7600e6487c",
+    "Dockerfile.broken": "5c24884b5c48b5476fe19f2596487bb9105093113b3df5428710c841adb9502d",
+    "Makefile": "1cadea746eca417a58a96057feb906ee36a4ad666851cd2ed095186677646643",
+    "README.md": "907ff67119525c64f8f5431fdddbff72beb2c6588b4aee7a31b751242893aee6",
+    "config.h": "680ec68eaf1d64e290f39e2f4ee9fade74c2aa460a475e8efa2b6d538a99c786",
+    "extra.h": "64cb137fb6b39bd3119c7c28562d4df04995b44e2cfcfc04ce0e36c0bbf2d9b1",
+    "helper.c": "96e1d4bd91edbfba856a1257523bf4224eecc72d86e6b11561b0514f310baddd",
+    "helper.h": "adea639e9eff45c4e173d8f9944860076ff960b1920ca3ae6a8af387df838799",
+    "main.c": "df5bc4f2ef9fc492cdfc5e1a05a86939eac7073d5623d5b7096db8d1c1ebe3d1"
+  },
+  "clean_exit_code": 0,
+  "trace_command": [
+    "strace",
+    "-ff",
+    "-s",
+    "4096",
+    "-o",
+    "/course/work/b1-e11e12/real-project/buildchecker-run-UJwVEd/c1-report/trace/t",
+    "-e",
+    "trace=%file,%process",
+    "make",
+    "-p",
+    "app"
+  ],
+  "build_exit_code": 0,
+  "observed_targets": [
+    "app",
+    "helper.o",
+    "main.o"
+  ],
+  "artifacts": {
+    "actual_graph": "actual-graph.json",
+    "declared_graph": "declared-graph.json",
+    "processes": "processes.json",
+    "make_database": "make-db.txt",
+    "trace_directory": "trace"
+  },
+  "elapsed_ms": 127
+}

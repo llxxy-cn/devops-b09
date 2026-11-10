@@ -1,0 +1,47 @@
+{
+  "schema_version": "b1-real-project-handoff-v1",
+  "student_id": "241880481",
+  "role": "B1 environment-project-draft",
+  "status": "READY_FOR_INTERNAL_HANDOFF",
+  "repository": "https://github.com/llxxy-cn/devops-b09",
+  "branch": "student/241880481/e11-e12",
+  "project_subdir": "fixtures/draft",
+  "base_commit": "646b7a45814246142e064a9c13497257188ddc0d",
+  "target_commit": "3a4d08748169c57819b66795bfa706e2281d3fdc",
+  "build_command": "make clean && make",
+  "test_command": "make test",
+  "run_command": "./app",
+  "expected_output": "hello E3",
+  "expected_missing": {
+    "count": 1,
+    "type": "MISSING",
+    "target": "main.o",
+    "dependency": "extra.h"
+  },
+  "buildchecker": {
+    "image": "course-e11e12:241880481",
+    "image_id": "sha256:af67372b3894b01f20af6f1560d3a088773f5ecf173be98e247a2facd9292ce6",
+    "base_findings": 0,
+    "target_findings": 1
+  },
+  "draft": {
+    "broken_failure_class": "MISSING_MAKE",
+    "broken_dockerfile_sha256": "5c24884b5c48b5476fe19f2596487bb9105093113b3df5428710c841adb9502d",
+    "candidate_dockerfile": "candidate.Dockerfile",
+    "candidate_dockerfile_sha256": "0566960aef99846645922c723c53fb92159670981df6a539a76a47656fd404c0",
+    "candidate_image": "b1-real-cmake:241880481",
+    "candidate_image_id": "sha256:0a3ed554094ba093f8cabdaa0ffdea14ed7c82dea241ee51a5fa942f97daeb24",
+    "actual_output": "hello E3"
+  },
+  "regression": {
+    "e8_e10_tests": 14,
+    "e8_e10_status": "OK",
+    "e11_e12_tests": 14,
+    "e11_e12_status": "OK"
+  },
+  "next_owner": {
+    "member_2": "consume C0/C1 and complete E11-B report acceptance and repair",
+    "member_3": "add project_subdir support and complete E12 real-project pre-run",
+    "member_4": "perform formal A/B integration and final CI delivery"
+  }
+}
