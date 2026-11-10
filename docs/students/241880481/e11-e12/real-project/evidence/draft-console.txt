@@ -1,0 +1,75 @@
+{
+  "status": "SUCCEEDED",
+  "detector": "DRAFT_TEACHING_REPLAY",
+  "trace_id": "e6-b-3583deede04144a8b2d0cd1e4b00eb9e",
+  "candidate_source": "Manual model response replay; no model/API call in this command",
+  "candidate_sha256": "1fa4739abd325c84e0ed4b3bbdcbcaf39c7c500fc0d80ba4707216e5cbe21a64",
+  "attempts": [
+    {
+      "iteration": 1,
+      "tag": "e6-draft-replay:3583deede04144a8b2d0cd1e4b00eb9e-1",
+      "command": [
+        "docker",
+        "build",
+        "--progress=plain",
+        "-f",
+        "/course/work/b1-e11e12/real-project/isolated-draft-retry-20261110-150533/iter-01/Dockerfile",
+        "-t",
+        "e6-draft-replay:3583deede04144a8b2d0cd1e4b00eb9e-1",
+        "/course/work/b1-e11e12/real-project/isolated-draft-retry-20261110-150533/project"
+      ],
+      "build_exit_code": 1,
+      "failure_class": "MISSING_MAKE"
+    },
+    {
+      "iteration": 2,
+      "tag": "e6-draft-replay:3583deede04144a8b2d0cd1e4b00eb9e-2",
+      "command": [
+        "docker",
+        "build",
+        "--progress=plain",
+        "-f",
+        "/course/work/b1-e11e12/real-project/isolated-draft-retry-20261110-150533/iter-02/Dockerfile",
+        "-t",
+        "e6-draft-replay:3583deede04144a8b2d0cd1e4b00eb9e-2",
+        "/course/work/b1-e11e12/real-project/isolated-draft-retry-20261110-150533/project"
+      ],
+      "build_exit_code": 0,
+      "image_id": "sha256:5171384d5e8c1a9972487ccbca8f62598f3a50797de28010025fddbe18872f02"
+    }
+  ],
+  "input_sha256": {
+    ".dockerignore": "e91d2c20f19aa7f956d31d836de07b57edde6a63e58d2cb70c774a97f3e1f935",
+    "Dockerfile.broken": "48d8ea53d277e3151b3e6d8f918bb1face3ea009e9376781a8567afd447b42b3",
+    "Makefile": "1cadea746eca417a58a96057feb906ee36a4ad666851cd2ed095186677646643",
+    "README.md": "907ff67119525c64f8f5431fdddbff72beb2c6588b4aee7a31b751242893aee6",
+    "config.h": "680ec68eaf1d64e290f39e2f4ee9fade74c2aa460a475e8efa2b6d538a99c786",
+    "extra.h": "64cb137fb6b39bd3119c7c28562d4df04995b44e2cfcfc04ce0e36c0bbf2d9b1",
+    "helper.c": "96e1d4bd91edbfba856a1257523bf4224eecc72d86e6b11561b0514f310baddd",
+    "helper.h": "adea639e9eff45c4e173d8f9944860076ff960b1920ca3ae6a8af387df838799",
+    "main.c": "df5bc4f2ef9fc492cdfc5e1a05a86939eac7073d5623d5b7096db8d1c1ebe3d1"
+  },
+  "verification": {
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--network",
+      "none",
+      "--cpus",
+      "1",
+      "--memory",
+      "128m",
+      "--pids-limit",
+      "64",
+      "--cidfile",
+      "/course/work/b1-e11e12/real-project/isolated-draft-retry-20261110-150533/verify-container-id.txt",
+      "sha256:5171384d5e8c1a9972487ccbca8f62598f3a50797de28010025fddbe18872f02"
+    ],
+    "exit_code": 0,
+    "expected_output": "hello E3",
+    "actual_output": "hello E3\n",
+    "output_matches": true
+  },
+  "elapsed_ms": 834
+}

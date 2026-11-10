@@ -1,0 +1,54 @@
+{
+  "status": "SUCCEEDED",
+  "detector": "BUILDCHECKER_TEACHING",
+  "detector_version": "0.2.0-teaching",
+  "trace_id": "e6-8d6090e8bff24d4d9a586582212e70f6",
+  "findings": [],
+  "scope": "Single Make process; one final output per recipe job; successful read-open observations",
+  "build_command": [
+    "make",
+    "app"
+  ],
+  "clean_command": [
+    "make",
+    "clean"
+  ],
+  "input_sha256": {
+    ".dockerignore": "e91d2c20f19aa7f956d31d836de07b57edde6a63e58d2cb70c774a97f3e1f935",
+    "Dockerfile.broken": "48d8ea53d277e3151b3e6d8f918bb1face3ea009e9376781a8567afd447b42b3",
+    "Makefile": "1cadea746eca417a58a96057feb906ee36a4ad666851cd2ed095186677646643",
+    "README.md": "907ff67119525c64f8f5431fdddbff72beb2c6588b4aee7a31b751242893aee6",
+    "config.h": "680ec68eaf1d64e290f39e2f4ee9fade74c2aa460a475e8efa2b6d538a99c786",
+    "helper.c": "96e1d4bd91edbfba856a1257523bf4224eecc72d86e6b11561b0514f310baddd",
+    "helper.h": "adea639e9eff45c4e173d8f9944860076ff960b1920ca3ae6a8af387df838799",
+    "main.c": "dc1185f523ae997f348f2067ce73f5d26e47d3c3ea034d9a66301948a0f585fd"
+  },
+  "clean_exit_code": 0,
+  "trace_command": [
+    "strace",
+    "-ff",
+    "-s",
+    "4096",
+    "-o",
+    "/course/work/b1-e11e12/real-project/isolated-buildchecker-d9edXI/c0-report/trace/t",
+    "-e",
+    "trace=%file,%process",
+    "make",
+    "-p",
+    "app"
+  ],
+  "build_exit_code": 0,
+  "observed_targets": [
+    "app",
+    "helper.o",
+    "main.o"
+  ],
+  "artifacts": {
+    "actual_graph": "actual-graph.json",
+    "declared_graph": "declared-graph.json",
+    "processes": "processes.json",
+    "make_database": "make-db.txt",
+    "trace_directory": "trace"
+  },
+  "elapsed_ms": 127
+}
