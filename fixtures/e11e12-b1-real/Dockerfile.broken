@@ -1,0 +1,5 @@
+FROM m.daocloud.io/docker.io/library/python:3.13-slim
+WORKDIR /work
+COPY . .
+RUN make clean && make && make test
+CMD ["./app"]

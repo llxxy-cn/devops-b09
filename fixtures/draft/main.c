@@ -1,12 +1,2 @@
 #include <stdio.h>
-
-#include "extra.h"
-#include "helper.h"
-
-int main(void)
-{
-    if (OUTPUT_ENABLED) {
-        puts(helper_message());
-    }
-    return 0;
-}
+int main(void) { puts("hello E3"); return 0; }
