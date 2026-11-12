@@ -11,7 +11,7 @@ image='course-e11e12:'+sid
 if a.stage=='build':
     cmd=['docker','build','-f',str(root/'labs/e11e12/environment/services/buildchecker/Dockerfile'),'-t',image,str(root/'labs/e11e12/environment')]
 else:
-    socket=['--network','bridge','--group-add',str(Path('/var/run/docker.sock').stat().st_gid),'-v','/var/run/docker.sock:/var/run/docker.sock'] if a.stage in ('run','serve') else ['--network','none']
+    socket=['--network','bridge','--group-add',str(Path('/var/run/docker.sock').stat().st_gid),'-v','/var/run/docker.sock:/var/run/docker.sock','-e',f'COURSE_HOST_ROOT={root}'] if a.stage in ('run','serve') else ['--network','none']
     network=['-p',f'127.0.0.1:{a.port}:8080'] if a.stage=='serve' else []
     cmd=['docker','run','--rm',*socket,*network,'--cap-add','SYS_PTRACE','--user',f'{os.getuid()}:{os.getgid()}','-e','HOME=/tmp','-e','PYTHONPATH=/course/labs/e11e12:/course/labs/e8e10:/course/labs/e11e12/vendor:/app','-v',str(root)+':/course','-w','/course',image,'python3']
     if a.stage=='prepare':cmd+=['labs/e11e12/prepare.py']

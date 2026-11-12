@@ -1,0 +1,11 @@
+{
+  "mode": "e12",
+  "repo": "/course/data/e12-b1-real",
+  "project_subdir": "fixtures/e11e12-b1-real",
+  "base": "30ffe4c41492334478a2446a8be0662d3f31d478",
+  "target": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+  "candidate": "/course/data/e12-b1-candidate.Dockerfile",
+  "expected_output": "hello E3",
+  "expected_missing": [{"target": "main.o", "dependency": "extra.h"}],
+  "build_timeout": 600
+}
