@@ -79,7 +79,7 @@ def preflight(url, request, out, timeout):
 
     def download(name):
         entry = manifest[prefix + name]
-        code, headers, data = call(job + '/files/' + quote(name, safe='/'))
+        code, headers, data = call(url + job + '/files/' + quote(name, safe='/'))
         require(code == 200, f'{name}: download returned HTTP {code}')
         digest = hashlib.sha256(data).hexdigest()
         require(digest == entry['sha256'] == headers.get('X-Content-SHA256'), f'{name}: SHA256 mismatch')
