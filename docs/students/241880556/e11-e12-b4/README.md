@@ -7,10 +7,10 @@
 - 仓库：`llxxy-cn/devops-b09`
 - 四号个人分支：`student/241880556/e11-e12-b4`
 - 起点：B3 提交 `a8e6a0b2663c50b69ac45b2d359ff45c37e12e8f`
-- B3 PR：[ #13 ](https://github.com/llxxy-cn/devops-b09/pull/13)，本目录建立时仍开放
+- B3 PR：[#13](https://github.com/llxxy-cn/devops-b09/pull/13)，已于 2026-11-13（北京时间）合并到 `main`，合并提交 `ffe52ed5501dd903a5030bbf907189cc18b5f299`
 - B3 的 E7、E8–E10、E11–E12 CI 在该提交均成功；这不是四号最终 CI
 - 四号当前提交：`0518cb9cee0c0a72ddbd064f24f0b5b3b69fc932`；最终提交待正式联调后确定
-- 四号草稿 PR：[#14](https://github.com/llxxy-cn/devops-b09/pull/14)，当前以 B3 分支为 base，待 B3 合并后改向 `main`
+- 四号草稿 PR：[#14](https://github.com/llxxy-cn/devops-b09/pull/14)，当前直接以 `main` 为 base
 
 本机在该起点直接运行 `unittest discover`：20 项中 19 项通过、1 项因需要 Linux 课程主机而跳过。四号课程服务器重新运行 `python3 run_e11e12.py test`，20 项全部通过。四号环境镜像 ID 为 `sha256:0f14125df9d889f01f0f9cf1ab37c0a216d8e26212cca99504a6304b19f3701f`。
 
