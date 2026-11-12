@@ -1,0 +1,92 @@
+{
+  "schema_version": "e12-b4-preflight-1",
+  "purpose": "B4 server and SSH-forwarded client preflight; A/B formal report pending",
+  "server": "47.96.146.48",
+  "server_worktree": "/root/241880556/devops-b09-e11-e12-b4",
+  "source_branch": "student/241880556/e11-e12-b4",
+  "source_commit": "0518cb9cee0c0a72ddbd064f24f0b5b3b69fc932",
+  "environment_image_id": "sha256:0f14125df9d889f01f0f9cf1ab37c0a216d8e26212cca99504a6304b19f3701f",
+  "server_tests": {
+    "count": 20,
+    "status": "OK"
+  },
+  "ssh_forward": "127.0.0.1:18080 -> 47.96.146.48:127.0.0.1:18084",
+  "sample": {
+    "job_id": "job-7f7332c3a178434781fdd151725fac6a",
+    "trace_id": "trace-e9b41a7d26e14449b40cb54b3fc7c0f1",
+    "status": "SUCCEEDED",
+    "base_commit": "c8e967f1682a7bd63c3d158b3ab35b7549a13898",
+    "target_commit": "25163c8a0ff80c886728878f9bb904aecf0d054e",
+    "candidate_image_id": "sha256:f1fb7db7e04db01ee05e5ebfac0a02eab69953747e1649297e5ed63b691af076",
+    "stages": [
+      "draft",
+      "full-check",
+      "incremental-check",
+      "repair",
+      "recheck"
+    ],
+    "incremental_report_sha256": "4b3b68ba26cce8a44b965bd24588dc3d8dfe2d43017771d68d697f06f8950bfe",
+    "candidate_patch_sha256": "88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af",
+    "downloaded_files_verified": 20,
+    "same_key_same_job": true,
+    "conflict_http_status": 409,
+    "accepted": true,
+    "remaining_missing": 0,
+    "repair_input_matches_this_job_report": true
+  },
+  "real": {
+    "job_id": "job-5210c6d37cd44a30b358e009bc9e7f40",
+    "trace_id": "trace-f1b4af1ce63b4ec2b1a0487a82438283",
+    "status": "SUCCEEDED",
+    "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+    "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+    "candidate_image_id": "sha256:2cdb7b8e8ae95fe3e2a0b04d0abcb9a9978fffa40fa46aad62d0b338da99e262",
+    "stages": [
+      "draft",
+      "full-check",
+      "incremental-check",
+      "repair",
+      "recheck"
+    ],
+    "incremental_report_sha256": "6b27cdc7be15b3fa5848be97b068f404fe9b11fef2cbf2e57d701eff89465031",
+    "candidate_patch_sha256": "6fb5dc4d84f5d65bcf7edffae3b7e02acb2259676be2154a1fc947463ee75c69",
+    "downloaded_files_verified": 24,
+    "same_key_same_job": true,
+    "conflict_http_status": 409,
+    "accepted": true,
+    "remaining_missing": 0,
+    "repair_input_matches_this_job_report": true
+  },
+  "a_archived_compatibility": {
+    "status": "SUCCEEDED",
+    "purpose": "A archived report Linux compatibility preflight; not the formal A/B run",
+    "target_commit": "15c059958a41a5a0513dc048036439843a34ad28",
+    "report_sha256": "8508d50232bfa4a529d51accd4dc94e5765a0fe0a0b130eebf73f8f866a98716",
+    "candidate_patch_sha256": "88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af",
+    "candidate_image_id": "sha256:f1fb7db7e04db01ee05e5ebfac0a02eab69953747e1649297e5ed63b691af076",
+    "environment_image_id": "sha256:0f14125df9d889f01f0f9cf1ab37c0a216d8e26212cca99504a6304b19f3701f",
+    "patch_applies": true,
+    "build": true,
+    "program_before": "1",
+    "header_change_rebuild": true,
+    "program_after": "2",
+    "missing_count": 0,
+    "remaining_findings": [
+      {
+        "type": "REDUNDANT",
+        "target": "main.o",
+        "dependency": "unused.h",
+        "evidence": [
+          {
+            "source": "make_database",
+            "artifact": "make-db.txt",
+            "line": 1050,
+            "declaration": "main.o: main.c unused.h config.h extra.h"
+          }
+        ],
+        "scope": "Not observed in this recipe job under this build configuration"
+      }
+    ]
+  },
+  "formal_a_b_report": "PENDING_CURRENT_A_REPORT"
+}

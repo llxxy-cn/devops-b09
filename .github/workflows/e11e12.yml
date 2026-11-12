@@ -25,5 +25,8 @@ jobs:
         if: always()
         with:
           name: e11e12-evidence-${{ github.run_id }}
-          path: work/
+          path: |
+            work/
+            !work/**/.git/**
+          include-hidden-files: true
           retention-days: 14
