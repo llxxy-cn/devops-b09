@@ -19,6 +19,8 @@ GitHub Actions 的 B3 E11–E12 工作流运行 ID 为 `43188774642`，产物 `e
 
 逐项校验该 ZIP 时，E12 清单中 187 个文件有 180 个在 ZIP 内且 SHA256、长度吻合；7 个 `.gitignore` 因 `upload-artifact` 默认排除隐藏文件而缺失。四号分支调整工作流以包含这些文件，并排除克隆副本的 `.git` 目录。新 CI 完成后须再次逐项核对。
 
+四号提交 `523421d3a4e8f24be60b8c39cb35b5e12cb63fc0` 的 push CI 已完成：E7 run `43202389293`、E8–E10 run `43202389312`、E11–E12 run `43202389319` 均成功。新 E11–E12 产物 `e11e12-evidence-43202389319` 的 ZIP SHA256 为 `8e6088c91b07407488ee5b6643813e033075cf8b731a1f5bf2962c874a09bf8e`。下载后逐项验证 E11-A 85 个、E11-B 96 个、E12 187 个清单文件的长度和 SHA256 全部匹配，ZIP 无 `.git` 元数据。
+
 B3 课程服务器证据包路径为 `/root/devops-submissions/241880585/e12-b3-20261112-161448.tar.gz`，交接 SHA256 为 `f9ee5c3545897873e62dd12d2b05fad4c73c470326160cb2e493d1a8a7ed720b`。**待完成：**取得服务器访问，校验并检查包内两份 `verification.json`。
 
 Windows 检出会因 `core.autocrlf=true` 将 B1 候选 Dockerfile 转成 CRLF，工作树 SHA256 与 B1 交接值不同；按 LF 还原后的 SHA256 与 `1fa4739abd325c84e0ed4b3bbdcbcaf39c7c500fc0d80ba4707216e5cbe21a64` 一致。正式镜像构建须在 Linux 服务器重新核对文件字节哈希。
@@ -41,6 +43,8 @@ python3 labs/e11e12/repair_report.py \
 ```
 
 入口会检查 `e11e12-1`、报告类型、状态、目标提交及文件 SHA256。补丁生成后，在独立干净副本上检查并应用，再构建、测试、运行、复检；另外保存旧报告 `STALE_REPORT` 和篡改内容 `ARTIFACT_HASH_MISMATCH` 的拒绝证据。
+
+已对 A 组仓库 `student/241880375/e11-e12` 的 2026-11-10 归档报告完成一次**兼容性预检**：[清单](compat-preflight/manifest.json)。原始报告、补丁和两条拒绝日志保存在 `compat-preflight/`。报告 SHA 与 A 的摘要吻合，B 端生成补丁，`git apply --check` 成功；旧 commit 与错误哈希均被拒绝且无补丁。此报告不是正式联调的当轮新报告；构建和复检仍待 Linux 服务器。
 
 ## 正式五阶段 API（待完成）
 

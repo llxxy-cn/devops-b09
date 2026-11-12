@@ -1,0 +1,22 @@
+{
+  "purpose": "A-group archived report compatibility preflight; not the formal A/B run",
+  "a_repository": "https://github.com/a-bi-chen/DevOps_1020_Student_Cloud",
+  "a_branch": "student/241880375/e11-e12",
+  "a_source_commit": "0cd8054911a18be96900e05c3b7747c6b35a4112",
+  "a_archive": "evidence/students/241880375/e11-e12/e11e12-evidence-241880375.tar.gz",
+  "a_archive_sha256": "19479d51720decbca2518453e00646a4700c7b21101b018965bfdbc0c8cce648",
+  "a_report_member": "work/e11-a-241880375/incremental-check.json",
+  "a_report_sha256": "8508d50232bfa4a529d51accd4dc94e5765a0fe0a0b130eebf73f8f866a98716",
+  "a_report_job_id": "job-1bd0ed1b449f44f293853df90440844f",
+  "a_report_trace_id": "trace-4e7c0c6afd0447f9869d2f5e1ee6f4ae",
+  "target_commit": "15c059958a41a5a0513dc048036439843a34ad28",
+  "b_receiver": "labs/e11e12/repair_report.py",
+  "receiver_result": "PATCH_WRITTEN",
+  "candidate_patch_sha256": "88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af",
+  "patch_apply_check_exit_code": 0,
+  "source_worktree_unchanged": true,
+  "stale_report": {"exit_code": 1, "error": "STALE_REPORT", "patch_created": false},
+  "wrong_hash": {"exit_code": 1, "error": "ARTIFACT_HASH_MISMATCH", "patch_created": false},
+  "build_and_recheck": "PENDING_LINUX_SERVER",
+  "formal_a_b_handoff": "PENDING_CURRENT_REPORT"
+}

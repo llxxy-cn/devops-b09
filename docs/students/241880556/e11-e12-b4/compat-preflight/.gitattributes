@@ -1,0 +1,2 @@
+incremental-check.json -text
+candidate.patch -text -whitespace
