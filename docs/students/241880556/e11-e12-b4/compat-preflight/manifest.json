@@ -17,6 +17,12 @@
   "source_worktree_unchanged": true,
   "stale_report": {"exit_code": 1, "error": "STALE_REPORT", "patch_created": false},
   "wrong_hash": {"exit_code": 1, "error": "ARTIFACT_HASH_MISMATCH", "patch_created": false},
-  "build_and_recheck": "PENDING_LINUX_SERVER",
+  "build_and_recheck": "SUCCEEDED_ON_B4_LINUX_SERVER",
+  "server_summary": "../preflight/manifest.json#a_archived_compatibility",
+  "candidate_image_id": "sha256:f1fb7db7e04db01ee05e5ebfac0a02eab69953747e1649297e5ed63b691af076",
+  "environment_image_id": "sha256:0f14125df9d889f01f0f9cf1ab37c0a216d8e26212cca99504a6304b19f3701f",
+  "program_before": "1",
+  "program_after_header_change": "2",
+  "recheck_missing_count": 0,
   "formal_a_b_handoff": "PENDING_CURRENT_REPORT"
 }
