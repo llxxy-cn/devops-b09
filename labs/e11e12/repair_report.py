@@ -5,7 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from pipeline import Failure, check_envelope, load_artifact, patch
+from pipeline import Failure, repair_from_artifact
 
 
 def main():
@@ -18,21 +18,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        report = load_artifact(args.report, args.sha256)
-        target = subprocess.check_output(
-            ["git", "-C", str(args.project), "rev-parse", "HEAD"], text=True
-        ).strip()
-        check_envelope(report, target, args.kind)
-        data = report["data"]
-        if data["commit"] != target:
-            raise Failure("STALE_REPORT", "Report data belongs to another commit")
-
-        diff, _ = patch(args.project, data)
-        if not diff:
-            raise Failure("NO_MISSING_DEPENDENCY", "No MD to repair")
-
-        with args.out.open("x", encoding="utf-8") as output:
-            output.write(diff)
+        repair_from_artifact(args.project, args.report, args.sha256, args.kind, args.out)
     except Failure as error:
         print(f"{error.code}: {error}", file=sys.stderr)
         return 1

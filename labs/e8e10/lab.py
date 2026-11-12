@@ -45,20 +45,24 @@ def declarations(p):
         graph[target]=sorted(set(dep.split()))
     return graph,variables.get('CFLAGS','')
 
-def scan(p, old=None):
+def scan(p, old=None, *, compiler_run=run, compiler_flags=None):
     start=time.perf_counter(); declared,flags=declarations(p)
-    if flags not in ['-O0','-O1','-O0 -DMODE=1']: raise ValueError('UNSUPPORTED_FLAGS')
+    cache_flags = flags if compiler_flags is None else compiler_flags
+    if compiler_flags is None:
+        if flags not in ['-O0','-O1','-O0 -DMODE=1']: raise ValueError('UNSUPPORTED_FLAGS')
+        compiler_flags = flags.split()
     # Conservative invalidation: all local preprocessor lines, source set and recipes.
     files={x.name:x.read_text() for x in sorted(p.glob('*')) if x.suffix in ['.c','.h']}
     key={'directives':{n:[l for l in t.splitlines() if l.lstrip().startswith('#')] for n,t in files.items()},
          'recipes':[l for l in (p/'Makefile').read_text().splitlines() if l.startswith('\t')],
-         'flags':flags,'compiler':run(['gcc','--version'],p).splitlines()[0]}
+         'flags':cache_flags,
+         'compiler':compiler_run(['gcc','--version'],p).splitlines()[0]}
     actual={}; refreshed=[]; reused=[]
     for target,source in [('main.o','main.c'),('helper.o','helper.c')]:
         if old and old['key']==key and target in old['actual']:
             actual[target]=old['actual'][target]; reused.append(target)
         else:
-            output=run(['gcc',*flags.split(),'-MM','-MT',target,source],p)
+            output=compiler_run(['gcc',*compiler_flags,'-MM','-MT',target,source],p)
             actual[target]=sorted(set(output.replace('\\\n',' ').split(':',1)[1].split()))
             refreshed.append(target)
     findings=[]
