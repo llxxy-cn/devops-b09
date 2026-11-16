@@ -10,7 +10,7 @@
 - B3 PR：[#13](https://github.com/llxxy-cn/devops-b09/pull/13)，已于 2026-11-13（北京时间）合并到 `main`，合并提交 `ffe52ed5501dd903a5030bbf907189cc18b5f299`
 - B3 的 E7、E8–E10、E11–E12 CI 在该提交均成功；这不是四号最终 CI
 - 四号服务器正式运行源码：`0518cb9cee0c0a72ddbd064f24f0b5b3b69fc932`；最终文档提交 SHA 见 PR #14
-- 四号草稿 PR：[#14](https://github.com/llxxy-cn/devops-b09/pull/14)，当前直接以 `main` 为 base
+- 四号 PR：[#14](https://github.com/llxxy-cn/devops-b09/pull/14)，以 `main` 为 base；正式证据提交后六项 CI 通过，已转为可审查状态
 
 本机在该起点直接运行 `unittest discover`：20 项中 19 项通过、1 项因需要 Linux 课程主机而跳过。四号课程服务器重新运行 `python3 run_e11e12.py test`，20 项全部通过。四号环境镜像 ID 为 `sha256:0f14125df9d889f01f0f9cf1ab37c0a216d8e26212cca99504a6304b19f3701f`。
 
@@ -18,7 +18,7 @@
 
 GitHub Actions 的 B3 E11–E12 工作流运行 ID 为 `43188774642`，产物 `e11e12-evidence-43188774642` 的 SHA256 为 `95ce6ccab051f4b6ee0f07ae248b0e903afd393ef96100e207cf8b70f4d4baf6`。已下载并核对该 ZIP 哈希。内含 CI 固定样例 `ci-e12` 的五阶段结果；该产物不包含 A/B 正式交接，也不是 B3 课程服务器的两个预跑 job。
 
-逐项校验该 ZIP 时，E12 清单中 187 个文件有 180 个在 ZIP 内且 SHA256、长度吻合；7 个 `.gitignore` 因 `upload-artifact` 默认排除隐藏文件而缺失。四号分支调整工作流以包含这些文件，并排除克隆副本的 `.git` 目录。新 CI 完成后须再次逐项核对。
+逐项校验该 ZIP 时，E12 清单中 187 个文件有 180 个在 ZIP 内且 SHA256、长度吻合；7 个 `.gitignore` 因 `upload-artifact` 默认排除隐藏文件而缺失。四号分支调整工作流以包含这些文件，并排除克隆副本的 `.git` 目录；修正后的 CI 证据已重新逐项核对。
 
 四号提交 `523421d3a4e8f24be60b8c39cb35b5e12cb63fc0` 的 push CI 已完成：E7 run `43202389293`、E8–E10 run `43202389312`、E11–E12 run `43202389319` 均成功。新 E11–E12 产物 `e11e12-evidence-43202389319` 的 ZIP SHA256 为 `8e6088c91b07407488ee5b6643813e033075cf8b731a1f5bf2962c874a09bf8e`。下载后逐项验证 E11-A 85 个、E11-B 96 个、E12 187 个清单文件的长度和 SHA256 全部匹配，ZIP 无 `.git` 元数据。
 
@@ -66,7 +66,7 @@ API 在课程服务器 `127.0.0.1:18084`，客户端经 SSH 转发到本机 `127
 
 ## 最终交付
 
-- 四号 PR 与 review、最终源码提交 SHA
-- 四号提交及合并后 `main` 的 E7、E8–E10、E11–E12 CI 链接
+- 四号 [PR #14](https://github.com/llxxy-cn/devops-b09/pull/14) 已可审查；最终源码提交与 Checks 以 PR head 为准
+- 四号正式证据提交 `8bb7d36` 的 E7、E8–E10、E11–E12 六项 CI 均通过；合并后 `main` CI 由仓库维护者合并后确认
 - [A→B 正式报告交接与独立修复复验](formal/README.md)、[两个正式 API job 的证据索引](formal/manifest.json)
 - 真实项目记录、证据包 SHA256、个人报告与 ADR
