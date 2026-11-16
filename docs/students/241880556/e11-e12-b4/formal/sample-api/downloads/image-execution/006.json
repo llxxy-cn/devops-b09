@@ -1,0 +1,28 @@
+{
+  "image_id": "sha256:671ac1c5de9235474e0dc860ea3c2e3205778fc7a083819d2833ffaac971138b",
+  "project": "/course/work/api-jobs/job-01424ef2954f4fdc86b6ed3ec73b19df/evidence/target-project",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--user",
+    "0:0",
+    "--mount",
+    "type=bind,source=/root/241880556/devops-b09-e11-e12-b4/work/api-jobs/job-01424ef2954f4fdc86b6ed3ec73b19df/evidence/target-project,target=/project",
+    "--workdir",
+    "/project",
+    "--entrypoint",
+    "gcc",
+    "sha256:671ac1c5de9235474e0dc860ea3c2e3205778fc7a083819d2833ffaac971138b",
+    "-O0",
+    "-MM",
+    "-MT",
+    "helper.o",
+    "helper.c"
+  ],
+  "status": "SUCCEEDED"
+}

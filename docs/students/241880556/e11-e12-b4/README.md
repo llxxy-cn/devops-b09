@@ -9,7 +9,7 @@
 - 起点：B3 提交 `a8e6a0b2663c50b69ac45b2d359ff45c37e12e8f`
 - B3 PR：[#13](https://github.com/llxxy-cn/devops-b09/pull/13)，已于 2026-11-13（北京时间）合并到 `main`，合并提交 `ffe52ed5501dd903a5030bbf907189cc18b5f299`
 - B3 的 E7、E8–E10、E11–E12 CI 在该提交均成功；这不是四号最终 CI
-- 四号当前提交：`0518cb9cee0c0a72ddbd064f24f0b5b3b69fc932`；最终提交待正式联调后确定
+- 四号服务器正式运行源码：`0518cb9cee0c0a72ddbd064f24f0b5b3b69fc932`；最终文档提交 SHA 见 PR #14
 - 四号草稿 PR：[#14](https://github.com/llxxy-cn/devops-b09/pull/14)，当前直接以 `main` 为 base
 
 本机在该起点直接运行 `unittest discover`：20 项中 19 项通过、1 项因需要 Linux 课程主机而跳过。四号课程服务器重新运行 `python3 run_e11e12.py test`，20 项全部通过。四号环境镜像 ID 为 `sha256:0f14125df9d889f01f0f9cf1ab37c0a216d8e26212cca99504a6304b19f3701f`。
@@ -26,11 +26,11 @@ B3 课程服务器证据包路径为 `/root/devops-submissions/241880585/e12-b3-
 
 Windows 检出会因 `core.autocrlf=true` 将 B1 候选 Dockerfile 转成 CRLF，工作树 SHA256 与 B1 交接值不同；按 LF 还原后的 SHA256 与 `1fa4739abd325c84e0ed4b3bbdcbcaf39c7c500fc0d80ba4707216e5cbe21a64` 一致。正式镜像构建须在 Linux 服务器重新核对文件字节哈希。
 
-## 正式 A/B 接口交接（待完成）
+## 正式 A/B 接口交接（已完成）
 
-已在 [A 组 PR #17](https://github.com/a-bi-chen/DevOps_1020_Student_Cloud/pull/17#issuecomment-6821585299) 请求本轮报告和共同项目的完整 SHA；等待 A 组回传。
+2026-11-16，A09 张海洋（241880375）在组群确认：[A 组 PR #17](https://github.com/a-bi-chen/DevOps_1020_Student_Cloud/pull/17) head `0cd8054911a18be96900e05c3b7747c6b35a4112` 的归档 `incremental-check.json` 就是本轮正式 A→B 交付，未另生成新报告。正式独立接收、Linux 构建和复检、A/B 字段及产物哈希见[正式交接记录](formal/README.md)与[正式清单](formal/manifest.json)。
 
-记录 A 组负责人、API 主机、SSH 转发、`base`/`target` 完整提交、项目路径、候选 Dockerfile SHA256、原始报告文件/URI、原始字节 SHA256、`schema_version`、`kind`、`commit`、交付时间。保留原始报告和交接记录；不得把 B3 预跑报告充作 A 组报告。
+A 组原始归档 SHA256 为 `19479d51720decbca2518453e00646a4700c7b21101b018965bfdbc0c8cce648`，增量报告 SHA256 为 `8508d50232bfa4a529d51accd4dc94e5765a0fe0a0b130eebf73f8f866a98716`；base=`3fcb72029bf560afde2d29436395ff3b979a19fd`，target=`15c059958a41a5a0513dc048036439843a34ad28`。A 报告属于双 C 源文件集成样例，与 B1 真实项目分别记录。
 
 当前 B 端独立接收入口：
 
@@ -47,7 +47,7 @@ python3 labs/e11e12/repair_report.py \
 
 入口会检查 `e11e12-1`、报告类型、状态、目标提交及文件 SHA256。补丁生成后，在独立干净副本上检查并应用，再构建、测试、运行、复检；另外保存旧报告 `STALE_REPORT` 和篡改内容 `ARTIFACT_HASH_MISMATCH` 的拒绝证据。
 
-已对 A 组仓库 `student/241880375/e11-e12` 的 2026-11-10 归档报告完成一次**兼容性预检**：[清单](compat-preflight/manifest.json)。原始报告、补丁和两条拒绝日志保存在 `compat-preflight/`。报告 SHA 与 A 的摘要吻合，B 端生成补丁，`git apply --check` 成功；旧 commit 与错误哈希均被拒绝且无补丁。随后在 Linux 课程服务器用四号候选镜像构建和运行，改动 `config.h` 后目标重新编译、输出 `1→2`，BuildChecker 复检 `missing_count=0`；结果见[服务器预跑清单](preflight/manifest.json)中的 `a_archived_compatibility`。此报告不是正式联调的当轮新报告。
+在 A 组确认前，该归档仅作为兼容性预检；预检清单和两条拒绝日志保存在 `compat-preflight/`。确认后，四号重新从原始归档独立解包、校验完整提交和原始报告、生成补丁，在课程服务器候选镜像中构建运行 `1→2`，BuildChecker 复检 MD=0。正式复验结果单独保存在 `formal/`，不以预检结果替代正式记录。
 
 ## 四号 SSH 转发五阶段预跑（已完成）
 
@@ -60,13 +60,13 @@ API 在课程服务器 `127.0.0.1:18084`，客户端经 SSH 转发到本机 `127
 
 两项任务同键同输入返回原 job，同键改 target 返回 HTTP 409；修复输入均精确引用本 job 的增量报告，`accepted=true`、复检无 MD。真实项目使用 `fixtures/e11e12-b1-real`，C0=`30ffe4c41492334478a2446a8be0662d3f31d478`，C1=`a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293`；唯一 MD 为 `main.o → extra.h`，补丁见[真实项目补丁](preflight/real-candidate.patch)，程序输出 `hello E3`，`extra.h` 变化后 `main.o` 重建。
 
-服务器预跑证据包：`/root/devops-submissions/241880556/e12-b4-preflight-20261112-201312.tar.gz`，SHA256 `2a16e0c163bd4b41edc38beac76200d150ebb104a177dbb53bf15086f7704791`。包内含服务端 job 原始证据、SSH 转发客户端记录、测试/构建日志和 A 旧归档兼容性复验。正式 A/B 报告交接仍待 A 组当轮报告。
+服务器预跑证据包：`/root/devops-submissions/241880556/e12-b4-preflight-20261112-201312.tar.gz`，SHA256 `2a16e0c163bd4b41edc38beac76200d150ebb104a177dbb53bf15086f7704791`。正式运行另存证据包 `/root/devops-submissions/241880556/e12-b4-formal-20261116-r2.tar.gz`，SHA256 `1dc764f75f59fc2faa97beb0f48003631cd395825f7261806c95c51f4117cd67`，本机已再次核对。
 
 `mode=e12` 当前在本 job 内生成增量报告。A 组外部报告按上一节由 B 端单独接收；若正式接口约定要求直接注入外部报告，须先更新接口和实现并重新验证。
 
-## 最终交付（待完成）
+## 最终交付
 
 - 四号 PR 与 review、最终源码提交 SHA
 - 四号提交及合并后 `main` 的 E7、E8–E10、E11–E12 CI 链接
-- A→B 报告交接、独立修复复验、两个正式 API job 的证据索引
+- [A→B 正式报告交接与独立修复复验](formal/README.md)、[两个正式 API job 的证据索引](formal/manifest.json)
 - 真实项目记录、证据包 SHA256、个人报告与 ADR

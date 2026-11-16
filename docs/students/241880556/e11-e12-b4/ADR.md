@@ -21,7 +21,7 @@
 - B 端输出：`candidate.patch`、接收日志、构建/测试/复检日志、镜像 ID、无 MD 报告及证据包 SHA256。
 - API 输入：`mode=e12` 请求、幂等键；输出：五阶段 envelope、产物 URI/SHA256、job/trace、实际候选镜像 ID。
 - 已验证：四号 CI ZIP 的 368 个清单项完整；SSH 转发预跑两项成功；A 组旧归档报告的独立接收、构建与复检成功，旧报告和错误哈希被拒。
-- 待验证：A 组本轮新报告的正式交接与独立复验、最终 PR 和合并后 `main` CI。
+- 2026-11-16 A 组确认 PR #17 的归档报告即本轮正式交付。四号从同字节原始归档重新独立接收、应用补丁、构建并由 BuildChecker 复检 MD=0；两项新 E12 API job 经 SSH 转发五阶段成功。详见 `formal/manifest.json`。最终 PR 和合并后 `main` CI 由 PR #14 跟踪。
 
 ## 约束
 
