@@ -2,6 +2,8 @@
 
 2026-11-16，A09 张海洋（241880375）在组群明确确认：A 组 PR #17、head `0cd8054911a18be96900e05c3b7747c6b35a4112` 归档的 E11-A `incremental-check.json` 就是本轮正式交付，没有另生成新报告。A 组另做的 `course-one/make-introduction` 真实项目不属于本次接口交付。完整字段见 [manifest.json](manifest.json)。
 
+A 组后来给出的最终 `main=b0765a0f990b10a28392fe6d4318b4b73a41177a` 中，正式归档的 Git blob 与 PR #17 head 完全相同。A 组新增的签收清单所需 `validation.json`、`incremental.log`、修复后提交和最终重检报告见[签收产物](signoff/README.md)。该签收复验直接消费 A 的原始增量报告，未使用 `fixed-md.json`。
+
 ## A 端输入与 B 端独立接收
 
 - A 端归档：[固定提交原始文件](https://raw.githubusercontent.com/a-bi-chen/DevOps_1020_Student_Cloud/0cd8054911a18be96900e05c3b7747c6b35a4112/evidence/students/241880375/e11-e12/e11e12-evidence-241880375.tar.gz)，SHA256 `19479d51720decbca2518453e00646a4700c7b21101b018965bfdbc0c8cce648`。
@@ -26,4 +28,4 @@ API 任务的 repair 各自引用**同一 job** 的增量报告产物；A→B �
 
 ## 证据包
 
-课程服务器：`/root/devops-submissions/241880556/e12-b4-formal-20261116-r2.tar.gz`，SHA256 `1dc764f75f59fc2faa97beb0f48003631cd395825f7261806c95c51f4117cd67`；本机再次核对一致。包内有 A 原始归档、项目 `.git`、报告、B 接收/构建/复检、两个 API job 的服务端原始证据与 SSH 转发客户端下载记录。本机副本：`D:\devops\e12-b4-formal-20261116-r2.tar.gz`。
+最终签收证据包在课程服务器 `/root/devops-submissions/241880556/e12-b4-formal-signoff-20261116-v2.tar.gz`，SHA256 `df1e6d95d670d81b4b5c08f4ef7abb50fa092bc14b61b26b3075f0d78ea63b5e`；本机再次核对一致。包内有 A 原始归档、项目 `.git`、B 接收/构建/复检、签收补丁与修复提交 bundle、两个 API job 的服务端原始证据与 SSH 转发客户端下载记录。本机副本：`D:\devops\e12-b4-formal-signoff-20261116-v2.tar.gz`。此前不含签收新增产物的证据包 SHA256 为 `1dc764f75f59fc2faa97beb0f48003631cd395825f7261806c95c51f4117cd67`。

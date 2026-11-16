@@ -28,7 +28,7 @@ Windows 检出会因 `core.autocrlf=true` 将 B1 候选 Dockerfile 转成 CRLF�
 
 ## 正式 A/B 接口交接（已完成）
 
-2026-11-16，A09 张海洋（241880375）在组群确认：[A 组 PR #17](https://github.com/a-bi-chen/DevOps_1020_Student_Cloud/pull/17) head `0cd8054911a18be96900e05c3b7747c6b35a4112` 的归档 `incremental-check.json` 就是本轮正式 A→B 交付，未另生成新报告。正式独立接收、Linux 构建和复检、A/B 字段及产物哈希见[正式交接记录](formal/README.md)与[正式清单](formal/manifest.json)。
+2026-11-16，A09 张海洋（241880375）在组群确认：[A 组 PR #17](https://github.com/a-bi-chen/DevOps_1020_Student_Cloud/pull/17) head `0cd8054911a18be96900e05c3b7747c6b35a4112` 的归档 `incremental-check.json` 就是本轮正式 A→B 交付，未另生成新报告。A 组最终 main `b0765a0f990b10a28392fe6d4318b4b73a41177a` 中的归档 Git blob 相同。正式独立接收、Linux 构建和复检、A/B 字段及产物哈希见[正式交接记录](formal/README.md)、[签收产物](formal/signoff/README.md)与[正式清单](formal/manifest.json)。
 
 A 组原始归档 SHA256 为 `19479d51720decbca2518453e00646a4700c7b21101b018965bfdbc0c8cce648`，增量报告 SHA256 为 `8508d50232bfa4a529d51accd4dc94e5765a0fe0a0b130eebf73f8f866a98716`；base=`3fcb72029bf560afde2d29436395ff3b979a19fd`，target=`15c059958a41a5a0513dc048036439843a34ad28`。A 报告属于双 C 源文件集成样例，与 B1 真实项目分别记录。
 
@@ -60,7 +60,7 @@ API 在课程服务器 `127.0.0.1:18084`，客户端经 SSH 转发到本机 `127
 
 两项任务同键同输入返回原 job，同键改 target 返回 HTTP 409；修复输入均精确引用本 job 的增量报告，`accepted=true`、复检无 MD。真实项目使用 `fixtures/e11e12-b1-real`，C0=`30ffe4c41492334478a2446a8be0662d3f31d478`，C1=`a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293`；唯一 MD 为 `main.o → extra.h`，补丁见[真实项目补丁](preflight/real-candidate.patch)，程序输出 `hello E3`，`extra.h` 变化后 `main.o` 重建。
 
-服务器预跑证据包：`/root/devops-submissions/241880556/e12-b4-preflight-20261112-201312.tar.gz`，SHA256 `2a16e0c163bd4b41edc38beac76200d150ebb104a177dbb53bf15086f7704791`。正式运行另存证据包 `/root/devops-submissions/241880556/e12-b4-formal-20261116-r2.tar.gz`，SHA256 `1dc764f75f59fc2faa97beb0f48003631cd395825f7261806c95c51f4117cd67`，本机已再次核对。
+服务器预跑证据包：`/root/devops-submissions/241880556/e12-b4-preflight-20261112-201312.tar.gz`，SHA256 `2a16e0c163bd4b41edc38beac76200d150ebb104a177dbb53bf15086f7704791`。最终签收证据包 `/root/devops-submissions/241880556/e12-b4-formal-signoff-20261116-v2.tar.gz`，SHA256 `df1e6d95d670d81b4b5c08f4ef7abb50fa092bc14b61b26b3075f0d78ea63b5e`，本机已再次核对。
 
 `mode=e12` 当前在本 job 内生成增量报告。A 组外部报告按上一节由 B 端单独接收；若正式接口约定要求直接注入外部报告，须先更新接口和实现并重新验证。
 

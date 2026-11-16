@@ -5,6 +5,8 @@
   "a_repository": "https://github.com/a-bi-chen/DevOps_1020_Student_Cloud",
   "a_pr": "https://github.com/a-bi-chen/DevOps_1020_Student_Cloud/pull/17",
   "a_pr_head": "0cd8054911a18be96900e05c3b7747c6b35a4112",
+  "a_final_main": "b0765a0f990b10a28392fe6d4318b4b73a41177a",
+  "a_archive_git_blob_at_pr_head_and_main": "5c52c1824f147019ac25f6706f0549318a1f0cec",
   "a_archive_uri": "https://raw.githubusercontent.com/a-bi-chen/DevOps_1020_Student_Cloud/0cd8054911a18be96900e05c3b7747c6b35a4112/evidence/students/241880375/e11-e12/e11e12-evidence-241880375.tar.gz",
   "a_archive_sha256": "19479d51720decbca2518453e00646a4700c7b21101b018965bfdbc0c8cce648",
   "a_project_member": "data/integration-sample/repo",
@@ -67,6 +69,22 @@
     "accepted": true,
     "recheck_missing_count": 0
   },
-  "evidence_archive_on_server": "/root/devops-submissions/241880556/e12-b4-formal-20261116-r2.tar.gz",
-  "evidence_archive_sha256": "1dc764f75f59fc2faa97beb0f48003631cd395825f7261806c95c51f4117cd67"
+  "a_report_signoff": {
+    "accepted": true,
+    "input_report_sha256": "8508d50232bfa4a529d51accd4dc94e5765a0fe0a0b130eebf73f8f866a98716",
+    "repaired_commit": "817b2459d53f586f7f3800ce20d0c3f002621f77",
+    "repaired_parent_commit": "15c059958a41a5a0513dc048036439843a34ad28",
+    "changed_files": ["Makefile"],
+    "candidate_patch_sha256": "88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af",
+    "validation_sha256": "aeb157c32906bfe7859fc93e14c2a52cbb5e63dad0004c033d8c29f788475394",
+    "build_log_sha256": "29bfc7126a891b1deca1f143ff3f7d2a0003e1c4d43a3df25ba739524b1a9a0c",
+    "incremental_log_sha256": "52b1b0840faee45dffd5d909945f740dd9fad73b1dc58e544ac1c0491ce05e57",
+    "recheck_report_sha256": "08792b92a49d4b4cd59c4919f4a7c9d4679bf3bf1010559190046e53a7080c00",
+    "repaired_project_bundle_sha256": "e6f7cd9802728705c85fd003ee031900a44691715c1768590a5de830017c0dda",
+    "recheck_missing_count": 0,
+    "remaining_redundant_count": 1
+  },
+  "evidence_archive_on_server": "/root/devops-submissions/241880556/e12-b4-formal-signoff-20261116-v2.tar.gz",
+  "evidence_archive_sha256": "df1e6d95d670d81b4b5c08f4ef7abb50fa092bc14b61b26b3075f0d78ea63b5e",
+  "previous_evidence_archive_sha256": "1dc764f75f59fc2faa97beb0f48003631cd395825f7261806c95c51f4117cd67"
 }
