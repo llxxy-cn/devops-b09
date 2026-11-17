@@ -1,6 +1,6 @@
 # E11–E12 B 组第四人：正式联调记录
 
-> 本目录记录实际完成的事项。带“待完成”的项目不得作为验收结果引用。
+> 本目录记录四号的工作、正式 A/B 签收及合并后的最终 CI。
 
 ## 源码与基线
 
@@ -10,7 +10,7 @@
 - B3 PR：[#13](https://github.com/llxxy-cn/devops-b09/pull/13)，已于 2026-11-13（北京时间）合并到 `main`，合并提交 `ffe52ed5501dd903a5030bbf907189cc18b5f299`
 - B3 的 E7、E8–E10、E11–E12 CI 在该提交均成功；这不是四号最终 CI
 - 四号服务器正式运行源码：`0518cb9cee0c0a72ddbd064f24f0b5b3b69fc932`；最终文档提交 SHA 见 PR #14
-- 四号 PR：[#14](https://github.com/llxxy-cn/devops-b09/pull/14)，以 `main` 为 base；正式证据提交后六项 CI 通过，已转为可审查状态
+- 四号 PR：[#14](https://github.com/llxxy-cn/devops-b09/pull/14)，已于 2026-11-17 合并到 `main`，合并提交 `0c373199fc0f0528d930da039ca2fe642027d40b`
 
 本机在该起点直接运行 `unittest discover`：20 项中 19 项通过、1 项因需要 Linux 课程主机而跳过。四号课程服务器重新运行 `python3 run_e11e12.py test`，20 项全部通过。四号环境镜像 ID 为 `sha256:0f14125df9d889f01f0f9cf1ab37c0a216d8e26212cca99504a6304b19f3701f`。
 
@@ -66,7 +66,7 @@ API 在课程服务器 `127.0.0.1:18084`，客户端经 SSH 转发到本机 `127
 
 ## 最终交付
 
-- 四号 [PR #14](https://github.com/llxxy-cn/devops-b09/pull/14) 已可审查；最终源码提交与 Checks 以 PR head 为准
-- 四号正式证据提交 `8bb7d36` 的 E7、E8–E10、E11–E12 六项 CI 均通过；合并后 `main` CI 由仓库维护者合并后确认
+- 四号 [PR #14](https://github.com/llxxy-cn/devops-b09/pull/14) 已合并；个人分支最终提交 `29983e2e28cde5c1c7db9dbf6da8a56fb1e5b59c`，`main` 合并提交 `0c373199fc0f0528d930da039ca2fe642027d40b`
+- 合并后 `main` 的 [E7](https://github.com/llxxy-cn/devops-b09/actions/runs/44020918267)、[E8–E10](https://github.com/llxxy-cn/devops-b09/actions/runs/44020918259)、[E11–E12](https://github.com/llxxy-cn/devops-b09/actions/runs/44020918231) CI 均成功
 - [A→B 正式报告交接与独立修复复验](formal/README.md)、[两个正式 API job 的证据索引](formal/manifest.json)
 - 真实项目记录、证据包 SHA256、个人报告与 ADR
