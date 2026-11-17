@@ -1,0 +1,41 @@
+{
+  "schema_version": "e12-b4-a09-signoff-1",
+  "accepted": true,
+  "job_id": "job-1bd0ed1b449f44f293853df90440844f",
+  "trace_id": "trace-4e7c0c6afd0447f9869d2f5e1ee6f4ae",
+  "a_job_id": "job-1bd0ed1b449f44f293853df90440844f",
+  "a_trace_id": "trace-4e7c0c6afd0447f9869d2f5e1ee6f4ae",
+  "base_commit": "3fcb72029bf560afde2d29436395ff3b979a19fd",
+  "target_commit": "15c059958a41a5a0513dc048036439843a34ad28",
+  "repaired_commit": "817b2459d53f586f7f3800ce20d0c3f002621f77",
+  "source_report_kind": "incremental-check",
+  "source_report_sha256": "8508d50232bfa4a529d51accd4dc94e5765a0fe0a0b130eebf73f8f866a98716",
+  "candidate_patch_sha256": "88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af",
+  "build_log_sha256": "29bfc7126a891b1deca1f143ff3f7d2a0003e1c4d43a3df25ba739524b1a9a0c",
+  "incremental_log_sha256": "52b1b0840faee45dffd5d909945f740dd9fad73b1dc58e544ac1c0491ce05e57",
+  "recheck_report_sha256": "08792b92a49d4b4cd59c4919f4a7c9d4679bf3bf1010559190046e53a7080c00",
+  "candidate_image_id": "sha256:f1fb7db7e04db01ee05e5ebfac0a02eab69953747e1649297e5ed63b691af076",
+  "environment_image_id": "sha256:0f14125df9d889f01f0f9cf1ab37c0a216d8e26212cca99504a6304b19f3701f",
+  "build_command": "make clean && make app",
+  "run_command": "./app",
+  "program_output": "1",
+  "incremental_main_rebuilt": true,
+  "program_after_config_change": "2",
+  "recheck_missing_count": 0,
+  "recheck_remaining_findings": [
+    {
+      "type": "REDUNDANT",
+      "target": "main.o",
+      "dependency": "unused.h",
+      "evidence": [
+        {
+          "source": "make_database",
+          "artifact": "make-db.txt",
+          "line": 1050,
+          "declaration": "main.o: main.c unused.h config.h extra.h"
+        }
+      ],
+      "scope": "Not observed in this recipe job under this build configuration"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "status": "SUCCEEDED",
+  "job_id": "job-7f7332c3a178434781fdd151725fac6a",
+  "trace_id": "trace-e9b41a7d26e14449b40cb54b3fc7c0f1",
+  "image_id": "sha256:f1fb7db7e04db01ee05e5ebfac0a02eab69953747e1649297e5ed63b691af076",
+  "same_key_same_job": true,
+  "conflict_http_status": 409,
+  "stages": [
+    "draft",
+    "full-check",
+    "incremental-check",
+    "repair",
+    "recheck"
+  ],
+  "verified_sha256": {
+    "draft.json": "bd3fd4844026279ad3b46312126b71500113cc3d20eba2c4ddc93f13d2b4bd3a",
+    "full-check.json": "184115ef5773c2742aa875f508f1c1e1e0af96f2e4fe4c3fc4b7a40f0034830e",
+    "incremental-check.json": "4b3b68ba26cce8a44b965bd24588dc3d8dfe2d43017771d68d697f06f8950bfe",
+    "repair.json": "e80c59bd102a4010c32256fae0042f8da7448d0a84caccf3c10da5bd4c91972d",
+    "recheck.json": "2f1a9674752bcf0d59386b54bca7e26b0c406e58eada7fc20b6f1dd5cfdcc614",
+    "candidate.patch": "88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af",
+    "image-execution/001.json": "dcb37910965a74468aed21e85bc51b0456a32902438c96945d10ae04031dc423",
+    "image-execution/002.json": "701aaf7c2598fa825207a0f9369d1c3aefda85e67bf55ae65e9e32d994e29263",
+    "image-execution/003.json": "4474eb1adcc68c805201054c551ba39d07cb534bb76c66e7932572257a561d61",
+    "image-execution/004.json": "44a800d42b22064128761a392e3847771a993c75f8d558f7eadb4c234276fddc",
+    "image-execution/005.json": "0890041f5a45803175f0edb381eaef76a3f708494be48301342335bc971d1df4",
+    "image-execution/006.json": "76755d2aeb65f73a091af84cf7b8c42874f4c5ed5ff715d75a06dc3baa8968dc",
+    "image-execution/007.json": "cafe3273baea00d88b09b531be6cf026675df2c57e1b8238c7f1ee8d465061b0",
+    "image-execution/008.json": "93cbd2a969c6fc49a8f5c5e6fd8ff3893765ac5da769b52cda69b7909b4a85df",
+    "image-execution/009.json": "916ccd1acb69ce4e8ea7fdb47a6cbde7e3c6599af828f396a3994f60cba7ec13",
+    "image-execution/010.json": "93cbd2a969c6fc49a8f5c5e6fd8ff3893765ac5da769b52cda69b7909b4a85df",
+    "image-execution/011.json": "916ccd1acb69ce4e8ea7fdb47a6cbde7e3c6599af828f396a3994f60cba7ec13",
+    "image-execution/012.json": "45733e85d628a6217a12d4ad95556a853c88a0989dc2efcd0f376947effa4f9a",
+    "image-execution/013.json": "02052bcb9425944df52776373fef1cf37fc4a080b125b1c9ea038b8d88e57e1d",
+    "image-execution/014.json": "b07e49d8dcb06105fee882efe2b495d242411fa60513ba1109c91632cd9efc89"
+  }
+}

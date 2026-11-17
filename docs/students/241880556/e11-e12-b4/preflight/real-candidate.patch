@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -10,7 +10,7 @@
+ $(TARGET): $(OBJECTS)
+ 	$(CC) $(CFLAGS) -o $@ $(OBJECTS)
+ 
+-main.o: main.c helper.h
++main.o: main.c helper.h extra.h
+ 	$(CC) $(CFLAGS) -c main.c
+ 
+ helper.o: helper.c helper.h config.h
