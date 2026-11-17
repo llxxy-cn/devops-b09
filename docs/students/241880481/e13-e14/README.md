@@ -70,3 +70,11 @@ bash docs/students/241880481/e13-e14/run-server-preflight.sh
 脚本为每次执行创建唯一的 `work/e13-b1-server-YYYYmmdd-HHMMSS/`。每一步均有 `.log` 原始输出和
 `.exitcode`；`summary.tsv` 汇总退出码。C2/C3 的预期程序退出码是 1，脚本会核对错误类别和“无补丁”，
 随后恢复正确报告再跑一次。脚本自身最终返回 0 表示所有成功/拒绝断言均符合预期。
+
+## 2026-11-17 课程服务器预检
+
+- 实测提交：`d59745c81e4613292e9b44a3a05f8853806bb43a`
+- 结果：29 项断言通过，`FAILURES=0`。B09 固定样例五阶段和交换候选检查通过。
+- A09 PR #17 归档和原始增量报告校验通过。C2 返回 `STALE_REPORT`，C3 返回 `ARTIFACT_HASH_MISMATCH`，均未生成补丁。恢复原始报告后成功生成补丁。
+- 服务器证据目录：`/root/devops-b09-e13-b1.hH7koO/work/e13-b1-server-20261117-160640/`，汇总见 `summary.tsv` 和 `assertions.log`。
+- 正式 E13 C1–C3：等待 A09 配对输入。
