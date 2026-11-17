@@ -1,5 +1,7 @@
 # A09 正式报告的 B09 修复签收产物
 
+2026-11-17，用户转达 A09 已核对这些回传产物并确认双方共同签收 E12。此确认来自组群转述；报告原始字节、修复和复检的机器证据见下文。
+
 A09 最终 `main` 为 `b0765a0f990b10a28392fe6d4318b4b73a41177a`。GitHub 内容 API 显示该提交中正式归档的 blob 为 `5c52c1824f147019ac25f6706f0549318a1f0cec`、大小 7149921 字节，与 PR #17 head `0cd8054911a18be96900e05c3b7747c6b35a4112` 中的归档完全相同；原始归档 SHA256 为 `19479d51720decbca2518453e00646a4700c7b21101b018965bfdbc0c8cce648`。
 
 B09 使用归档内项目 `data/integration-sample/repo` 的 target `15c059958a41a5a0513dc048036439843a34ad28`，直接消费 A09 原始 `incremental-check.json`（SHA256 `8508d50232bfa4a529d51accd4dc94e5765a0fe0a0b130eebf73f8f866a98716`），未用 `fixed-md.json`。B 端原始报告接收入口重新生成 [candidate.patch](candidate.patch)，SHA256 `88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af`。

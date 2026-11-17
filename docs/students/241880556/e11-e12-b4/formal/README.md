@@ -4,6 +4,8 @@
 
 A 组后来给出的最终 `main=b0765a0f990b10a28392fe6d4318b4b73a41177a` 中，正式归档的 Git blob 与 PR #17 head 完全相同。A 组新增的签收清单所需 `validation.json`、`incremental.log`、修复后提交和最终重检报告见[签收产物](signoff/README.md)。该签收复验直接消费 A 的原始增量报告，未使用 `fixed-md.json`。
 
+2026-11-17 用户转达 A09 已核对 B09 回传产物，双方确认共同签收 E12；确认来源和范围记录在[正式清单](manifest.json)。
+
 ## A 端输入与 B 端独立接收
 
 - A 端归档：[固定提交原始文件](https://raw.githubusercontent.com/a-bi-chen/DevOps_1020_Student_Cloud/0cd8054911a18be96900e05c3b7747c6b35a4112/evidence/students/241880375/e11-e12/e11e12-evidence-241880375.tar.gz)，SHA256 `19479d51720decbca2518453e00646a4700c7b21101b018965bfdbc0c8cce648`。

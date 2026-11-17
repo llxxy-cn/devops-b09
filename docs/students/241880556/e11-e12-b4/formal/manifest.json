@@ -84,6 +84,12 @@
     "recheck_missing_count": 0,
     "remaining_redundant_count": 1
   },
+  "joint_e12_signoff": {
+    "confirmed": true,
+    "confirmed_date_asia_shanghai": "2026-11-17",
+    "confirmation_source": "User relayed A09 group-chat confirmation after receiving B09 signoff artifacts",
+    "scope": "A09 formal incremental report handoff, B09 candidate patch, validation, repaired commit, build and incremental logs, final MD-free recheck"
+  },
   "evidence_archive_on_server": "/root/devops-submissions/241880556/e12-b4-formal-signoff-20261116-v2.tar.gz",
   "evidence_archive_sha256": "df1e6d95d670d81b4b5c08f4ef7abb50fa092bc14b61b26b3075f0d78ea63b5e",
   "previous_evidence_archive_sha256": "1dc764f75f59fc2faa97beb0f48003631cd395825f7261806c95c51f4117cd67"
