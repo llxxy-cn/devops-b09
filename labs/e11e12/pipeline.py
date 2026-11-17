@@ -45,6 +45,13 @@ def load_artifact(path, expected_sha256):
         raise Failure('ARTIFACT_HASH_MISMATCH','Artifact content changed during transfer')
     return json.loads(data)
 
+def load_fixed_report(request):
+    path=Path(request['fixed_report'])
+    expected_sha256=request.get('fixed_report_sha256')
+    if expected_sha256 is None:
+        return json.loads(path.read_text(encoding='utf-8'))
+    return load_artifact(path,expected_sha256)
+
 def repair_from_artifact(project, report_path, expected_sha256, kind, output):
     report = load_artifact(report_path, expected_sha256)
     target = subprocess.check_output(
@@ -249,8 +256,7 @@ def execute(request, out, job_id=None):
             md_envelope=stage('incremental-check',target_sha,current,[out/'incremental-report.json',out/'target-full/findings.json'])
         else:
             # E11-B still consumes a fixed MD input, separately from A's live output.
-            fixed=Path(request['fixed_report'])
-            envelope=json.loads(fixed.read_text(encoding='utf-8'))
+            envelope=load_fixed_report(request)
             check_envelope(envelope,target_sha,'fixed-md')
             current=envelope['data']
             if current.get('commit') != target_sha:

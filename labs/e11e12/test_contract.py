@@ -1,4 +1,6 @@
 import copy
+import hashlib
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -32,6 +34,25 @@ class Contracts(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/'r.json';p.write_text('{}')
             with self.assertRaises(pipeline.Failure):pipeline.load_artifact(p,'0'*64)
+    def test_e11_b_fixed_report_accepts_matching_transfer_hash(self):
+        with tempfile.TemporaryDirectory() as d:
+            report=Path(d)/'fixed.json'
+            report.write_text(json.dumps(self.report()))
+            request={'fixed_report':str(report),'fixed_report_sha256':hashlib.sha256(report.read_bytes()).hexdigest()}
+            loaded=pipeline.load_fixed_report(request)
+            self.assertEqual(loaded,self.report())
+    def test_e11_b_fixed_report_rejects_changed_transfer_bytes(self):
+        with tempfile.TemporaryDirectory() as d:
+            report=Path(d)/'fixed.json';report.write_text(json.dumps(self.report())+'\n')
+            request={'fixed_report':str(report),'fixed_report_sha256':'0'*64}
+            with self.assertRaisesRegex(pipeline.Failure,'Artifact content changed') as caught:
+                pipeline.load_fixed_report(request)
+            self.assertEqual(caught.exception.code,'ARTIFACT_HASH_MISMATCH')
+    def test_e11_b_fixed_report_keeps_legacy_request_compatibility(self):
+        with tempfile.TemporaryDirectory() as d:
+            report=Path(d)/'fixed.json';report.write_text(json.dumps(self.report()))
+            loaded=pipeline.load_fixed_report({'fixed_report':str(report)})
+            self.assertEqual(loaded,self.report())
     def test_same_key_same_request_same_job(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);store=server.Store(root/'jobs')

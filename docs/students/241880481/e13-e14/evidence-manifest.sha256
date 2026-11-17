@@ -1,0 +1,16 @@
+717fbb1e0aefea32ac9c9637b4beddbce714dc65ad8ee4b547ecb477e51e1056  work/e13-b1-20261117-final-verification/full-regression.log
+21bad3f1133acfdbf4c7cb2a8628c31aab3c815e4b3b45fda2a6d003902aa4ea  work/e13-b1-20261117-baseline/e12-sample-console.log
+b94341b0aec7b405fa3ba1b0def079b4364d8e676ec9e13ed14520cd9fbed7ad  work/e13-b1-20261117-baseline/e12-sample-01/result.json
+6c41c951fd712548d9837ba9c0f1e7f6f2cf9860642b44446adb5f554830855d  work/e13-b1-20261117-candidate/base.log
+42be9b7a01330c45a7184898950cc6a712f3462a271efbc022990bf9a570ef57  work/e13-b1-20261117-candidate/target.log
+ae72e801cd9d5244cd84c96b1a3a5edcdf323ee4b6d537143dae52ba4810cb4c  work/e13-b1-20261117-candidate/target-findings-git-env.log
+bc2dc0c21c50d8aabda156dec486afb4956b209348f61d000c1620448bb01b53  work/e13-b1-20261117-candidate/candidate-dockerfile.log
+64f98e507fe53f614b8751569f48de640fe0936f3897cb0b778906c90aa83c47  work/e13-b1-20261117-a09-valid/command.log
+b394fcf422243c32eeb03d133c7a658d7f47975868b9c088acd00bc45baa81b8  work/e13-b1-20261117-c2-stale/command.log
+848a4fd4ebeecc36e93f9a0058acc8fb4f4b801f29ee00442362d77c1b28efaf  work/e13-b1-20261117-c3-tampered/command.log
+2a0d0ac2b3e703803cf9d747ad31de4e238eb7243569054fbf826cd9f796df40  work/e13-b1-20261117-a09-restored/command.log
+5d9d077a6476a9eefb263f512557e210eac5d1e40f13c96a78755faafc53f84f  work/e13-b1-20261117-formal-valid/handoff.log
+946456f8e7d28f41183471dd4c92797aa23ed42358d0783ca6478089c278cc49  work/e13-b1-20261117-formal-valid/console.log
+9dd1623f4d8766a9d7e9d587d09f1019be0da6264a4b7006eca5a8e74425b07c  work/e13-b1-20261117-formal-valid/run/result.json
+955d268bce06b8cdb153715b17c48b220428291d263a756f9e1b285ffda0c917  work/e13-b1-20261117-formal-c3/console.log
+e68b7ba6ff80d22667dfc6cf9baff1a8050e36f46905c27c5a1489a373e3364a  work/e13-b1-20261117-formal-c3/run/result.json
