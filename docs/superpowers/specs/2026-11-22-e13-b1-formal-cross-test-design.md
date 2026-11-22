@@ -22,16 +22,23 @@
 {
   "project_compat": {
     "layout": "root-make",
-    "make_test": false,
-    "verify_repaired_headers": true
+    "make_test": false
+  },
+  "expected_source_report": {
+    "job_id": "job-131c4b1d8c34469aaa31f9e2a9da1736",
+    "trace_id": "trace-c224eaab92394b91bedfc2dea14ebc61",
+    "uri": "artifact://job-131c4b1d8c34469aaa31f9e2a9da1736/incremental-check.json",
+    "sha256": "504a3c505c1479c990f59143926247a2deb7415375de5d957a2d4938aefff224",
+    "bytes": 3052
   }
 }
 ```
 
 - `layout` 必须为 `root-make`，表示项目位于仓库根目录，并使用 Makefile 的显式对象规则和 GCC 实际依赖观测。
 - `make_test` 必须为布尔值。本项目为 `false`，因此验证以 `make clean`、`make app` 和 `./app` 输出断言替代不存在的 `make test`。
-- `verify_repaired_headers` 必须为 `true`，要求每条修复依赖单独触碰并验证对应对象重建。
 - `project_compat` 只允许用于 `e11-b`；其他模式或非法类型、缺字段、未知字段均返回 `INVALID_REQUEST`。
+- `expected_source_report` 在 `project_compat` 存在时必填，五个字段必须与 handoff 的 `source_report` 完全相等；本轮固定 `incremental-check.json` 实算为 3052 字节。
+- 正式兼容路径固定要求每条修复依赖单独触碰并验证对应对象重建，不把这一安全要求做成可关闭配置。
 - 不允许请求提供任意 shell 命令，避免扩大执行面。构建与运行命令继续使用代码内已有的固定 argv。
 
 ## Processing Order
@@ -41,7 +48,7 @@
 1. 解析并校验请求和 `project_compat`。
 2. 解析 base/target，确认 target 是固定完整提交；保存输入仓库状态。
 3. 在任何 DRAFT 构建前读取 handoff 报告，并校验报告文件声明 SHA256。
-4. 校验 handoff schema、kind、status、target commit、data commit，以及 A09 source job_id、trace_id、URI 和源报告 SHA256。
+4. 校验 handoff schema、kind、status、target commit、data commit，以及 A09 source job_id、trace_id、URI、源报告 SHA256 和字节数；上述来源字段必须与请求的 `expected_source_report` 完全相等。
 5. 构建 DRAFT 候选镜像并记录不可变 image ID。
 6. 复用现有补丁生成器，从经校验的 6 条 MD 生成 `candidate.patch`。
 7. 在独立 sandbox 应用补丁，执行 `make clean`、`make app`、`./app`，断言输出为 `1`。
@@ -77,6 +84,7 @@
 先补充失败测试，再修改生产代码：
 
 - `project_compat` 的合法配置、缺字段、错误类型、未知字段和错误模式；
+- `expected_source_report` 的完整字段、类型、正字节数以及与 handoff 来源身份的精确匹配；
 - 报告哈希、目标提交和来源身份在 DRAFT 调用前拒绝；
 - 根目录项目启用实际 Make/GCC 扫描，且不调用 `make test`；
 - 每条修复边分别触碰并检查目标对象重建；
@@ -84,4 +92,3 @@
 - 未提供 `project_compat` 的旧请求回归保持不变。
 
 完成后运行相关单元测试、完整 E11/E12/E13 回归、Python 编译检查、`git diff --check`，并用本地 Docker 执行正式 C1–C3。任何本地不具备的能力按实际失败记录，不替代服务器实测。
-
