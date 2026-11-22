@@ -1,0 +1,26 @@
+{
+  "mode": "e11-b",
+  "repo": "/course/data/e13-person2-686l99_j/c8-inputs/project",
+  "base": "e825395a5f8006f1c57a115cc25ea5c7802863ee",
+  "target": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+  "candidate": "/course/data/e13-person2-686l99_j/c8-inputs/offline-candidate.Dockerfile",
+  "expected_output": "1",
+  "build_timeout": 600,
+  "fixed_report": "/course/data/e13-person2-686l99_j/c8-inputs/fixed-md.json",
+  "fixed_report_sha256": "c19a6b11675b86bd5f2bfe348b3faeb65151b4c57681a54103510f642845e5cf",
+  "project_compat": {
+    "layout": "root-make",
+    "make_test": false
+  },
+  "expected_source_report": {
+    "job_id": "job-131c4b1d8c34469aaa31f9e2a9da1736",
+    "trace_id": "trace-c224eaab92394b91bedfc2dea14ebc61",
+    "uri": "artifact://job-131c4b1d8c34469aaa31f9e2a9da1736/incremental-check.json",
+    "sha256": "504a3c505c1479c990f59143926247a2deb7415375de5d957a2d4938aefff224",
+    "bytes": 3052
+  },
+  "offline_build": {
+    "base_image": "b09-e13-offline-python:3.13-slim",
+    "make_path": "/opt/offline-toolchain/make"
+  }
+}

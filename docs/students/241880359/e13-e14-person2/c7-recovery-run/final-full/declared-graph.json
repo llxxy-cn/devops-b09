@@ -1,0 +1,123 @@
+[
+  {
+    "target": "app",
+    "dependency": "helper.o",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 608,
+      "declaration": "app: main.o helper.o"
+    }
+  },
+  {
+    "target": "app",
+    "dependency": "main.o",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 608,
+      "declaration": "app: main.o helper.o"
+    }
+  },
+  {
+    "target": "helper.o",
+    "dependency": "add.h",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1221,
+      "declaration": "helper.o: helper.c add.h calculate.h sub.h"
+    }
+  },
+  {
+    "target": "helper.o",
+    "dependency": "calculate.h",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1221,
+      "declaration": "helper.o: helper.c add.h calculate.h sub.h"
+    }
+  },
+  {
+    "target": "helper.o",
+    "dependency": "helper.c",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1221,
+      "declaration": "helper.o: helper.c add.h calculate.h sub.h"
+    }
+  },
+  {
+    "target": "helper.o",
+    "dependency": "sub.h",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1221,
+      "declaration": "helper.o: helper.c add.h calculate.h sub.h"
+    }
+  },
+  {
+    "target": "main.o",
+    "dependency": "calculate.h",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1070,
+      "declaration": "main.o: main.c unused.h calculate.h config.h extra.h"
+    }
+  },
+  {
+    "target": "main.o",
+    "dependency": "config.h",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1070,
+      "declaration": "main.o: main.c unused.h calculate.h config.h extra.h"
+    }
+  },
+  {
+    "target": "main.o",
+    "dependency": "extra.h",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1070,
+      "declaration": "main.o: main.c unused.h calculate.h config.h extra.h"
+    }
+  },
+  {
+    "target": "main.o",
+    "dependency": "main.c",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1070,
+      "declaration": "main.o: main.c unused.h calculate.h config.h extra.h"
+    }
+  },
+  {
+    "target": "main.o",
+    "dependency": "unused.h",
+    "kind": "DECLARED",
+    "evidence": {
+      "source": "make_database",
+      "artifact": "make-db.txt",
+      "line": 1070,
+      "declaration": "main.o: main.c unused.h calculate.h config.h extra.h"
+    }
+  }
+]

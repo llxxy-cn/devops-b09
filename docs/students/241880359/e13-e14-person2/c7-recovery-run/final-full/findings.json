@@ -1,0 +1,75 @@
+{
+  "status": "SUCCEEDED",
+  "detector": "BUILDCHECKER_TEACHING",
+  "detector_version": "0.2.0-teaching",
+  "trace_id": "e6-0d675733d9f441ca8afa33ed3fb7df04",
+  "findings": [
+    {
+      "type": "REDUNDANT",
+      "target": "main.o",
+      "dependency": "unused.h",
+      "evidence": [
+        {
+          "source": "make_database",
+          "artifact": "make-db.txt",
+          "line": 1070,
+          "declaration": "main.o: main.c unused.h calculate.h config.h extra.h"
+        }
+      ],
+      "scope": "Not observed in this recipe job under this build configuration"
+    }
+  ],
+  "scope": "Single Make process; one final output per recipe job; successful read-open observations",
+  "build_command": [
+    "make",
+    "app"
+  ],
+  "clean_command": [
+    "make",
+    "clean"
+  ],
+  "input_sha256": {
+    "Dockerfile.broken": "5533472e3b7b8484ac6fcb9a4651f4ac0a2b844d5a38bdca5d4e46b6b7aa1fa7",
+    "Makefile": "485b931a606e10cd44d519c6279e763a4193b17093049e6a917ad42c35544d4a",
+    "SOURCE.json": "d3d630c4c09612149d10794669037885c1148715a46595eb3fcc30e368404b8a",
+    "add.h": "28beb1f182f086265dda6448da8128990291393cda47b5508f680177c8a7f41b",
+    "app": "e4f137de26b8267ea3d5e52999f13bce813c673d99f42e1c4d9ed840d4ac07d9",
+    "calculate.h": "b50bfcecd4b2b3139aaa0078faa37d3820a8900715c263353b3abaf473fd00d4",
+    "config.h": "ac32a92f4af359517c993d6e8583ea2d9b053c2ad171b4c602bc242894bd9696",
+    "extra.h": "5e20ae92639ee989af5638bd0308a6a86e71bdb4345f60b962ba9db7265e4f7c",
+    "helper.c": "f34a55fe83b3ac2d03dcbf1d7b436192246e3625b5783de9eba8fd6f24dc3ac2",
+    "helper.o": "5518204c24c17ba119beeca5cf22d04d16a6b1f35cba73c056345d62dbfecde7",
+    "main.c": "8be9cbf8728bce8383adf652bf6a9308bca7192922e038938a06b563d5c17823",
+    "main.o": "bbed845cbc6fb8cb9d26ea2192799029ad4887fd681c49ba525b957e1c995d6d",
+    "sub.h": "b27095d2761d1679a3ed5f2cf32de382bf4ca1c6bf4ca8903386b914d511683d",
+    "unused.h": "3f7fec0991b34d614462e29b450c76638f07171936a12df337c578c2d1481b37"
+  },
+  "clean_exit_code": 0,
+  "trace_command": [
+    "strace",
+    "-ff",
+    "-s",
+    "4096",
+    "-o",
+    "/course/work/e13-person2-686l99_j/c7-recovery-run/final-full/trace/t",
+    "-e",
+    "trace=%file,%process",
+    "make",
+    "-p",
+    "app"
+  ],
+  "build_exit_code": 0,
+  "observed_targets": [
+    "app",
+    "helper.o",
+    "main.o"
+  ],
+  "artifacts": {
+    "actual_graph": "actual-graph.json",
+    "declared_graph": "declared-graph.json",
+    "processes": "processes.json",
+    "make_database": "make-db.txt",
+    "trace_directory": "trace"
+  },
+  "elapsed_ms": 128
+}

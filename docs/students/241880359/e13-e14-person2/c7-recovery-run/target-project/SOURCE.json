@@ -1,0 +1,7 @@
+{
+  "upstream_url": "https://github.com/course-one/make-introduction",
+  "upstream_commit": "a789b2f4f09675fd882ed57c88a1677ec852fc48",
+  "upstream_component": "c/src/{main.c,add.c,sub.c,calculate.c} and the explicit Make dependency rules",
+  "adaptation": "Merged add/sub/calculate into helper.c and added config.h-driven VALUE output so the classroom validator can assert 1 -> 2; the upstream calculate.o header dependency defect is preserved.",
+  "student": "241880375"
+}

@@ -1,0 +1,4 @@
+{
+  "code": "COMMAND_FAILED",
+  "message": "docker failed; see 002.log"
+}
