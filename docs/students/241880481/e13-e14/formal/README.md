@@ -32,6 +32,10 @@
 `08cf6208d6555ab06e3dcb9cc417d60b80784f25ef6a225349d3a8fa74fab5c5`。候选补丁 SHA256
 `8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e`。
 
+本轮服务器代码 bundle（提交 `2401dce947d87773f9f31d6c34f3e38b3a949906`）SHA256 为
+`4d51fea0dd0f58f61f17c3f24051819484d319eac2758284f1b693c60f0b7a69`；更新后的交换材料包
+SHA256 为 `d5af6ccf3d7b9dcc5fbe5e77c07cf4b4df663a4239a8621eb93cb98961c5305e`。
+
 ## 给 A09 的回传消息草稿
 
 > B09（241880481）已消费你方固定 head `269827d…741a` 的 A09 项目和报告。C1 本地正式链路成功，
