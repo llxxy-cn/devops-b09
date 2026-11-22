@@ -1,0 +1,8 @@
+{
+  "status": 202,
+  "headers": {
+    "Server": "BaseHTTP/0.6 Python/3.13.14",
+    "Date": "Sun, 22 Nov 2026 13:12:32 GMT",
+    "Content-Type": "application/json; charset=utf-8"
+  }
+}

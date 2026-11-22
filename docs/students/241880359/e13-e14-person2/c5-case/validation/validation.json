@@ -1,0 +1,10 @@
+{
+  "accepted": false,
+  "checks": {
+    "patch_applies": true
+  },
+  "error": "docker failed; see 002.log",
+  "rollback": true,
+  "source_unchanged": true,
+  "image_id": "sha256:eceebb1b3e195eba6072ea91a3a04f2a5bab0054cd56ec923cf3ecfa2b13fcb3"
+}

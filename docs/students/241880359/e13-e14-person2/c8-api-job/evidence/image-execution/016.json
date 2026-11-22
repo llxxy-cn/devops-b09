@@ -1,0 +1,26 @@
+{
+  "image_id": "sha256:865f0990832116f6c822108472fe82946d146237f389714188127f465a4668c5",
+  "project": "/course/work/api-jobs/job-1ee21329632445b68c90210b0211d178/evidence/validation/sandbox",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--user",
+    "0:0",
+    "--mount",
+    "type=bind,source=/root/devops-b09-e13-offline.AXJSHY/work/api-jobs/job-1ee21329632445b68c90210b0211d178/evidence/validation/sandbox,target=/project",
+    "--workdir",
+    "/project",
+    "--entrypoint",
+    "make",
+    "sha256:865f0990832116f6c822108472fe82946d146237f389714188127f465a4668c5",
+    "-s",
+    "--eval=__e12_flags: ; @printf \"%s\\n\" \"$(CFLAGS)\"",
+    "__e12_flags"
+  ],
+  "status": "SUCCEEDED"
+}
