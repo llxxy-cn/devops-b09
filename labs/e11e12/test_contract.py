@@ -10,6 +10,14 @@ import server
 
 class Contracts(unittest.TestCase):
     def report(self):return {'schema_version':'e11e12-1','kind':'incremental-check','commit':'a'*40,'status':'SUCCEEDED'}
+    def source_report(self):
+        return {
+            'job_id':'job-source',
+            'trace_id':'trace-source',
+            'uri':'artifact://job-source/incremental-check.json',
+            'sha256':'1'*64,
+            'bytes':3052,
+        }
     def test_accept_current_report(self):pipeline.check_envelope(self.report(),'a'*40,'incremental-check')
     def test_reject_old_commit(self):
         with self.assertRaisesRegex(pipeline.Failure,'another commit'):pipeline.check_envelope(self.report(),'b'*40)
@@ -53,6 +61,67 @@ class Contracts(unittest.TestCase):
             report=Path(d)/'fixed.json';report.write_text(json.dumps(self.report()))
             loaded=pipeline.load_fixed_report({'fixed_report':str(report)})
             self.assertEqual(loaded,self.report())
+    def test_source_report_identity_accepts_exact_match(self):
+        source=self.source_report()
+        envelope={'source_report':copy.deepcopy(source)}
+        self.assertEqual(pipeline.check_source_report(envelope,source),source)
+    def test_source_report_identity_rejects_invalid_expected_fields(self):
+        valid=self.source_report()
+        invalid=[]
+        missing=dict(valid);missing.pop('bytes');invalid.append(missing)
+        unknown=dict(valid,unexpected='value');invalid.append(unknown)
+        invalid.append('not-an-object')
+        invalid.append(dict(valid,sha256='ABC'))
+        invalid.append(dict(valid,bytes=0))
+        for expected in invalid:
+            with self.subTest(expected=expected):
+                with self.assertRaises(pipeline.Failure) as caught:
+                    pipeline.check_source_report({'source_report':valid},expected)
+                self.assertEqual(caught.exception.code,'INVALID_REQUEST')
+    def test_source_report_identity_rejects_mismatch(self):
+        expected=self.source_report()
+        actual=dict(expected,job_id='job-other')
+        with self.assertRaises(pipeline.Failure) as caught:
+            pipeline.check_source_report({'source_report':actual},expected)
+        self.assertEqual(caught.exception.code,'SOURCE_REPORT_MISMATCH')
+    def test_project_compat_accepts_minimal_root_make_profile(self):
+        request={
+            'project_compat':{'layout':'root-make','make_test':False},
+            'expected_source_report':self.source_report(),
+        }
+        self.assertEqual(
+            pipeline.parse_project_compat(request,'e11-b'),
+            {'layout':'root-make','make_test':False},
+        )
+    def test_project_compat_rejects_invalid_fields(self):
+        source=self.source_report()
+        invalid=[
+            None,
+            {'layout':'root-make'},
+            {'make_test':False},
+            {'layout':'other','make_test':False},
+            {'layout':'root-make','make_test':'false'},
+            {'layout':'root-make','make_test':False,'command':'make app'},
+        ]
+        for compat in invalid:
+            with self.subTest(compat=compat):
+                request={'project_compat':compat,'expected_source_report':source}
+                with self.assertRaises(pipeline.Failure) as caught:
+                    pipeline.parse_project_compat(request,'e11-b')
+                self.assertEqual(caught.exception.code,'INVALID_REQUEST')
+    def test_project_compat_requires_e11_b_and_expected_source(self):
+        compat={'layout':'root-make','make_test':False}
+        with self.assertRaises(pipeline.Failure) as wrong_mode:
+            pipeline.parse_project_compat(
+                {'project_compat':compat,'expected_source_report':self.source_report()},
+                'e12',
+            )
+        self.assertEqual(wrong_mode.exception.code,'INVALID_REQUEST')
+        with self.assertRaises(pipeline.Failure) as missing_source:
+            pipeline.parse_project_compat({'project_compat':compat},'e11-b')
+        self.assertEqual(missing_source.exception.code,'INVALID_REQUEST')
+    def test_missing_project_compat_keeps_legacy_behavior(self):
+        self.assertIsNone(pipeline.parse_project_compat({},'e11-b'))
     def test_same_key_same_request_same_job(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);store=server.Store(root/'jobs')

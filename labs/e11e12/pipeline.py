@@ -52,6 +52,42 @@ def load_fixed_report(request):
         return json.loads(path.read_text(encoding='utf-8'))
     return load_artifact(path,expected_sha256)
 
+def validate_expected_source_report(expected):
+    fields={'job_id','trace_id','uri','sha256','bytes'}
+    if not isinstance(expected,dict) or set(expected)!=fields:
+        raise Failure('INVALID_REQUEST','expected_source_report must contain exactly the required fields')
+    if not all(isinstance(expected[name],str) and expected[name] for name in ('job_id','trace_id','uri')):
+        raise Failure('INVALID_REQUEST','Source report identity fields must be non-empty strings')
+    if not re.fullmatch(r'[0-9a-f]{64}',expected['sha256']):
+        raise Failure('INVALID_REQUEST','Source report SHA256 must be lowercase hexadecimal')
+    if not isinstance(expected['bytes'],int) or isinstance(expected['bytes'],bool) or expected['bytes']<=0:
+        raise Failure('INVALID_REQUEST','Source report bytes must be a positive integer')
+    if not expected['uri'].startswith(f"artifact://{expected['job_id']}/"):
+        raise Failure('INVALID_REQUEST','Source report URI must belong to its job')
+    return expected
+
+def check_source_report(envelope, expected):
+    validate_expected_source_report(expected)
+    actual=envelope.get('source_report')
+    if actual!=expected:
+        raise Failure('SOURCE_REPORT_MISMATCH','Fixed report provenance does not match the requested source')
+    return actual
+
+def parse_project_compat(request, mode):
+    if 'project_compat' not in request:
+        return None
+    compat=request['project_compat']
+    if mode!='e11-b':
+        raise Failure('INVALID_REQUEST','project_compat requires mode=e11-b')
+    if not isinstance(compat,dict) or set(compat)!={'layout','make_test'}:
+        raise Failure('INVALID_REQUEST','project_compat must contain exactly layout and make_test')
+    if compat['layout']!='root-make' or not isinstance(compat['make_test'],bool):
+        raise Failure('INVALID_REQUEST','Unsupported project_compat values')
+    if 'expected_source_report' not in request:
+        raise Failure('INVALID_REQUEST','project_compat requires expected_source_report')
+    validate_expected_source_report(request['expected_source_report'])
+    return dict(compat)
+
 def repair_from_artifact(project, report_path, expected_sha256, kind, output):
     report = load_artifact(report_path, expected_sha256)
     target = subprocess.check_output(
@@ -76,7 +112,7 @@ def command(argv, cwd, log):
         raise Failure('COMMAND_FAILED', f'{argv[0]} failed; see {log.name}')
     return p.stdout.strip()
 
-def snapshot(repo, revision, dest, logs, subdir=None):
+def snapshot(repo, revision, dest, logs, subdir=None, project_compat=None):
     sha = command(['git','rev-parse','--verify','--end-of-options',revision+'^{commit}'], repo, logs/(dest.name+'-resolve.log'))
     command(['git','clone','--local','--no-hardlinks','--no-checkout',repo.as_posix(),dest.as_posix()], repo, logs/(dest.name+'-clone.log'))
     if subdir:
@@ -85,10 +121,18 @@ def snapshot(repo, revision, dest, logs, subdir=None):
     project = dest / subdir if subdir else dest
     if project.resolve() != project or not project.is_dir():
         raise Failure('UNSUPPORTED_PROJECT', 'Project directory is missing or traverses a symlink')
-    # E8-E10 profile; fail early instead of silently ignoring other targets.
+    # Fail early instead of silently ignoring unsupported project layouts.
     names = {p.name for p in project.glob('*.c')}
-    if names != {'main.c','helper.c'} or not (project/'config.h').is_file():
-        raise Failure('UNSUPPORTED_PROJECT', 'Expected main.c/helper.c/config.h and explicit Make rules')
+    if project_compat:
+        supported = (
+            project_compat['layout'] == 'root-make'
+            and {'main.c','helper.c'}.issubset(names)
+            and (project/'Makefile').is_file()
+        )
+    else:
+        supported = names == {'main.c','helper.c'} and (project/'config.h').is_file()
+    if not supported:
+        raise Failure('UNSUPPORTED_PROJECT', 'Project files do not match the selected compatibility profile')
     return sha, project
 
 def full(project, folder):
@@ -140,10 +184,13 @@ class DraftRuntime:
         return scan(project, old, compiler_run=self.run, compiler_flags=flags)
 
 
-def validate_in_draft(target, patchfile, edits, out, runtime, expected, real):
+def validate_in_draft(target, patchfile, edits, out, runtime, expected, project_profile):
     sandbox = out / 'sandbox'
     shutil.copytree(target, sandbox, ignore=shutil.ignore_patterns('.git', '*.o', 'app'))
     checks = {}
+    edge_rebuilds = []
+    make_profile = bool(project_profile)
+    make_test = project_profile.get('make_test', False) if isinstance(project_profile, dict) else make_profile
     try:
         command(['git', 'init', '-b', 'main'], sandbox, out/'git-init.log')
         command(['git', 'add', '.'], sandbox, out/'git-add.log')
@@ -155,25 +202,49 @@ def validate_in_draft(target, patchfile, edits, out, runtime, expected, real):
         runtime.run(['make', 'clean'], sandbox)
         runtime.run(['make', 'app'], sandbox)
         checks['build'] = True
-        if real:
+        if make_test:
             runtime.run(['make', 'test'], sandbox)
         checks['test'] = runtime.run(['./app'], sandbox) == expected
-        header = sandbox / ('extra.h' if real else 'config.h')
-        affected = {edit['target'] for edit in edits if edit['dependency'] == header.name}
-        if not affected:
-            raise Failure('RECHECK_FAILED', f'Patch did not repair a dependency on {header.name}')
-        before = {name: (sandbox / name).stat().st_mtime_ns for name in affected}
-        time.sleep(1.05)
-        if real:
-            header.touch()
+        if make_profile:
+            for edit in edits:
+                header = sandbox / edit['dependency']
+                target_object = sandbox / edit['target']
+                if not header.is_file() or not target_object.is_file():
+                    raise Failure('RECHECK_FAILED', f"Cannot verify {edit['target']} -> {edit['dependency']}")
+                before = target_object.stat().st_mtime_ns
+                time.sleep(1.05)
+                header.touch()
+                runtime.run(['make', 'app'], sandbox)
+                output = runtime.run(['./app'], sandbox)
+                after = target_object.stat().st_mtime_ns
+                row = {
+                    'target': edit['target'],
+                    'dependency': edit['dependency'],
+                    'before_mtime_ns': before,
+                    'after_mtime_ns': after,
+                    'rebuilt': after > before,
+                    'output': output,
+                    'output_matches': output == expected,
+                }
+                edge_rebuilds.append(row)
+                save(out/'edge-rebuilds.json', edge_rebuilds)
+            checks['edge_rebuilds'] = len(edge_rebuilds) == len(edits) and all(
+                row['rebuilt'] and row['output_matches'] for row in edge_rebuilds
+            )
         else:
+            header = sandbox / 'config.h'
+            affected = {edit['target'] for edit in edits if edit['dependency'] == header.name}
+            if not affected:
+                raise Failure('RECHECK_FAILED', f'Patch did not repair a dependency on {header.name}')
+            before = {name: (sandbox / name).stat().st_mtime_ns for name in affected}
+            time.sleep(1.05)
             header.write_text('#define VALUE 2\n', encoding='utf-8')
-        runtime.run(['make', 'app'], sandbox)
-        output = runtime.run(['./app'], sandbox)
-        checks['header_change'] = output == (expected if real else '2') and all(
-            (sandbox / name).stat().st_mtime_ns > mtime for name, mtime in before.items()
-        )
-        recheck = runtime.scan(sandbox, real=real)
+            runtime.run(['make', 'app'], sandbox)
+            output = runtime.run(['./app'], sandbox)
+            checks['header_change'] = output == '2' and all(
+                (sandbox / name).stat().st_mtime_ns > mtime for name, mtime in before.items()
+            )
+        recheck = runtime.scan(sandbox, real=make_profile)
         save(out/'recheck.json', recheck)
         checks['no_missing'] = not any(f['type'] == 'MISSING' for f in recheck['findings'])
     except (Failure, OSError, ValueError, subprocess.TimeoutExpired) as error:
@@ -204,6 +275,7 @@ def execute(request, out, job_id=None):
         mode=request['mode']
         if mode not in ('e11-a','e11-b','e12'):
             raise Failure('INVALID_REQUEST','Unknown mode')
+        project_compat=parse_project_compat(request,mode)
         repo=Path(request['repo']).resolve()
         if not repo.is_dir():
             raise Failure('INVALID_REQUEST','Repository missing')
@@ -215,9 +287,19 @@ def execute(request, out, job_id=None):
             raise Failure('INVALID_REQUEST', 'project_subdir must be a relative project path')
         if subdir and mode != 'e12':
             raise Failure('INVALID_REQUEST', 'project_subdir requires mode=e12')
-        base_sha,base=snapshot(repo,request['base'],out/'base-project',out/'logs',subdir)
-        target_sha,target=snapshot(repo,request['target'],out/'target-project',out/'logs',subdir)
+        base_sha,base=snapshot(repo,request['base'],out/'base-project',out/'logs',subdir,project_compat)
+        target_sha,target=snapshot(repo,request['target'],out/'target-project',out/'logs',subdir,project_compat)
         result.update(base_commit=base_sha,target_commit=target_sha)
+        fixed_envelope = None
+        if mode == 'e11-b':
+            fixed_envelope=load_fixed_report(request)
+            check_envelope(fixed_envelope,target_sha,'fixed-md')
+            current=fixed_envelope['data']
+            if current.get('commit') != target_sha:
+                raise Failure('STALE_REPORT','Fixed report data commit mismatch')
+            if project_compat:
+                check_source_report(fixed_envelope,request['expected_source_report'])
+            save(out/'fixed-md-input.json',fixed_envelope)
         runtime = None
         expected = request.get('expected_output','1')
         if mode in ('e11-b','e12'):
@@ -227,7 +309,7 @@ def execute(request, out, job_id=None):
             if draft['status']!='SUCCEEDED':
                 raise Failure('DRAFT_FAILED',draft.get('error','Inspect draft-build logs'))
             stage('draft',target_sha,draft,[out/'draft-build/result.json'])
-            if mode == 'e12':
+            if mode == 'e12' or project_compat:
                 image_id = draft['attempts'][-1]['image_id']
                 if 'COURSE_HOST_ROOT' not in os.environ:
                     raise Failure('DRAFT_RUNTIME_UNAVAILABLE', 'Start E12 through run_e11e12.py')
@@ -256,24 +338,19 @@ def execute(request, out, job_id=None):
             md_envelope=stage('incremental-check',target_sha,current,[out/'incremental-report.json',out/'target-full/findings.json'])
         else:
             # E11-B still consumes a fixed MD input, separately from A's live output.
-            envelope=load_fixed_report(request)
-            check_envelope(envelope,target_sha,'fixed-md')
-            current=envelope['data']
-            if current.get('commit') != target_sha:
-                raise Failure('STALE_REPORT','Fixed report data commit mismatch')
-            save(out/'fixed-md-input.json',envelope)
             md_envelope=stage('fixed-md',target_sha,current,[out/'fixed-md-input.json'])
         if mode in ('e11-b','e12'):
             reference=result['stages'][-1]['artifact']
             report_path = out / (md_envelope['kind'] + '.json')
             before=(target/'Makefile').read_bytes()
             patchfile=out/'candidate.patch'
-            kind = 'incremental-check' if runtime else 'fixed-md'
+            kind = md_envelope['kind']
             edits = repair_from_artifact(target, report_path, reference['sha256'], kind, patchfile)
             save(out/'repair-plan.json',edits)
             stage('repair',target_sha,{'edits':edits,'input_report':reference},[patchfile,out/'repair-plan.json'])
             if runtime:
-                verdict, sandbox = validate_in_draft(target, patchfile, edits, out/'validation', runtime, expected, bool(subdir))
+                profile = project_compat or ({'layout':'subdir-make','make_test':True} if subdir else False)
+                verdict, sandbox = validate_in_draft(target, patchfile, edits, out/'validation', runtime, expected, profile)
             else:
                 verdict = validate(target, patchfile, out/'validation')
                 sandbox = target
@@ -293,7 +370,14 @@ def execute(request, out, job_id=None):
                 (target/'Makefile').write_bytes((sandbox/'Makefile').read_bytes())
                 verdict['source_unchanged'] = False
                 save(out/'validation/validation.json', verdict)
-            stage('recheck',target_sha,{'validation':verdict,'findings':final['findings'],'patched_makefile_sha256':hashlib.sha256((target/'Makefile').read_bytes()).hexdigest()},[out/'validation/validation.json',out/'final-full/findings.json'])
+            recheck_payload={'validation':verdict,'findings':final['findings'],'patched_makefile_sha256':hashlib.sha256((target/'Makefile').read_bytes()).hexdigest()}
+            recheck_files=[out/'validation/validation.json',out/'final-full/findings.json']
+            if (out/'validation/recheck.json').is_file():
+                recheck_payload['gcc_findings']=json.loads((out/'validation/recheck.json').read_text(encoding='utf-8')).get('findings',[])
+                recheck_files.append(out/'validation/recheck.json')
+            if (out/'validation/edge-rebuilds.json').is_file():
+                recheck_files.append(out/'validation/edge-rebuilds.json')
+            stage('recheck',target_sha,recheck_payload,recheck_files)
         result['status']='SUCCEEDED'
     except (Failure,ValueError,OSError,KeyError,TypeError,subprocess.SubprocessError) as exc:
         result.update(status='TIMED_OUT' if isinstance(exc,subprocess.TimeoutExpired) else 'FAILED',error={'code':getattr(exc,'code','EXECUTION_FAILED'),'message':str(exc)})
