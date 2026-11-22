@@ -4,7 +4,7 @@
 - 分支：`student/241880481/e13-e14-b1`
 - 核实基线：`origin/main` / `80b4dafb836365911e6e85451ee367cc874afa46`
 - 本轮定位：A09 固定 head `269827d05d99845a9aca7a8b9f122e9a17a3741a` 的正式 E13 C1–C3；历史预检继续保留下方。
-- 边界：未推送、未开 PR、未发送外部消息；课程服务器实测待学生手工执行随附脚本。
+- 边界：未推送、未开 PR、未发送外部消息；服务器结果已回收，仍待 A09 签收。
 
 ## 2026-11-22 正式 C1–C3 本地实测
 
@@ -30,6 +30,27 @@ target 仓库保持未修改。完整证据和交接索引见 [formal/README.md]
 服务器 DRAFT 的 Docker Hub 超时已适配为离线构建：A09 原始 candidate 文件保留原哈希，服务器
 明确消费派生 `offline-candidate.Dockerfile` 和 `offline-base.tar`；首轮仍验证 `MISSING_MAKE`，
 候选轮使用镜像内工具副本，不执行 apt 或外网访问。
+
+## 2026-11-22 服务器正式 C1–C3（实测通过，待 A09 签收）
+
+服务器证据根为 `work/server-evidence/e13-b1-server-formal-20261122-195038/`，服务器仓库为
+`/root/devops-b09-e13-offline.AXJSHY`。系统代码提交为 `1cd48d2ccb92b3a48b169da723bc570bd5dd6fa2`，
+课程镜像 ID 为 `sha256:af67372b3894b01f20af6f1560d3a088773f5ecf173be98e247a2facd9292ce6`，
+脚本断言 `FAILURES=0`、`FORMAL_EXIT_CODE=0`。
+
+| 场景 | 服务器结果 | job / trace |
+| --- | --- | --- |
+| C1 | `SUCCEEDED`；最终 MD=0，RD=1（`main.o -> unused.h`）；6/6 修复边均 `rebuilt=true` 且 `output_matches=true` | `job-ec9901a266654aabb0f3c31ecc0fd697` / `trace-b9ce4c04ed934430815be6d7fc346aff` |
+| C2 | 实际退出码 1，`STALE_REPORT`；拒绝后无补丁、无候选应用 | `job-0c0a865d138f4249b2ef1c7f3e7791da` / `trace-99fd2dbb1b0a4bd084ab4d551e81dd7a` |
+| C3 | 实际退出码 1，`ARTIFACT_HASH_MISMATCH`；拒绝后无补丁、无候选应用 | `job-19d998dafff0457d8fa862b7bc784360` / `trace-828731512d364995b7f6b3af1e040014` |
+| 恢复 | 正确输入新目录重跑 `SUCCEEDED` | `job-d7ff2505c71b4406aa8334467e5fb24a` / `trace-e0ac2f893d5c46018f124a3467682932` |
+
+服务器修复提交为 `74eff064e1eae3e244b0acf80880c92fb4635e26`，父提交为 A09 target
+`ba688c40d13cd8658e554f7544f1546d35b4b397`。服务器交付物哈希来自本轮
+`deliverables/SHA256SUMS`；A09 可直接校验的回传包为
+`work/e13-b1-formal-20261122-121914/deliverables/a09-e13-b09-server-return-20261122-195038.tar.gz`，
+SHA256 `1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33`，包内
+`return-manifest.json` 与 `SHA256SUMS` 记录每个文件的字节数和哈希。
 
 ## 本地实测结果
 
@@ -87,7 +108,7 @@ target 仓库保持未修改。完整证据和交接索引见 [formal/README.md]
 脚本：`docs/students/241880481/e13-e14/run-server-preflight.sh`
 
 正式 C1–C3 使用 `docs/students/241880481/e13-e14/run-server-formal-c1-c3.sh`；准确命令见
-[formal/README.md](formal/README.md)。服务器正式结果当前明确为“待学生执行后回填”。
+[formal/README.md](formal/README.md)。本轮服务器结果标记为“服务器实测通过，待 A09 签收”。
 
 在课程服务器登录后进入这份个人分支的仓库根目录，执行：
 

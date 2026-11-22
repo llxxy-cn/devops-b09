@@ -26,3 +26,10 @@ e1c3d2233d47ecd008ad45128c37f8431f2517e39bd94a2bdd5e7bd0d1b3b866  work/e13-b1-fo
 b0b14178305e91c5da00b8a31dc6f48fdf9655bc56f5e257e5ecfb089a17d9b6  work/e13-b1-formal-20261122-121914/independent-fixed-validation/console.log
 08cf6208d6555ab06e3dcb9cc417d60b80784f25ef6a225349d3a8fa74fab5c5  work/e13-b1-formal-20261122-121914/deliverables/a09-e13-project-fixed.bundle
 8b37610c68481e2b873233a21bddd6e39f6bffd021d94e3a4749d4a172c34f1e  work/e13-b1-formal-20261122-121914/deliverables/e13-a09-fixed-materials.tar.gz
+1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33  work/e13-b1-formal-20261122-121914/deliverables/a09-e13-b09-server-return-20261122-195038.tar.gz
+d79c913ac01b438572f9def11a2161d39a6a244594d738b4cfaa6895d801b5dd  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/a09-e13-project-fixed.bundle
+8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/candidate.patch
+91200215704ad12c25427e2aef843eb7573258fc6c9f0405a58355b93a12ec8c  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/edge-rebuilds.json
+85fd1aa62fbdbec19b9625e6ef559be8867a698c3541afdffa3e0abade0e2fe1  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/final-recheck.json
+abd07335a13f9681dafbeea5d925bda4cc0830167e38d65a94f77233c1cb9553  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/fixed.diff
+f9f4d6b0c2bae1dfcf1895a3eb83e6499a239c51f24e692e7d9fa38dcadb55e9  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/validation.json
