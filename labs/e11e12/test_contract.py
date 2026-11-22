@@ -88,6 +88,7 @@ class Contracts(unittest.TestCase):
         request={
             'project_compat':{'layout':'root-make','make_test':False},
             'expected_source_report':self.source_report(),
+            'fixed_report_sha256':'0'*64,
         }
         self.assertEqual(
             pipeline.parse_project_compat(request,'e11-b'),
@@ -105,7 +106,7 @@ class Contracts(unittest.TestCase):
         ]
         for compat in invalid:
             with self.subTest(compat=compat):
-                request={'project_compat':compat,'expected_source_report':source}
+                request={'project_compat':compat,'expected_source_report':source,'fixed_report_sha256':'0'*64}
                 with self.assertRaises(pipeline.Failure) as caught:
                     pipeline.parse_project_compat(request,'e11-b')
                 self.assertEqual(caught.exception.code,'INVALID_REQUEST')
@@ -120,6 +121,14 @@ class Contracts(unittest.TestCase):
         with self.assertRaises(pipeline.Failure) as missing_source:
             pipeline.parse_project_compat({'project_compat':compat},'e11-b')
         self.assertEqual(missing_source.exception.code,'INVALID_REQUEST')
+    def test_project_compat_requires_transfer_hash_before_draft(self):
+        request={
+            'project_compat':{'layout':'root-make','make_test':False},
+            'expected_source_report':self.source_report(),
+        }
+        with self.assertRaises(pipeline.Failure) as caught:
+            pipeline.parse_project_compat(request,'e11-b')
+        self.assertEqual(caught.exception.code,'INVALID_REQUEST')
     def test_missing_project_compat_keeps_legacy_behavior(self):
         self.assertIsNone(pipeline.parse_project_compat({},'e11-b'))
     def test_same_key_same_request_same_job(self):

@@ -86,6 +86,8 @@ def parse_project_compat(request, mode):
     if 'expected_source_report' not in request:
         raise Failure('INVALID_REQUEST','project_compat requires expected_source_report')
     validate_expected_source_report(request['expected_source_report'])
+    if not re.fullmatch(r'[0-9a-f]{64}',request.get('fixed_report_sha256','')):
+        raise Failure('INVALID_REQUEST','project_compat requires a lowercase fixed_report_sha256')
     return dict(compat)
 
 def repair_from_artifact(project, report_path, expected_sha256, kind, output):

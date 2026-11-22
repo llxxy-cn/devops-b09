@@ -14,3 +14,15 @@ b394fcf422243c32eeb03d133c7a658d7f47975868b9c088acd00bc45baa81b8  work/e13-b1-20
 9dd1623f4d8766a9d7e9d587d09f1019be0da6264a4b7006eca5a8e74425b07c  work/e13-b1-20261117-formal-valid/run/result.json
 955d268bce06b8cdb153715b17c48b220428291d263a756f9e1b285ffda0c917  work/e13-b1-20261117-formal-c3/console.log
 e68b7ba6ff80d22667dfc6cf9baff1a8050e36f46905c27c5a1489a373e3364a  work/e13-b1-20261117-formal-c3/run/result.json
+10bfacaf28576739fd4a366f42ca97686e69502f3174a066d15608ae9b829f14  work/e13-b1-formal-20261122-121914/materials-assertions.log
+7da3fd065bfb4d3e281c716c22713a8529541e18b33ca332ebb63d057a2cf11f  work/e13-b1-formal-20261122-121914/c1/run/result.json
+8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e  work/e13-b1-formal-20261122-121914/c1/run/candidate.patch
+fb4aacc4e89789b0b436392808f0e78dd4df0b21bc81b911887994aa5b6966ee  work/e13-b1-formal-20261122-121914/c1/run/validation/validation.json
+4b935e3f77c7bfcf3110209b4b1702552f4fa5021c23faf08c906379f9f97d53  work/e13-b1-formal-20261122-121914/c1/run/validation/edge-rebuilds.json
+ce565028c428e1c1c2d1860740d6343220c04a2c941943cb252d9d4d5d858215  work/e13-b1-formal-20261122-121914/c1/run/final-full/findings.json
+e1c3d2233d47ecd008ad45128c37f8431f2517e39bd94a2bdd5e7bd0d1b3b866  work/e13-b1-formal-20261122-121914/c2/run/result.json
+311f57b1ee3ac7233797e89f6d48f5da746cf6e787b53913df905f0be63db178  work/e13-b1-formal-20261122-121914/c3/run/result.json
+537811eef6f0aee44fdeec356df69f00a7d571de2783ad2dda0b24d0c128782f  work/e13-b1-formal-20261122-121914/recovery/run/result.json
+b0b14178305e91c5da00b8a31dc6f48fdf9655bc56f5e257e5ecfb089a17d9b6  work/e13-b1-formal-20261122-121914/independent-fixed-validation/console.log
+08cf6208d6555ab06e3dcb9cc417d60b80784f25ef6a225349d3a8fa74fab5c5  work/e13-b1-formal-20261122-121914/deliverables/a09-e13-project-fixed.bundle
+8b37610c68481e2b873233a21bddd6e39f6bffd021d94e3a4749d4a172c34f1e  work/e13-b1-formal-20261122-121914/deliverables/e13-a09-fixed-materials.tar.gz

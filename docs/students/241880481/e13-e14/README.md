@@ -1,10 +1,31 @@
-# B09 1 号 E13/E14 本地预检记录
+# B09 1 号 E13/E14 正式交叉联调记录
 
 - 学号：241880481
 - 分支：`student/241880481/e13-e14-b1`
 - 核实基线：`origin/main` / `80b4dafb836365911e6e85451ee367cc874afa46`
-- 本轮定位：PR #17 的测试为“E12 归档回归 / E13 预检”；正式 C1–C3 为“等待 A09 配对输入”。
+- 本轮定位：A09 固定 head `269827d05d99845a9aca7a8b9f122e9a17a3741a` 的正式 E13 C1–C3；历史预检继续保留下方。
 - 边界：未推送、未开 PR、未发送外部消息；课程服务器实测待学生手工执行随附脚本。
+
+## 2026-11-22 正式 C1–C3 本地实测
+
+正式输入为 A09 项目 base `e825395a5f8006f1c57a115cc25ea5c7802863ee`、target
+`ba688c40d13cd8658e554f7544f1546d35b4b397`。原始增量报告来自 job
+`job-131c4b1d8c34469aaa31f9e2a9da1736`、trace `trace-c224eaab92394b91bedfc2dea14ebc61`，
+URI 为 `artifact://job-131c4b1d8c34469aaa31f9e2a9da1736/incremental-check.json`，SHA256
+`504a3c505c1479c990f59143926247a2deb7415375de5d957a2d4938aefff224`，大小 3052 字节。
+构建或修复开始前均校验了 target、来源身份、URI、字节哈希和大小。
+
+| 场景 | 本地实际结果 | job / trace |
+| --- | --- | --- |
+| C1 正常链路 | `SUCCEEDED`；6 条 MD 全修复，GCC 与最终 full 均 MD=0、RD=1（`main.o -> unused.h`） | `job-b539c2a12ec742cdabceb1c268c911a3` / `trace-6d0319973353430390bd7dc072e89a4f` |
+| C2 旧报告 | 实际退出码 1，`STALE_REPORT`；无 `draft-build`、补丁或 sandbox | `job-fddb848e8f5443599034813d01885b2b` / `trace-591988218d6c4201baf863375c7c95f9` |
+| C3 字节篡改 | 实际退出码 1，`ARTIFACT_HASH_MISMATCH`；无 `draft-build`、补丁或 sandbox | `job-5a0c719bfd334fe3b14af1e2f8fdda33` / `trace-09935bd7b7ff408891756d94ab614505` |
+| 正确输入恢复 | 新目录重跑 `SUCCEEDED` | `job-a80cae7a3e9945fab6b7e801dd6f6be9` / `trace-23aa000e0a6c45068dbc47a24271ddef` |
+
+C1 验证对 `main.o` 的 `calculate.h/config.h/extra.h` 和 `helper.o` 的
+`add.h/calculate.h/sub.h` 分别触碰，6 次均观察到对应 `.o` 时间戳增加且输出仍为 `1`。
+独立修复提交为 `7e5fe9f826ebc94854dbc312259ec215882053c4`，父提交严格为 A09 target；原始
+target 仓库保持未修改。完整证据和交接索引见 [formal/README.md](formal/README.md)。
 
 ## 本地实测结果
 
@@ -61,6 +82,9 @@
 
 脚本：`docs/students/241880481/e13-e14/run-server-preflight.sh`
 
+正式 C1–C3 使用 `docs/students/241880481/e13-e14/run-server-formal-c1-c3.sh`；准确命令见
+[formal/README.md](formal/README.md)。服务器正式结果当前明确为“待学生执行后回填”。
+
 在课程服务器登录后进入这份个人分支的仓库根目录，执行：
 
 ```bash
@@ -77,4 +101,4 @@ bash docs/students/241880481/e13-e14/run-server-preflight.sh
 - 结果：29 项断言通过，`FAILURES=0`。B09 固定样例五阶段和交换候选检查通过。
 - A09 PR #17 归档和原始增量报告校验通过。C2 返回 `STALE_REPORT`，C3 返回 `ARTIFACT_HASH_MISMATCH`，均未生成补丁。恢复原始报告后成功生成补丁。
 - 服务器证据目录：`/root/devops-b09-e13-b1.hH7koO/work/e13-b1-server-20261117-160640/`，汇总见 `summary.tsv` 和 `assertions.log`。
-- 正式 E13 C1–C3：等待 A09 配对输入。
+- 正式 E13 C1–C3：A09 输入已到齐，本地验证完成；服务器正式脚本待学生执行。
