@@ -27,6 +27,10 @@ C1 验证对 `main.o` 的 `calculate.h/config.h/extra.h` 和 `helper.o` 的
 独立修复提交为 `7e5fe9f826ebc94854dbc312259ec215882053c4`，父提交严格为 A09 target；原始
 target 仓库保持未修改。完整证据和交接索引见 [formal/README.md](formal/README.md)。
 
+服务器 DRAFT 的 Docker Hub 超时已适配为离线构建：A09 原始 candidate 文件保留原哈希，服务器
+明确消费派生 `offline-candidate.Dockerfile` 和 `offline-base.tar`；首轮仍验证 `MISSING_MAKE`，
+候选轮使用镜像内工具副本，不执行 apt 或外网访问。
+
 ## 本地实测结果
 
 本地环境为 Docker Desktop Linux/amd64，课程镜像 `course-e11e12:241880481` 的镜像 ID 为

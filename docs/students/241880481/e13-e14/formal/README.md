@@ -8,6 +8,8 @@
 - A09 固定 head：`269827d05d99845a9aca7a8b9f122e9a17a3741a`（PR #20）。
 - A09 项目：base `e825395a5f8006f1c57a115cc25ea5c7802863ee`，target `ba688c40d13cd8658e554f7544f1546d35b4b397`；bundle SHA256 `40510b4c02a05b0ce372ee7870c53ca4d4f32978599e93d8c7ac1b3a2e319072`。
 - A09 报告：job `job-131c4b1d8c34469aaa31f9e2a9da1736`，trace `trace-c224eaab92394b91bedfc2dea14ebc61`，incremental SHA256 `504a3c505c1479c990f59143926247a2deb7415375de5d957a2d4938aefff224`，3052 字节。
+- 原始候选 Dockerfile 保持不变，SHA256 `6f0e3980c609a683d727c271bdd3a8d5f12b46df21f1fcc402e0d8420ce06c28`；服务器 DRAFT 因 Docker Hub 超时改用派生候选 `offline-candidate.Dockerfile`，SHA256 `42fa65f92cc2fb57e321f4c4ffbe9e657df0c0bb0326d62247fa8c86145f755c`。
+- 离线基础镜像包 `offline-base.tar` SHA256 `73633301ead922a8ed8635751e133b1090f6d447c76626ad87f62eb0d6e955ff`；加载后标签 `b09-e13-offline-python:3.13-slim`，digest `sha256:af8922b2323b530a21bb406e3f38cae8488ad32f92555f27ab15538a7feb40b4`，平台 `linux/amd64`。该镜像保留 `/opt/offline-toolchain/make`，但移除 `/usr/bin/make`。
 - B09 项目：base `30ffe4c41492334478a2446a8be0662d3f31d478`，target `a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293`。
 - A09 对 B09 的报告：job `job-f18dbac70128426dbea57fc516b19ce3`，trace `trace-59fad11cb5db435e8676aa2541847a1b`；full 与 incremental 均为 `MISSING(main.o, extra.h)`，构建和测试成功、输出 `hello E3`。
 
@@ -24,6 +26,7 @@
 - C3：`c3/console.log`、`c3/run/result.json`。原 handoff SHA256 `9931900400d8fabe3c76e463ab9f885662aaa58ed6be2e3aaf7dcc6d8e5bb025`，追加 LF 后 `f14e53d9a95fe88852e1ef6b59c8333966cae32bc05da20e1a1509f3a0611f47`；实际退出码 1，`ARTIFACT_HASH_MISMATCH`，没有补丁或候选目录。
 - 恢复：`recovery/console.log`、`recovery/run/result.json`，在新目录成功。
 - 独立验证：`independent-fixed-validation/console.log`，6 条依赖分别触碰且对应对象均重建、输出均为 `1`。
+- 离线两轮 Docker 验证：首轮 `make: not found`、退出码 1；派生候选构建退出码 0，容器输出 `1`。两轮均使用 `--pull=false`，候选没有 `apt-get` 或其他联网步骤。
 
 修复提交 `7e5fe9f826ebc94854dbc312259ec215882053c4` 的父提交为 A09 target，bundle SHA256
 `08cf6208d6555ab06e3dcb9cc417d60b80784f25ef6a225349d3a8fa74fab5c5`。候选补丁 SHA256
@@ -84,8 +87,14 @@ git config --local user.name 241880481
 git config --local user.email 241880481@example.invalid
 mkdir -p work/e13-a09-fixed-materials
 tar -xzf /root/e13-a09-fixed-materials.tar.gz -C work/e13-a09-fixed-materials
+bash -c 'sha256sum work/e13-a09-fixed-materials/exchange-a09-to-b09/offline-base.tar'
+bash -c 'docker load -i work/e13-a09-fixed-materials/exchange-a09-to-b09/offline-base.tar'
 bash docs/students/241880481/e13-e14/run-server-formal-c1-c3.sh work/e13-a09-fixed-materials
 ```
+
+脚本会先校验并执行 `docker load -i exchange-a09-to-b09/offline-base.tar`，再只消费
+`offline-candidate.Dockerfile`；原始 `candidate.Dockerfile` 只用于哈希和来源核对。C1 若失败，
+脚本立即保留证据并退出，不会创建修复提交或交付包。
 
 记录脚本末尾打印的绝对 `SERVER_EVIDENCE_DIR`。在本机 PowerShell 回收（替换目录名）：
 

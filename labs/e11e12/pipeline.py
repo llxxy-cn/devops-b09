@@ -73,6 +73,20 @@ def check_source_report(envelope, expected):
         raise Failure('SOURCE_REPORT_MISMATCH','Fixed report provenance does not match the requested source')
     return actual
 
+def parse_offline_build(request, mode):
+    if 'offline_build' not in request:
+        return None
+    if mode != 'e11-b':
+        raise Failure('INVALID_REQUEST', 'offline_build requires mode=e11-b')
+    value = request['offline_build']
+    if not isinstance(value, dict) or set(value) != {'base_image', 'make_path'}:
+        raise Failure('INVALID_REQUEST', 'offline_build must contain exactly base_image and make_path')
+    if not isinstance(value['base_image'], str) or not re.fullmatch(r'[a-z0-9][a-z0-9_.-]*:[a-z0-9][a-z0-9_.-]*', value['base_image']):
+        raise Failure('INVALID_REQUEST', 'offline_build base_image must be a local tag')
+    if value['make_path'] != '/opt/offline-toolchain/make':
+        raise Failure('INVALID_REQUEST', 'Unsupported offline make path')
+    return dict(value)
+
 def parse_project_compat(request, mode):
     if 'project_compat' not in request:
         return None
@@ -278,6 +292,7 @@ def execute(request, out, job_id=None):
         if mode not in ('e11-a','e11-b','e12'):
             raise Failure('INVALID_REQUEST','Unknown mode')
         project_compat=parse_project_compat(request,mode)
+        offline_build=parse_offline_build(request,mode)
         repo=Path(request['repo']).resolve()
         if not repo.is_dir():
             raise Failure('INVALID_REQUEST','Repository missing')
@@ -307,7 +322,10 @@ def execute(request, out, job_id=None):
         if mode in ('e11-b','e12'):
             from draft.autobuild import auto_build
             candidate=Path(request['candidate']).resolve()
-            draft=auto_build(target,candidate,out/'draft-build',expected,timeout=request.get('build_timeout',600))
+            draft_kwargs = {'timeout': request.get('build_timeout', 600)}
+            if offline_build is not None:
+                draft_kwargs['offline'] = offline_build
+            draft=auto_build(target,candidate,out/'draft-build',expected,**draft_kwargs)
             if draft['status']!='SUCCEEDED':
                 raise Failure('DRAFT_FAILED',draft.get('error','Inspect draft-build logs'))
             stage('draft',target_sha,draft,[out/'draft-build/result.json'])

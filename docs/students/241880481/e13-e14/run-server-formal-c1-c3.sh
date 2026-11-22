@@ -14,6 +14,10 @@ Runs formal E13 C1 (success), C2 (STALE_REPORT), C3
   exchange-a09-to-b09/
   exchange-b09-to-a09/
 
+exchange-a09-to-b09 must also contain offline-base.tar and
+offline-candidate.Dockerfile. The original candidate.Dockerfile is preserved
+and verified; the derived file is used only for the offline DRAFT replay.
+
 Every formal pipeline command, exit code, request, assertion, and output is
 retained below a new work/e13-b1-server-formal-* directory. No push or external
 message occurs.
@@ -35,6 +39,11 @@ A09="$MATERIAL_DIR/exchange-a09-to-b09"
 B09="$MATERIAL_DIR/exchange-b09-to-a09"
 [[ -d "$A09" && -d "$B09" ]] || {
   echo "ERROR: missing exchange-a09-to-b09 or exchange-b09-to-a09" >&2; exit 2;
+}
+OFFLINE_TAR="$A09/offline-base.tar"
+OFFLINE_CANDIDATE="$A09/offline-candidate.Dockerfile"
+[[ -f "$OFFLINE_TAR" && -f "$OFFLINE_CANDIDATE" ]] || {
+  echo "ERROR: missing offline-base.tar or offline-candidate.Dockerfile" >&2; exit 2;
 }
 
 BASE=e825395a5f8006f1c57a115cc25ea5c7802863ee
@@ -94,6 +103,8 @@ assert_eq context_rc 0 "$(step_rc context)"
 declare -A EXPECTED=(
   ["$A09/a09-e13-project.bundle"]=40510b4c02a05b0ce372ee7870c53ca4d4f32978599e93d8c7ac1b3a2e319072
   ["$A09/candidate.Dockerfile"]=6f0e3980c609a683d727c271bdd3a8d5f12b46df21f1fcc402e0d8420ce06c28
+  ["$OFFLINE_CANDIDATE"]=42fa65f92cc2fb57e321f4c4ffbe9e657df0c0bb0326d62247fa8c86145f755c
+  ["$OFFLINE_TAR"]=73633301ead922a8ed8635751e133b1090f6d447c76626ad87f62eb0d6e955ff
   ["$A09/result.json"]=3fd3be33d41b95e9fff9762fac1b2413c649f68714f06c4b4520f3e52e769015
   ["$A09/full-check.json"]=c9de4bb36f114f9caad7111d918dde2475a080667f401f8ec707f7772686d549
   ["$A09/incremental-check.json"]=$A_REPORT_SHA
@@ -108,6 +119,20 @@ for file in "${!EXPECTED[@]}"; do
   assert_eq "sha256:$(basename "$file")" "${EXPECTED[$file]}" "$(sha "$file")"
 done
 assert_eq incremental_bytes "$A_REPORT_BYTES" "$(stat -c %s "$A09/incremental-check.json")"
+[[ $FAILURES -eq 0 ]] || { echo "FAILURES=$FAILURES"; exit 1; }
+
+run_step offline-load docker load -i "$OFFLINE_TAR"
+assert_eq offline_load_rc 0 "$(step_rc offline-load)"
+run_step offline-image python3 - "$OFFLINE_TAR" <<'PY'
+import json, subprocess, sys
+x=json.loads(subprocess.check_output(['docker','image','inspect','b09-e13-offline-python:3.13-slim'],text=True))[0]
+assert x['Os']=='linux' and x['Architecture']=='amd64'
+assert x['RepoDigests'] and x['RepoDigests'][0].startswith('b09-e13-offline-python@sha256:')
+print('IMAGE_ID='+x['Id']); print('REPO_DIGEST='+x['RepoDigests'][0])
+PY
+assert_eq offline_image_rc 0 "$(step_rc offline-image)"
+run_step offline-mapping bash -lc "printf '%s\n' 'ORIGINAL_SOURCE_DIGEST=sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f' 'DERIVED_BASE_IMAGE=b09-e13-offline-python:3.13-slim' 'DERIVED_BASE_DIGEST=sha256:af8922b2323b530a21bb406e3f38cae8488ad32f92555f27ab15538a7feb40b4' 'DERIVED_CANDIDATE_SHA256=42fa65f92cc2fb57e321f4c4ffbe9e657df0c0bb0326d62247fa8c86145f755c' > '$EVIDENCE_ROOT/offline-mapping.txt'"
+assert_eq offline_mapping_rc 0 "$(step_rc offline-mapping)"
 [[ $FAILURES -eq 0 ]] || { echo "FAILURES=$FAILURES"; exit 1; }
 
 # Reject dangerous archive entries before extraction.
@@ -152,10 +177,11 @@ import json, pathlib, sys
 root=pathlib.Path(sys.argv[5]); ev=pathlib.Path(sys.argv[6]); exchange=pathlib.Path(sys.argv[7])
 inside=lambda p: '/course/'+pathlib.Path(p).resolve().relative_to(root).as_posix()
 x={'mode':'e11-b','repo':inside(ev/'input-project'),'base':'e825395a5f8006f1c57a115cc25ea5c7802863ee','target':sys.argv[2],
-   'candidate':inside(exchange/'candidate.Dockerfile'),'expected_output':'1','build_timeout':600,
+   'candidate':inside(exchange/'offline-candidate.Dockerfile'),'expected_output':'1','build_timeout':600,
    'fixed_report':inside(sys.argv[3]),'fixed_report_sha256':sys.argv[4],
    'project_compat':{'layout':'root-make','make_test':False},
-   'expected_source_report':{'job_id':'job-131c4b1d8c34469aaa31f9e2a9da1736','trace_id':'trace-c224eaab92394b91bedfc2dea14ebc61','uri':'artifact://job-131c4b1d8c34469aaa31f9e2a9da1736/incremental-check.json','sha256':'504a3c505c1479c990f59143926247a2deb7415375de5d957a2d4938aefff224','bytes':3052}}
+   'expected_source_report':{'job_id':'job-131c4b1d8c34469aaa31f9e2a9da1736','trace_id':'trace-c224eaab92394b91bedfc2dea14ebc61','uri':'artifact://job-131c4b1d8c34469aaa31f9e2a9da1736/incremental-check.json','sha256':'504a3c505c1479c990f59143926247a2deb7415375de5d957a2d4938aefff224','bytes':3052},
+   'offline_build':{'base_image':'b09-e13-offline-python:3.13-slim','make_path':'/opt/offline-toolchain/make'}}
 pathlib.Path(sys.argv[1]).write_text(json.dumps(x,indent=2)+'\n',encoding='utf-8')
 PY
 }
@@ -200,6 +226,11 @@ assert hashlib.sha256((repo/'Makefile').read_bytes()).hexdigest()==sys.argv[4]
 print('B_JOB_ID='+result['job_id']); print('B_TRACE_ID='+result['trace_id']); print('ARTIFACTS_VERIFIED='+str(len(result['artifacts'])))
 PY
 assert_eq c1_assert_rc 0 "$(step_rc c1/assert)"
+if [[ $FAILURES -ne 0 ]]; then
+  printf 'C1_FAILED_STOPPING_BEFORE_C2_OR_DELIVERY FAILURES=%s\n' "$FAILURES" | tee -a "$ASSERTIONS"
+  echo "SERVER_EVIDENCE_DIR=$EVIDENCE_ROOT"
+  exit 1
+fi
 
 run_case c2
 assert_eq c2_exit 1 "$(step_rc c2/pipeline)"
