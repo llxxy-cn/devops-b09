@@ -1,0 +1,65 @@
+{
+  "work/e13-b4-unified-0be9552/H1-jsmn-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-8d521bd9a11b492698a704eb3e6d2c76",
+    "trace_id": "trace-17b2fb2f5214493ab4232bb33a013527",
+    "base_commit": "66a6dafcc20cea76bf017923d3db725d78407845",
+    "target_commit": "948a1d30cd758d32d45a50f788e5a95fb1d89c69",
+    "artifact_count": 209,
+    "result_sha256": "3effc52339d60299bfbf4d8cd7d1efc13f1c636878b92047ae8450c86ab4529f",
+    "candidate_patch_sha256": "8598e9b539354b5b628a6d992932cf1602c8acf6c75e75af3a73ba32f3fe51ba",
+    "validation_sha256": "992bcdff14ffb9d5b12085bd84609ab1cb2358da24da86fd7aaec770a38d47c1",
+    "rebuilds": [
+      {
+        "target": "helper.o",
+        "dependency": "extra.h",
+        "before_mtime_ns": 1795436426448638383,
+        "after_mtime_ns": 1795436427852650053,
+        "output": "1",
+        "passed": true
+      }
+    ]
+  },
+  "work/e13-b4-unified-0be9552/H2-inih-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-efc3eebf79804b40b4fdbb7a9145cd82",
+    "trace_id": "trace-87ad5f85fc6942e996cc695cd99f275e",
+    "base_commit": "aafc740a2cac05a74541abede93b7d59ed23b87f",
+    "target_commit": "3aadb81763c79651e4dfa99b725ba921ee2b8a39",
+    "artifact_count": 209,
+    "result_sha256": "d1b261461638d6c9f23d7ab879ea83a333f0f08fec3a9db96acef4727ccccda2",
+    "candidate_patch_sha256": "2c9db75d9a84e3271257c94bae1fa67dd007c455d1db920c2d94b0ae92b5b4ac",
+    "validation_sha256": "eadec2a622fdab55d24a0337d4f32a04b6ee3be2c90789fce01a582415282ab9",
+    "rebuilds": [
+      {
+        "target": "main.o",
+        "dependency": "extra.h",
+        "before_mtime_ns": 1795436446656806338,
+        "after_mtime_ns": 1795436448196819139,
+        "output": "1",
+        "passed": true
+      }
+    ]
+  },
+  "work/e13-b4-unified-0be9552/H3-tiny-aes-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-9c7eec290d3f482986e13870905b65d4",
+    "trace_id": "trace-4714b07420a84325bd8c538683f18e44",
+    "base_commit": "dc8099306d7023b7337328d718149973e7b17978",
+    "target_commit": "5640bb69a01e64559207e9f74d15a9ae71a4d0f3",
+    "artifact_count": 209,
+    "result_sha256": "4ad83bc89bd64c2c1161121c6f17c75804bcf57715043334acf62776c0a5008a",
+    "candidate_patch_sha256": "ccd510fc4ebbd03405bf0f0e73c1624e9d5a88480de0820aebe8f781e41773b5",
+    "validation_sha256": "7a9bb01548e6f6ef08a14c861d9bf6e0f5041529e9b9997814ee6fcf10819059",
+    "rebuilds": [
+      {
+        "target": "helper.o",
+        "dependency": "extra.h",
+        "before_mtime_ns": 1795436446732806970,
+        "after_mtime_ns": 1795436448264819703,
+        "output": "1",
+        "passed": true
+      }
+    ]
+  }
+}

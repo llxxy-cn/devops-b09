@@ -1,0 +1,22 @@
+{
+  "timeout": {
+    "job_id": "job-1905175c25964355ad27058099625e13",
+    "trace_id": "trace-f7fb20109144417b83157f23377788f4",
+    "error": "draft HTTP 422: {\"status\": \"FAILED\", \"role\": \"draft\", \"error_code\": \"TIMEOUT\", \"error\": \"DRAFT_TIMED_OUT: Docker client command exceeded 0.01s\"}\n",
+    "artifacts_verified": 47
+  },
+  "outage": {
+    "job_id": "job-ced1dff832e949fdbf21811693119654",
+    "trace_id": "trace-0caa56903ce349638ff43d3875ac9a49",
+    "error": "<urlopen error [Errno 111] Connection refused>",
+    "artifacts_verified": 113
+  },
+  "recovery_job_ids": [
+    "job-b7ad5cd17333439db75135844809ef4d",
+    "job-3accb77db09248fcb52d8ab0011042bc"
+  ],
+  "all_job_and_trace_ids_distinct": true,
+  "candidate_patch_absent_from_failures": true,
+  "timeout_build_containers_absent": true,
+  "echecker_health_restored": true
+}
