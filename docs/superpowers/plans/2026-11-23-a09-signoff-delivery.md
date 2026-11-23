@@ -68,7 +68,7 @@
 
 - [ ] **Step 1:** Split the original archive at a fixed byte boundary so every tracked part is below GitHub's 100 MiB limit, without modifying the original archive.
 - [ ] **Step 2:** Reconstruct the archive in a temporary directory and verify byte length and SHA256 equal the original.
-- [ ] **Step 3:** Generate `SHA256SUMS` covering the delivery note and each part, while recording the reconstructed archive's expected SHA256 in the note.
+- [ ] **Step 3:** Generate `SHA256SUMS` covering each binary part and the reconstructed archive, while recording the reconstructed archive's expected SHA256 in the note; do not hash Git-normalized text files in this cross-platform binary manifest.
 - [ ] **Step 4:** Run `git diff --check`, inspect staged paths and sizes, and ensure the unrelated pre-existing plan remains unstaged.
 
 ### Task 4: Commit, push, and verify remote bytes
