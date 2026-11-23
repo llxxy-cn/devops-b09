@@ -1,0 +1,53 @@
+
+FILE incremental-check.json
+[
+  {
+    "type": "MISSING",
+    "target": "helper.o",
+    "dependency": "extra.h"
+  }
+]
+
+FILE repair.json
+{
+  "edits": [
+    {
+      "target": "helper.o",
+      "dependency": "extra.h",
+      "style": "direct"
+    }
+  ],
+  "input_report": {
+    "uri": "artifact://job-24e7d8c8a85947619e5152712e2e0737/incremental-check.json",
+    "sha256": "8a41560faecfb44a4daecf26e46d82e02a7ebff3b679e5a6e942289ec4a8dd34",
+    "bytes": 3527
+  }
+}
+
+FILE validation/validation.json
+{
+  "accepted": false,
+  "checks": {
+    "patch_applies": true,
+    "build": true,
+    "test": true
+  },
+  "error": "Patch did not repair a dependency on config.h",
+  "rollback": true,
+  "source_unchanged": true,
+  "image_id": "sha256:6f57b9e3b90a1f4cbf4e5cc6e1e12d646ef7f63d3de7890f37dbb3022756db13"
+}
+
+FILE candidate.patch
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ 	gcc main.o helper.o -o app
+ main.o: main.c config.h
+ 	gcc $(CFLAGS) -c main.c -o main.o
+-helper.o: helper.c jsmn.h
++helper.o: helper.c jsmn.h extra.h
+ 	gcc $(CFLAGS) -c helper.c -o helper.o
+ .PHONY: clean
+ clean:
+

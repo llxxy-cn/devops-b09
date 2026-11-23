@@ -1,0 +1,26 @@
+IMAGE=course-e11e12:241880585
+test_candidate_cannot_change_required_runtime_instruction (test_b1_draft_contract.B1DraftContractTests.test_candidate_cannot_change_required_runtime_instruction) ... ok
+test_missing_make_is_classified (test_b1_draft_contract.B1DraftContractTests.test_missing_make_is_classified) ... ok
+test_prepare_uses_reachable_debian_mirror (test_b1_draft_contract.B1DraftContractTests.test_prepare_uses_reachable_debian_mirror) ... ok
+test_prepare_uses_reachable_digest_pinned_base (test_b1_draft_contract.B1DraftContractTests.test_prepare_uses_reachable_digest_pinned_base) ... ok
+test_accept_current_report (test_contract.Contracts.test_accept_current_report) ... ok
+test_api_rejects_repo_outside_data (test_contract.Contracts.test_api_rejects_repo_outside_data) ... ok
+test_artifact_uses_relative_uri_and_content_hash (test_contract.Contracts.test_artifact_uses_relative_uri_and_content_hash) ... ok
+test_changed_artifact_is_rejected (test_contract.Contracts.test_changed_artifact_is_rejected) ... ok
+test_existing_evidence_not_overwritten (test_contract.Contracts.test_existing_evidence_not_overwritten) ... ok
+test_reject_failed_upstream (test_contract.Contracts.test_reject_failed_upstream) ... ok
+test_reject_old_commit (test_contract.Contracts.test_reject_old_commit) ... ok
+test_reject_schema (test_contract.Contracts.test_reject_schema) ... ok
+test_reject_wrong_artifact_kind (test_contract.Contracts.test_reject_wrong_artifact_kind) ... ok
+test_same_key_same_request_same_job (test_contract.Contracts.test_same_key_same_request_same_job) ... ok
+test_project_subdir_rejects_parent_traversal (test_e12_preflight.E12PreflightTests.test_project_subdir_rejects_parent_traversal) ... ok
+test_runtime_runs_exact_candidate_with_only_project_bind (test_e12_preflight.E12PreflightTests.test_runtime_runs_exact_candidate_with_only_project_bind) ... ok
+test_snapshot_keeps_commit_identity_in_project_subdirectory (test_e12_preflight.E12PreflightTests.test_snapshot_keeps_commit_identity_in_project_subdirectory) ... ok
+test_macro_repair_for_both_report_types (test_repair_report.RepairReportTests.test_macro_repair_for_both_report_types) ... ok
+test_stale_report_with_correct_hash_is_rejected (test_repair_report.RepairReportTests.test_stale_report_with_correct_hash_is_rejected) ... ok
+test_wrong_hash_is_rejected (test_repair_report.RepairReportTests.test_wrong_hash_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.658s
+
+OK

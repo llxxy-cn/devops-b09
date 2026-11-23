@@ -1,0 +1,140 @@
+{
+  "schema_version": "e11e12-1",
+  "job_id": "job-1bce736bc7c64595b6f10b33dbc7d317",
+  "trace_id": "trace-87436b01141d45fab8d613babe0795ba",
+  "kind": "incremental-check",
+  "commit": "948a1d30cd758d32d45a50f788e5a95fb1d89c69",
+  "status": "SUCCEEDED",
+  "data": {
+    "schema_version": "e8e10-1",
+    "profile": "GCC_LOCAL_HEADERS_EXPLICIT_MAKE",
+    "commit": "948a1d30cd758d32d45a50f788e5a95fb1d89c69",
+    "key": {
+      "directives": {
+        "config.h": [
+          "#define VALUE 1"
+        ],
+        "extra.h": [
+          "#define EXPECTED_TOKENS 3"
+        ],
+        "helper.c": [
+          "#include <string.h>",
+          "#include \"jsmn.h\"",
+          "#include \"extra.h\""
+        ],
+        "jsmn.h": [
+          "#ifndef JSMN_H",
+          "#define JSMN_H",
+          "#include <stddef.h>",
+          "#ifdef __cplusplus",
+          "#endif",
+          "#ifdef JSMN_STATIC",
+          "#define JSMN_API static",
+          "#else",
+          "#define JSMN_API extern",
+          "#endif",
+          "#ifdef JSMN_PARENT_LINKS",
+          "#endif",
+          "#ifndef JSMN_HEADER",
+          "#ifdef JSMN_PARENT_LINKS",
+          "#endif",
+          "#ifndef JSMN_STRICT",
+          "#endif",
+          "#ifdef JSMN_STRICT",
+          "#endif",
+          "#ifdef JSMN_PARENT_LINKS",
+          "#endif",
+          "#ifdef JSMN_PARENT_LINKS",
+          "#endif",
+          "#ifdef JSMN_STRICT",
+          "#endif",
+          "#ifdef JSMN_PARENT_LINKS",
+          "#endif",
+          "#ifdef JSMN_PARENT_LINKS",
+          "#else",
+          "#endif",
+          "#ifdef JSMN_PARENT_LINKS",
+          "#else",
+          "#endif",
+          "#ifdef JSMN_STRICT",
+          "#else",
+          "#endif",
+          "#ifdef JSMN_STRICT",
+          "#endif",
+          "#endif /* JSMN_HEADER */",
+          "#ifdef __cplusplus",
+          "#endif",
+          "#endif /* JSMN_H */"
+        ],
+        "main.c": [
+          "#include <stdio.h>",
+          "#include \"config.h\""
+        ],
+        "unused.h": []
+      },
+      "recipes": [
+        "\tgcc main.o helper.o -o app",
+        "\tgcc $(CFLAGS) -c main.c -o main.o",
+        "\tgcc $(CFLAGS) -c helper.c -o helper.o",
+        "\trm -f main.o helper.o app"
+      ],
+      "flags": "-O0",
+      "compiler": "gcc (Debian 14.2.0-19) 14.2.0"
+    },
+    "actual": {
+      "main.o": [
+        "config.h",
+        "main.c"
+      ],
+      "helper.o": [
+        "extra.h",
+        "helper.c",
+        "jsmn.h"
+      ]
+    },
+    "declared": {
+      "main.o": [
+        "config.h",
+        "main.c"
+      ],
+      "helper.o": [
+        "helper.c",
+        "jsmn.h"
+      ]
+    },
+    "findings": [
+      {
+        "type": "MISSING",
+        "target": "helper.o",
+        "dependency": "extra.h"
+      }
+    ],
+    "added": [
+      [
+        "MISSING",
+        "helper.o",
+        "extra.h"
+      ]
+    ],
+    "resolved": [],
+    "refreshed": [
+      "main.o",
+      "helper.o"
+    ],
+    "reused": [],
+    "elapsed_s": 0.4636418130248785,
+    "image_id": "sha256:8da16bb20e051fe31f4a7fc3496e78627e32eff9aa0157b8f94db567c8b817e2"
+  },
+  "artifacts": [
+    {
+      "uri": "artifact://job-1bce736bc7c64595b6f10b33dbc7d317/incremental-report.json",
+      "sha256": "38f3d4372db26c8139cb037c06b72a6134d9bbfbff7d086d5238e4a7f5030d64",
+      "bytes": 2589
+    },
+    {
+      "uri": "artifact://job-1bce736bc7c64595b6f10b33dbc7d317/target-full/findings.json",
+      "sha256": "5ba13b740faad2f49e0b672400fcb7b1b2c1780cafa22157b4705f1047b3d5f2",
+      "bytes": 2457
+    }
+  ]
+}
