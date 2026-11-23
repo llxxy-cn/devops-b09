@@ -4,7 +4,13 @@
 - 分支：`student/241880481/e13-e14-b1`
 - 核实基线：`origin/main` / `80b4dafb836365911e6e85451ee367cc874afa46`
 - 本轮定位：A09 固定 head `269827d05d99845a9aca7a8b9f122e9a17a3741a` 的正式 E13 C1–C3；历史预检继续保留下方。
-- 边界：未推送、未开 PR、未发送外部消息；服务器结果已回收，仍待 A09 签收。
+- 边界：未开 PR、未发送外部消息；服务器结果已回收并完成个人分支交付。
+
+最终状态：**服务器实测通过，A09 已核验签收**。A09 于 2026-11-23 正式确认签收；
+[签收原文](../../../../evidence/students/241880481/e13-e14/A09-SIGNOFF-20261123.md)与
+[交付勘误](../../../../evidence/students/241880481/e13-e14/ERRATA-20261123.md)已归档，关联交付提交为
+`cbf90cce6fcb4950c6326704bd970f9ed80693bb`，回传包 SHA256 保持
+`1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33`。
 
 ## 2026-11-22 正式 C1–C3 本地实测
 
@@ -31,7 +37,7 @@ target 仓库保持未修改。完整证据和交接索引见 [formal/README.md]
 明确消费派生 `offline-candidate.Dockerfile` 和 `offline-base.tar`；首轮仍验证 `MISSING_MAKE`，
 候选轮使用镜像内工具副本，不执行 apt 或外网访问。
 
-## 2026-11-22 服务器正式 C1–C3（服务器实测通过，待 A09 核验签收）
+## 2026-11-22 服务器正式 C1–C3（服务器实测通过，A09 已核验签收）
 
 服务器证据根为 `work/server-evidence/e13-b1-server-formal-20261122-195038/`，服务器仓库为
 `/root/devops-b09-e13-offline.AXJSHY`。系统代码提交为 `1cd48d2ccb92b3a48b169da723bc570bd5dd6fa2`，
@@ -108,7 +114,7 @@ SHA256 `1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33`，包�
 脚本：`docs/students/241880481/e13-e14/run-server-preflight.sh`
 
 正式 C1–C3 使用 `docs/students/241880481/e13-e14/run-server-formal-c1-c3.sh`；准确命令见
-[formal/README.md](formal/README.md)。本轮服务器结果标记为“服务器实测通过，待 A09 核验签收”。
+[formal/README.md](formal/README.md)。本轮最终状态标记为“服务器实测通过，A09 已核验签收”。
 
 在课程服务器登录后进入这份个人分支的仓库根目录，执行：
 

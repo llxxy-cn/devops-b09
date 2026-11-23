@@ -1,5 +1,9 @@
 # A09 Signoff Delivery Implementation Plan
 
+> Historical delivery plan. Its pending-signoff status was superseded on 2026-11-23 by
+> `evidence/students/241880481/e13-e14/A09-SIGNOFF-20261123.md`; the fixed delivery
+> commit and archive bytes remain unchanged.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Verify the formal E13 B1 server evidence, explain the A09 handoff hash difference, and publish A09-downloadable return materials from the authorized personal branch.
