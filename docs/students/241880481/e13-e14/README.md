@@ -31,7 +31,7 @@ target 仓库保持未修改。完整证据和交接索引见 [formal/README.md]
 明确消费派生 `offline-candidate.Dockerfile` 和 `offline-base.tar`；首轮仍验证 `MISSING_MAKE`，
 候选轮使用镜像内工具副本，不执行 apt 或外网访问。
 
-## 2026-11-22 服务器正式 C1–C3（实测通过，待 A09 签收）
+## 2026-11-22 服务器正式 C1–C3（服务器实测通过，待 A09 核验签收）
 
 服务器证据根为 `work/server-evidence/e13-b1-server-formal-20261122-195038/`，服务器仓库为
 `/root/devops-b09-e13-offline.AXJSHY`。系统代码提交为 `1cd48d2ccb92b3a48b169da723bc570bd5dd6fa2`，
@@ -108,7 +108,7 @@ SHA256 `1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33`，包�
 脚本：`docs/students/241880481/e13-e14/run-server-preflight.sh`
 
 正式 C1–C3 使用 `docs/students/241880481/e13-e14/run-server-formal-c1-c3.sh`；准确命令见
-[formal/README.md](formal/README.md)。本轮服务器结果标记为“服务器实测通过，待 A09 签收”。
+[formal/README.md](formal/README.md)。本轮服务器结果标记为“服务器实测通过，待 A09 核验签收”。
 
 在课程服务器登录后进入这份个人分支的仓库根目录，执行：
 

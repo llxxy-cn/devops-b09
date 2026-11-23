@@ -40,7 +40,7 @@ SHA256 `1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33`；包�
 `return-manifest.json` 是可机器核对的文件清单。原始交换材料包 SHA256 为
 `d5af6ccf3d7b9dcc5fbe5e77c07cf4b4df663a4239a8621eb93cb98961c5305e`。
 
-## 服务器正式结果（实测通过，待 A09 签收）
+## 服务器正式结果（服务器实测通过，待 A09 核验签收）
 
 - 证据根：`work/server-evidence/e13-b1-server-formal-20261122-195038/`；断言 `FAILURES=0`，脚本
   `FORMAL_EXIT_CODE=0`。
@@ -72,7 +72,7 @@ SHA256 `1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33`；包�
 > `ARTIFACT_HASH_MISMATCH`，两次均未生成或应用候选。离线映射为原始
 > `python:3.13-slim@sha256:70729b…678c2f` → `b09-e13-offline-python:3.13-slim@sha256:af8922…b40b4`；
 > 原 candidate SHA256 `6f0e3980…06c28`，派生 candidate SHA256 `42fa65f9…f755c`。
-> 服务器实测通过，待 A09 签收。
+> 服务器实测通过，待 A09 核验签收。
 
 ## 给 2 号：C4/C5/C7/C8 输入
 
