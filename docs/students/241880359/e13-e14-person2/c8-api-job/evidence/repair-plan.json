@@ -1,0 +1,32 @@
+[
+  {
+    "target": "main.o",
+    "dependency": "calculate.h",
+    "style": "direct"
+  },
+  {
+    "target": "main.o",
+    "dependency": "config.h",
+    "style": "direct"
+  },
+  {
+    "target": "main.o",
+    "dependency": "extra.h",
+    "style": "direct"
+  },
+  {
+    "target": "helper.o",
+    "dependency": "add.h",
+    "style": "direct"
+  },
+  {
+    "target": "helper.o",
+    "dependency": "calculate.h",
+    "style": "direct"
+  },
+  {
+    "target": "helper.o",
+    "dependency": "sub.h",
+    "style": "direct"
+  }
+]

@@ -221,45 +221,38 @@ def validate_in_draft(target, patchfile, edits, out, runtime, expected, project_
         if make_test:
             runtime.run(['make', 'test'], sandbox)
         checks['test'] = runtime.run(['./app'], sandbox) == expected
-        if make_profile:
-            for edit in edits:
-                header = sandbox / edit['dependency']
-                target_object = sandbox / edit['target']
-                if not header.is_file() or not target_object.is_file():
-                    raise Failure('RECHECK_FAILED', f"Cannot verify {edit['target']} -> {edit['dependency']}")
-                before = target_object.stat().st_mtime_ns
-                time.sleep(1.05)
-                header.touch()
-                runtime.run(['make', 'app'], sandbox)
-                output = runtime.run(['./app'], sandbox)
-                after = target_object.stat().st_mtime_ns
-                row = {
-                    'target': edit['target'],
-                    'dependency': edit['dependency'],
-                    'before_mtime_ns': before,
-                    'after_mtime_ns': after,
-                    'rebuilt': after > before,
-                    'output': output,
-                    'output_matches': output == expected,
-                }
-                edge_rebuilds.append(row)
-                save(out/'edge-rebuilds.json', edge_rebuilds)
-            checks['edge_rebuilds'] = len(edge_rebuilds) == len(edits) and all(
-                row['rebuilt'] and row['output_matches'] for row in edge_rebuilds
-            )
-        else:
-            header = sandbox / 'config.h'
-            affected = {edit['target'] for edit in edits if edit['dependency'] == header.name}
-            if not affected:
-                raise Failure('RECHECK_FAILED', f'Patch did not repair a dependency on {header.name}')
-            before = {name: (sandbox / name).stat().st_mtime_ns for name in affected}
+        edges = sorted({(edit['target'], edit['dependency']) for edit in edits})
+        for target_name, dependency_name in edges:
+            dependency = sandbox / dependency_name
+            target_object = sandbox / target_name
+            if not dependency.is_file() or not target_object.is_file():
+                raise Failure(
+                    'RECHECK_FAILED',
+                    f'Missing dependency or target: {target_name} <- {dependency_name}',
+                )
+            before = target_object.stat().st_mtime_ns
             time.sleep(1.05)
-            header.write_text('#define VALUE 2\n', encoding='utf-8')
+            dependency.touch()
             runtime.run(['make', 'app'], sandbox)
             output = runtime.run(['./app'], sandbox)
-            checks['header_change'] = output == '2' and all(
-                (sandbox / name).stat().st_mtime_ns > mtime for name, mtime in before.items()
-            )
+            after = target_object.stat().st_mtime_ns
+            rebuilt = after > before
+            output_matches = output == expected
+            edge_rebuilds.append({
+                'target': target_name,
+                'dependency': dependency_name,
+                'before_mtime_ns': before,
+                'after_mtime_ns': after,
+                'rebuilt': rebuilt,
+                'output': output,
+                'output_matches': output_matches,
+                'passed': rebuilt and output_matches,
+            })
+            save(out/'edge-rebuilds.json', edge_rebuilds)
+        checks['edge_rebuilds'] = len(edge_rebuilds) == len(edges) and all(
+            row['passed'] for row in edge_rebuilds
+        )
+        checks['header_change'] = checks['edge_rebuilds']
         recheck = runtime.scan(sandbox, real=make_profile)
         save(out/'recheck.json', recheck)
         checks['no_missing'] = not any(f['type'] == 'MISSING' for f in recheck['findings'])

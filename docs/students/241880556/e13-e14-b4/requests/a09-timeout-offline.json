@@ -1,0 +1,16 @@
+{
+  "mode": "e12",
+  "repo": "/course/data/e14-b4-a09/repo",
+  "base": "e825395a5f8006f1c57a115cc25ea5c7802863ee",
+  "target": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+  "candidate": "/course/data/e14-b4-a09/offline-candidate.Dockerfile",
+  "expected_output": "1",
+  "build_timeout": 0.01,
+  "offline_build": {
+    "original_candidate": "/course/data/e14-b4-a09/candidate.Dockerfile",
+    "original_candidate_sha256": "6f0e3980c609a683d727c271bdd3a8d5f12b46df21f1fcc402e0d8420ce06c28",
+    "derived_candidate_sha256": "42fa65f92cc2fb57e321f4c4ffbe9e657df0c0bb0326d62247fa8c86145f755c",
+    "base_image": "b09-e13-offline-python:3.13-slim",
+    "base_image_id": "sha256:af8922b2323b530a21bb406e3f38cae8488ad32f92555f27ab15538a7feb40b4"
+  }
+}

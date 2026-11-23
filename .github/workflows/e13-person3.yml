@@ -1,0 +1,51 @@
+name: E13 person3 security gate
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  security:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Check Python syntax
+        run: |
+          python3 -m py_compile labs/e11e12/pipeline.py labs/e13e14/scan_runtime_logs.py
+
+      - name: C6 rejection and cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/ci-e13-c6
+          python3 - <<'PY'
+          from pathlib import Path
+          probe = Path("work/ci-e13-c6/probe.log")
+          probe.write_text('api_key = "' + 'sk-' + 'demo1234567890abcdefghijk' + '"\n')
+          PY
+          sha256sum work/ci-e13-c6/probe.log > work/ci-e13-c6/before.sha256
+          hit=0
+          python3 labs/e13e14/scan_runtime_logs.py work/ci-e13-c6/probe.log > work/ci-e13-c6/hit-scan.txt 2>&1 || hit=$?
+          test "$hit" -eq 1
+          printf 'probe completed; clean content\n' > work/ci-e13-c6/probe.log
+          sha256sum work/ci-e13-c6/probe.log > work/ci-e13-c6/after.sha256
+          python3 labs/e13e14/scan_runtime_logs.py work/ci-e13-c6/probe.log > work/ci-e13-c6/clean-scan.txt 2>&1
+          printf 'HIT_CODE=%s CLEAN_CODE=0\n' "$hit" > work/ci-e13-c6/exit-codes.txt
+          python3 labs/e13e14/scan_runtime_logs.py work/ci-e13-c6
+
+      - name: Scan tracked source and Git history
+        run: python3 scripts/secret_scan.py . --history
+
+      - name: Preserve C6 evidence
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: e13-c6-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work/ci-e13-c6/
+          retention-days: 14

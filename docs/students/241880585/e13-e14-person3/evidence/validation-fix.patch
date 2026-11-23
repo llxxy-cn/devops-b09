@@ -1,0 +1,48 @@
+diff --git a/labs/e11e12/pipeline.py b/labs/e11e12/pipeline.py
+index b2285ff..6137b1b 100644
+--- a/labs/e11e12/pipeline.py
++++ b/labs/e11e12/pipeline.py
+@@ -151,21 +151,28 @@ def validate_in_draft(target, patchfile, edits, out, runtime, expected, real):
+         if real:
+             runtime.run(['make', 'test'], sandbox)
+         checks['test'] = runtime.run(['./app'], sandbox) == expected
+-        header = sandbox / ('extra.h' if real else 'config.h')
+-        affected = {edit['target'] for edit in edits if edit['dependency'] == header.name}
+-        if not affected:
+-            raise Failure('RECHECK_FAILED', f'Patch did not repair a dependency on {header.name}')
+-        before = {name: (sandbox / name).stat().st_mtime_ns for name in affected}
+-        time.sleep(1.05)
+-        if real:
+-            header.touch()
+-        else:
+-            header.write_text('#define VALUE 2\n', encoding='utf-8')
+-        runtime.run(['make', 'app'], sandbox)
+-        output = runtime.run(['./app'], sandbox)
+-        checks['header_change'] = output == (expected if real else '2') and all(
+-            (sandbox / name).stat().st_mtime_ns > mtime for name, mtime in before.items()
+-        )
++        edges = sorted({(edit['target'], edit['dependency']) for edit in edits})
++        rebuilds = []
++        checks['header_change'] = True
++        for target_name, dependency_name in edges:
++            dependency = sandbox / dependency_name
++            object_file = sandbox / target_name
++            if not dependency.is_file() or not object_file.is_file():
++                raise Failure('RECHECK_FAILED', f'Missing dependency or target: {target_name} <- {dependency_name}')
++            before = object_file.stat().st_mtime_ns
++            time.sleep(1.05)
++            dependency.touch()
++            runtime.run(['make', 'app'], sandbox)
++            output = runtime.run(['./app'], sandbox)
++            after = object_file.stat().st_mtime_ns
++            passed = after > before and output == expected
++            rebuilds.append({
++                'target': target_name, 'dependency': dependency_name,
++                'before_mtime_ns': before, 'after_mtime_ns': after,
++                'output': output, 'passed': passed,
++            })
++            save(out/'edge-rebuilds.json', rebuilds)
++            checks['header_change'] = checks['header_change'] and passed
+         recheck = runtime.scan(sandbox, real=real)
+         save(out/'recheck.json', recheck)
+         checks['no_missing'] = not any(f['type'] == 'MISSING' for f in recheck['findings'])

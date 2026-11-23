@@ -1,0 +1,38 @@
+{
+  "schema_version": "e11e12-1",
+  "job_id": "job-a36d9c005c0343b8a32ec5d52512e522",
+  "trace_id": "trace-ccfed59559c9492582d6df0bb611f327",
+  "kind": "recheck",
+  "commit": "5640bb69a01e64559207e9f74d15a9ae71a4d0f3",
+  "status": "SUCCEEDED",
+  "data": {
+    "validation": {
+      "accepted": true,
+      "checks": {
+        "patch_applies": true,
+        "build": true,
+        "test": true,
+        "header_change": true,
+        "no_missing": true
+      },
+      "error": null,
+      "rollback": false,
+      "source_unchanged": false,
+      "image_id": "sha256:0a9853ef79d4493cef7ebbf0e828c99c487aec25b198f0c8a3087d78aec6475e"
+    },
+    "findings": [],
+    "patched_makefile_sha256": "2a8a23e53c19bffbc8e89c406b233157b2aef38dbdff65920df5ed4e5d934350"
+  },
+  "artifacts": [
+    {
+      "uri": "artifact://job-a36d9c005c0343b8a32ec5d52512e522/validation/validation.json",
+      "sha256": "020631a2869b2497fe7c5385d59762c364f5c7a22568ea7e48c892282bc87a3e",
+      "bytes": 312
+    },
+    {
+      "uri": "artifact://job-a36d9c005c0343b8a32ec5d52512e522/final-full/findings.json",
+      "sha256": "f22310ef6b22bb1189ab086ae9ebe53bb7c86e7476532a4c310d61b5bebcba73",
+      "bytes": 2158
+    }
+  ]
+}

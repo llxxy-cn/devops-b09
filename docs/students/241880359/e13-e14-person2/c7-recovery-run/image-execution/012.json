@@ -1,0 +1,24 @@
+{
+  "image_id": "sha256:eceebb1b3e195eba6072ea91a3a04f2a5bab0054cd56ec923cf3ecfa2b13fcb3",
+  "project": "/course/work/e13-person2-686l99_j/c7-recovery-run/validation/sandbox",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--user",
+    "0:0",
+    "--mount",
+    "type=bind,source=/root/devops-b09-e13-offline.AXJSHY/work/e13-person2-686l99_j/c7-recovery-run/validation/sandbox,target=/project",
+    "--workdir",
+    "/project",
+    "--entrypoint",
+    "make",
+    "sha256:eceebb1b3e195eba6072ea91a3a04f2a5bab0054cd56ec923cf3ecfa2b13fcb3",
+    "app"
+  ],
+  "status": "SUCCEEDED"
+}

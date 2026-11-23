@@ -1,0 +1,1 @@
+helper.o: helper.c calculate.h add.h sub.h

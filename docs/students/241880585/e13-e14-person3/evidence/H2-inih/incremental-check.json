@@ -1,0 +1,242 @@
+{
+  "schema_version": "e11e12-1",
+  "job_id": "job-df4ca5d3d4424fd6b499a247003a37f1",
+  "trace_id": "trace-5ed7bef465904d8185084d8af35e5143",
+  "kind": "incremental-check",
+  "commit": "3aadb81763c79651e4dfa99b725ba921ee2b8a39",
+  "status": "SUCCEEDED",
+  "data": {
+    "schema_version": "e8e10-1",
+    "profile": "GCC_LOCAL_HEADERS_EXPLICIT_MAKE",
+    "commit": "3aadb81763c79651e4dfa99b725ba921ee2b8a39",
+    "key": {
+      "directives": {
+        "config.h": [
+          "#define VALUE 1"
+        ],
+        "extra.h": [
+          "#define EXPECTED_HELPER 0"
+        ],
+        "helper.c": [
+          "#if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)",
+          "#define _CRT_SECURE_NO_WARNINGS",
+          "#endif",
+          "#include <stdio.h>",
+          "#include <ctype.h>",
+          "#include <string.h>",
+          "#include <assert.h>",
+          "#include \"ini.h\"",
+          "#if !INI_USE_STACK",
+          "#if INI_CUSTOM_ALLOCATOR",
+          "#include <stddef.h>",
+          "#else",
+          "#include <stdlib.h>",
+          "#define ini_malloc malloc",
+          "#define ini_free free",
+          "#define ini_realloc realloc",
+          "#endif",
+          "#endif",
+          "#if INI_ALLOW_INLINE_COMMENTS",
+          "#else",
+          "#endif",
+          "#if INI_USE_STACK",
+          "#else",
+          "#endif",
+          "#if INI_ALLOW_REALLOC && !INI_USE_STACK",
+          "#endif",
+          "#if INI_ALLOW_MULTILINE",
+          "#endif",
+          "#if !INI_USE_STACK",
+          "#endif",
+          "#if INI_HANDLER_LINENO",
+          "#define HANDLER(u, s, n, v) handler(u, s, n, v, lineno)",
+          "#else",
+          "#define HANDLER(u, s, n, v) handler(u, s, n, v)",
+          "#endif",
+          "#if INI_ALLOW_REALLOC && !INI_USE_STACK",
+          "#endif",
+          "#if INI_ALLOW_BOM",
+          "#endif",
+          "#if INI_ALLOW_MULTILINE",
+          "#if INI_ALLOW_INLINE_COMMENTS",
+          "#endif",
+          "#endif",
+          "#if INI_ALLOW_MULTILINE",
+          "#endif",
+          "#if INI_CALL_HANDLER_ON_NEW_SECTION",
+          "#endif",
+          "#if INI_ALLOW_INLINE_COMMENTS",
+          "#endif",
+          "#if INI_ALLOW_MULTILINE",
+          "#endif",
+          "#if INI_ALLOW_NO_VALUE",
+          "#if INI_ALLOW_MULTILINE",
+          "#endif",
+          "#else",
+          "#endif",
+          "#if INI_STOP_ON_FIRST_ERROR",
+          "#endif",
+          "#if !INI_USE_STACK",
+          "#endif",
+          "#include <stdlib.h>",
+          "#include <string.h>"
+        ],
+        "ini.h": [
+          "#ifndef INI_H",
+          "#define INI_H",
+          "#ifdef __cplusplus",
+          "#endif",
+          "#include <stdio.h>",
+          "#ifndef INI_HANDLER_LINENO",
+          "#define INI_HANDLER_LINENO 0",
+          "#endif",
+          "#ifndef INI_API",
+          "#if defined _WIN32 || defined __CYGWIN__",
+          "#\tifdef INI_SHARED_LIB",
+          "#\t\tifdef INI_SHARED_LIB_BUILDING",
+          "#\t\t\tdefine INI_API __declspec(dllexport)",
+          "#\t\telse",
+          "#\t\t\tdefine INI_API __declspec(dllimport)",
+          "#\t\tendif",
+          "#\telse",
+          "#\t\tdefine INI_API",
+          "#\tendif",
+          "#else",
+          "#\tif defined(__GNUC__) && __GNUC__ >= 4",
+          "#\t\tdefine INI_API __attribute__ ((visibility (\"default\")))",
+          "#\telse",
+          "#\t\tdefine INI_API",
+          "#\tendif",
+          "#endif",
+          "#endif",
+          "#if INI_HANDLER_LINENO",
+          "#else",
+          "#endif",
+          "#ifndef INI_ALLOW_MULTILINE",
+          "#define INI_ALLOW_MULTILINE 1",
+          "#endif",
+          "#ifndef INI_ALLOW_BOM",
+          "#define INI_ALLOW_BOM 1",
+          "#endif",
+          "#ifndef INI_START_COMMENT_PREFIXES",
+          "#define INI_START_COMMENT_PREFIXES \";#\"",
+          "#endif",
+          "#ifndef INI_ALLOW_INLINE_COMMENTS",
+          "#define INI_ALLOW_INLINE_COMMENTS 1",
+          "#endif",
+          "#ifndef INI_INLINE_COMMENT_PREFIXES",
+          "#define INI_INLINE_COMMENT_PREFIXES \";\"",
+          "#endif",
+          "#ifndef INI_USE_STACK",
+          "#define INI_USE_STACK 1",
+          "#endif",
+          "#ifndef INI_MAX_LINE",
+          "#define INI_MAX_LINE 200",
+          "#endif",
+          "#ifndef INI_MAX_SECTION",
+          "#define INI_MAX_SECTION 50",
+          "#endif",
+          "#ifndef INI_MAX_NAME",
+          "#define INI_MAX_NAME 50",
+          "#endif",
+          "#ifndef INI_ALLOW_REALLOC",
+          "#define INI_ALLOW_REALLOC 0",
+          "#endif",
+          "#ifndef INI_INITIAL_ALLOC",
+          "#define INI_INITIAL_ALLOC 200",
+          "#endif",
+          "#ifndef INI_STOP_ON_FIRST_ERROR",
+          "#define INI_STOP_ON_FIRST_ERROR 0",
+          "#endif",
+          "#ifndef INI_CALL_HANDLER_ON_NEW_SECTION",
+          "#define INI_CALL_HANDLER_ON_NEW_SECTION 0",
+          "#endif",
+          "#ifndef INI_ALLOW_NO_VALUE",
+          "#define INI_ALLOW_NO_VALUE 0",
+          "#endif",
+          "#ifndef INI_CUSTOM_ALLOCATOR",
+          "#define INI_CUSTOM_ALLOCATOR 0",
+          "#endif",
+          "#ifdef __cplusplus",
+          "#endif",
+          "#endif /* INI_H */"
+        ],
+        "main.c": [
+          "#include <stdio.h>",
+          "#include \"config.h\"",
+          "#include \"extra.h\""
+        ],
+        "unused.h": []
+      },
+      "recipes": [
+        "\tgcc main.o helper.o -o app",
+        "\tgcc $(CFLAGS) -c main.c -o main.o",
+        "\tgcc $(CFLAGS) -c helper.c -o helper.o",
+        "\trm -f main.o helper.o app"
+      ],
+      "flags": "-O0",
+      "compiler": "gcc (Debian 14.2.0-19) 14.2.0"
+    },
+    "actual": {
+      "main.o": [
+        "config.h",
+        "extra.h",
+        "main.c"
+      ],
+      "helper.o": [
+        "helper.c",
+        "ini.h"
+      ]
+    },
+    "declared": {
+      "main.o": [
+        "config.h",
+        "main.c",
+        "unused.h"
+      ],
+      "helper.o": [
+        "helper.c",
+        "ini.h"
+      ]
+    },
+    "findings": [
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "extra.h"
+      },
+      {
+        "type": "REDUNDANT",
+        "target": "main.o",
+        "dependency": "unused.h"
+      }
+    ],
+    "added": [
+      [
+        "MISSING",
+        "main.o",
+        "extra.h"
+      ]
+    ],
+    "resolved": [],
+    "refreshed": [
+      "main.o",
+      "helper.o"
+    ],
+    "reused": [],
+    "elapsed_s": 0.44902791641652584,
+    "image_id": "sha256:5433057d5e37906159932e30cd8f8d992c7862db757e422700938c9ff4a8787f"
+  },
+  "artifacts": [
+    {
+      "uri": "artifact://job-df4ca5d3d4424fd6b499a247003a37f1/incremental-report.json",
+      "sha256": "ea88c805a074d067b70e1b8bf636258276977ddaf6904d1085b478c836598d4f",
+      "bytes": 5873
+    },
+    {
+      "uri": "artifact://job-df4ca5d3d4424fd6b499a247003a37f1/target-full/findings.json",
+      "sha256": "7d8396f17a440ec89b9c3003c5b076fca6db92da39cb076866bcdc9c78e1d9d4",
+      "bytes": 2849
+    }
+  ]
+}

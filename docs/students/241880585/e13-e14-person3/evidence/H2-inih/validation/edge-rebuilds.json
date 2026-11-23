@@ -1,0 +1,10 @@
+[
+  {
+    "target": "main.o",
+    "dependency": "extra.h",
+    "before_mtime_ns": 1795426908145027515,
+    "after_mtime_ns": 1795426909541033404,
+    "output": "1",
+    "passed": true
+  }
+]

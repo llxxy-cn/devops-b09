@@ -1,0 +1,127 @@
+{
+  "schema_version": "e11e12-1",
+  "job_id": "job-1ee21329632445b68c90210b0211d178",
+  "trace_id": "trace-4fd0a8c0d0f94baf996bc0c82037b440",
+  "kind": "fixed-md",
+  "commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+  "status": "SUCCEEDED",
+  "data": {
+    "schema_version": "e8e10-1",
+    "profile": "GCC_LOCAL_HEADERS_EXPLICIT_MAKE",
+    "commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+    "key": {
+      "directives": {
+        "add.h": [],
+        "calculate.h": [],
+        "config.h": [
+          "#define VALUE 1"
+        ],
+        "extra.h": [
+          "#define EXTRA 0"
+        ],
+        "helper.c": [
+          "#include \"calculate.h\"",
+          "#include \"add.h\"",
+          "#include \"sub.h\""
+        ],
+        "main.c": [
+          "#include <stdio.h>",
+          "#include \"extra.h\"",
+          "#include \"config.h\"",
+          "#include \"calculate.h\""
+        ],
+        "sub.h": [],
+        "unused.h": []
+      },
+      "recipes": [
+        "\tgcc main.o helper.o -o app",
+        "\tgcc $(CFLAGS) -c main.c -o main.o",
+        "\tgcc $(CFLAGS) -c helper.c -o helper.o",
+        "\trm -f main.o helper.o app"
+      ],
+      "flags": "-O0",
+      "compiler": "gcc (Debian 14.2.0-19) 14.2.0"
+    },
+    "actual": {
+      "main.o": [
+        "calculate.h",
+        "config.h",
+        "extra.h",
+        "main.c"
+      ],
+      "helper.o": [
+        "add.h",
+        "calculate.h",
+        "helper.c",
+        "sub.h"
+      ]
+    },
+    "declared": {
+      "main.o": [
+        "main.c",
+        "unused.h"
+      ],
+      "helper.o": [
+        "helper.c"
+      ]
+    },
+    "findings": [
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "calculate.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "config.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "extra.h"
+      },
+      {
+        "type": "REDUNDANT",
+        "target": "main.o",
+        "dependency": "unused.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "helper.o",
+        "dependency": "add.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "helper.o",
+        "dependency": "calculate.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "helper.o",
+        "dependency": "sub.h"
+      }
+    ],
+    "added": [
+      [
+        "MISSING",
+        "main.o",
+        "extra.h"
+      ]
+    ],
+    "resolved": [],
+    "refreshed": [
+      "main.o",
+      "helper.o"
+    ],
+    "reused": [],
+    "elapsed_s": 0.009975342079997063
+  },
+  "artifacts": [
+    {
+      "uri": "artifact://job-1ee21329632445b68c90210b0211d178/fixed-md-input.json",
+      "sha256": "c19a6b11675b86bd5f2bfe348b3faeb65151b4c57681a54103510f642845e5cf",
+      "bytes": 2825
+    }
+  ]
+}

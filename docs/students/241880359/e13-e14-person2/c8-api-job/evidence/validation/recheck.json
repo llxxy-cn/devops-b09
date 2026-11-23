@@ -1,0 +1,90 @@
+{
+  "schema_version": "e8e10-1",
+  "profile": "GCC_LOCAL_HEADERS_EXPLICIT_MAKE",
+  "commit": "1da8ed70c0898713dad3c7873c7a80b17fdbd8f3",
+  "key": {
+    "directives": {
+      "add.h": [],
+      "calculate.h": [],
+      "config.h": [
+        "#define VALUE 1"
+      ],
+      "extra.h": [
+        "#define EXTRA 0"
+      ],
+      "helper.c": [
+        "#include \"calculate.h\"",
+        "#include \"add.h\"",
+        "#include \"sub.h\""
+      ],
+      "main.c": [
+        "#include <stdio.h>",
+        "#include \"extra.h\"",
+        "#include \"config.h\"",
+        "#include \"calculate.h\""
+      ],
+      "sub.h": [],
+      "unused.h": []
+    },
+    "recipes": [
+      "\tgcc main.o helper.o -o app",
+      "\tgcc $(CFLAGS) -c main.c -o main.o",
+      "\tgcc $(CFLAGS) -c helper.c -o helper.o",
+      "\trm -f main.o helper.o app"
+    ],
+    "flags": [
+      "-O0"
+    ],
+    "compiler": "gcc (Debian 14.2.0-19) 14.2.0"
+  },
+  "actual": {
+    "main.o": [
+      "calculate.h",
+      "config.h",
+      "extra.h",
+      "main.c"
+    ],
+    "helper.o": [
+      "add.h",
+      "calculate.h",
+      "helper.c",
+      "sub.h"
+    ]
+  },
+  "declared": {
+    "main.o": [
+      "calculate.h",
+      "config.h",
+      "extra.h",
+      "main.c",
+      "unused.h"
+    ],
+    "helper.o": [
+      "add.h",
+      "calculate.h",
+      "helper.c",
+      "sub.h"
+    ]
+  },
+  "findings": [
+    {
+      "type": "REDUNDANT",
+      "target": "main.o",
+      "dependency": "unused.h"
+    }
+  ],
+  "added": [
+    [
+      "REDUNDANT",
+      "main.o",
+      "unused.h"
+    ]
+  ],
+  "resolved": [],
+  "refreshed": [
+    "main.o",
+    "helper.o"
+  ],
+  "reused": [],
+  "elapsed_s": 0.47043874114751816
+}
