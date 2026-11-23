@@ -3,7 +3,7 @@ x-common: &common
   image: ${E14_IMAGE:?set E14_IMAGE}
   pull_policy: never
   restart: unless-stopped
-  user: "0:0"
+  user: "${E14_UID:-0}:${E14_GID:-0}"
   working_dir: /course
   environment:
     PYTHONPATH: /course/labs/e8e10:/course/labs/e11e12/vendor:/app
@@ -49,6 +49,8 @@ services:
     volumes:
       - ${E14_ROOT:?set E14_ROOT}:/course
       - /var/run/docker.sock:/var/run/docker.sock
+    group_add:
+      - "${E14_DOCKER_GID:-0}"
 
   mdfixer:
     <<: *common
