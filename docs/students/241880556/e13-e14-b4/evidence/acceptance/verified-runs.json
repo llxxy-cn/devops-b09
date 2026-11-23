@@ -1,0 +1,100 @@
+{
+  "work/e14-b4-accept-0be9552/fixed-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-c9b986e77d9c49c998d2d38f95ff9d11",
+    "trace_id": "trace-2db0b8493faa450b8d9311c43bf698bb",
+    "base_commit": "feff9f9d3385548a84ff11b09b012122ede27837",
+    "target_commit": "859e1c2e27866794343ab1e9d98d2eb7c6856b40",
+    "artifact_count": 174,
+    "result_sha256": "cecaaba52d2130bbfd37bb15f6d78c4f5fa575f69d630ade8c07a37bda67994c",
+    "incremental_report_sha256": "ecc38da698bea93d1907bd83b6c07a81e19eb335a8fa8f3f016cc1daa704bc3c",
+    "candidate_patch_sha256": "88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af",
+    "validation_sha256": "dba5e8f4752cd3124445710127f493345a703d91fe0df1281d3352e255bbc62f",
+    "final_recheck_sha256": "15e925cdaab8f8f40be14b5005dd5c087213639f28e56676b65c145316ff8f6c",
+    "rebuild_count": 2,
+    "remaining_findings": [
+      [
+        "REDUNDANT",
+        "main.o",
+        "unused.h"
+      ]
+    ],
+    "candidate_image_id": "sha256:1e41b10049edbcb144addfc6b7782a8ba6d4ff185a3a01152d374bb0f0b11d6c"
+  },
+  "work/e14-b4-accept-0be9552/b09-real-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-77b9def8d9124265a6c6ce8b62887427",
+    "trace_id": "trace-96fd9a8bbcef447f839ac99acb6c2b3c",
+    "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+    "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+    "artifact_count": 180,
+    "result_sha256": "9b9a42ea1fc1a35c21822fb7e2145cabff01132b0c677003444537cb6053fbb4",
+    "incremental_report_sha256": "038889ffb09d280b31d54ffa080481aa8d266dc13134c176f708e2c299ef6331",
+    "candidate_patch_sha256": "6fb5dc4d84f5d65bcf7edffae3b7e02acb2259676be2154a1fc947463ee75c69",
+    "validation_sha256": "b0787be228f36960c41a565b78a21d0f91224a31cdb26f15c3b12ea23da39de4",
+    "final_recheck_sha256": "6c9c11a330b14e88d82cb485a1533fd4b42f7bc1dae20e40086df19e9b0f4657",
+    "rebuild_count": 1,
+    "remaining_findings": [],
+    "candidate_image_id": "sha256:27db9d75ec016025a6c8efc77e04bbe782a060aac457f1668c05bdc0f1612dcc"
+  },
+  "work/e14-b4-accept-0be9552/a09-real-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-471de082cf9e410289df30696cf219de",
+    "trace_id": "trace-c9da026568f743dfb31529e301ab78b0",
+    "base_commit": "e825395a5f8006f1c57a115cc25ea5c7802863ee",
+    "target_commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+    "artifact_count": 205,
+    "result_sha256": "0ee02e12dd0ace23a3c84e95ae5d25dc91403fdada91a05c6e6a11542a600fbe",
+    "incremental_report_sha256": "4868e18d5b74190a281ca77e849bb66d1c60eb96125e5186998fdb78862e7506",
+    "candidate_patch_sha256": "8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e",
+    "validation_sha256": "8d4475860a81a7ab3576d6f2895440cf37d3ac30ba599960b581111b50d2e992",
+    "final_recheck_sha256": "eacea7c64f26624b8f537330de71a782f53788691a018e7e3447b8c009c71e18",
+    "rebuild_count": 6,
+    "remaining_findings": [
+      [
+        "REDUNDANT",
+        "main.o",
+        "unused.h"
+      ]
+    ],
+    "candidate_image_id": "sha256:2a9571591619b5056d5452d038effe8b2d9d43477a5b8a3fcf9a1daf5517403c"
+  },
+  "work/e14-b4-accept-0be9552/a09-recovery-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-b7ad5cd17333439db75135844809ef4d",
+    "trace_id": "trace-bd4fe812039e4529b53d0314dcd58cb4",
+    "base_commit": "e825395a5f8006f1c57a115cc25ea5c7802863ee",
+    "target_commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+    "artifact_count": 205,
+    "result_sha256": "700f56fa2eb324b666f9515573ceec74613c0d05f809d812259e7a4215e6b059",
+    "incremental_report_sha256": "3e5045993be3b7d3a24d185a8be471705271b9b3c73ccf936e1e9f9bf5d1c31f",
+    "candidate_patch_sha256": "8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e",
+    "validation_sha256": "c5e791b49940043cbe09115ff80839e79d3fbed746f9710c47a73cf0cfedd607",
+    "final_recheck_sha256": "f42eebf36625c3c82a491192ce1a9e73545c95d61ec97fbff431ed4141c561dd",
+    "rebuild_count": 6,
+    "remaining_findings": [
+      [
+        "REDUNDANT",
+        "main.o",
+        "unused.h"
+      ]
+    ],
+    "candidate_image_id": "sha256:e4c458b720096d2df4a1c3c20136fa565db605833d201f68125efd5b6f6b5cc4"
+  },
+  "work/e14-b4-accept-0be9552/b09-outage-recovery-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-3accb77db09248fcb52d8ab0011042bc",
+    "trace_id": "trace-8b80773e733c46698dfb05387cf89477",
+    "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+    "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+    "artifact_count": 180,
+    "result_sha256": "14404b1be3749115326d64e03b5e4342b9033ee49452ee50c6ffd0b80f7b7d67",
+    "incremental_report_sha256": "ae36450e23f6fe61ca2b8dc4ab51d99c515fc42eb5b8f1d64f62cbd8b0788ab0",
+    "candidate_patch_sha256": "6fb5dc4d84f5d65bcf7edffae3b7e02acb2259676be2154a1fc947463ee75c69",
+    "validation_sha256": "7bbf2c387c86a0dcbc2dd4bb649a1a78a9e9e229602b2744e7726bf85493dde7",
+    "final_recheck_sha256": "c634b3ac70881108ceb39964e0b568c40f8850d6ca16abe851f3d876402dc1bc",
+    "rebuild_count": 1,
+    "remaining_findings": [],
+    "candidate_image_id": "sha256:3fcc6e8f0083c087580fb3be680119f858f1ddf5d50507260fae538e0d5ab339"
+  }
+}
