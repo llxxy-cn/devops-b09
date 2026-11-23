@@ -1,0 +1,84 @@
+{
+  "work/e14-b4-compose-sample-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-16ba09bb387d490dad3f595fdf4167b8",
+    "trace_id": "trace-113f23c56c714ddda2b2f865684718d7",
+    "base_commit": "d80ef6842c9e4cd4d87a2ba59aa9e9dcc4afd32e",
+    "target_commit": "97b60a0f0ad80c2f17ea0803a788896b2a7af084",
+    "artifact_count": 173,
+    "result_sha256": "b6a2009ffeee0c2413d0d954b06239154d8bfe41c251687f01c175c4aba5132d",
+    "incremental_report_sha256": "ab9543ad0bc0d07987109613d24c2cb7da1df15984f1caec20273ac8bfa9c9ec",
+    "candidate_patch_sha256": "88074f66c291dcad1344c48f6a2b9ddd42d235d9d0415c85fb33310c5b7cb2af",
+    "validation_sha256": "663729642816425ac0c808d67f44118853dab61967e7754d4bd6e3ebd93c72f3",
+    "final_recheck_sha256": "24c5f814bcbc542eee4006f66fd7aabb1d27a4eaf6ba4255eb88642b1cd14031",
+    "rebuild_count": 2,
+    "remaining_findings": [
+      [
+        "REDUNDANT",
+        "main.o",
+        "unused.h"
+      ]
+    ],
+    "candidate_image_id": "sha256:1d59ccdf8c70d47ad62e0f6fec306a3b1fbfc5f0c8b00c9766e79b886679c4cd"
+  },
+  "work/e14-b4-compose-b09-preflight-03": {
+    "status": "SUCCEEDED",
+    "job_id": "job-0785726c05bc4b5d844d60efed366bc3",
+    "trace_id": "trace-566b98bddcac45bd98fea8922a1b9e91",
+    "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+    "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+    "artifact_count": 180,
+    "result_sha256": "2f7d01b4e4384a2ff353631a392b7b8f23d8ccd5c5774d5998df697950e6aee0",
+    "incremental_report_sha256": "c28e5a2b86314bd1fa18cb4362e88fae408728cc02ee370351e2e2e5812fc646",
+    "candidate_patch_sha256": "6fb5dc4d84f5d65bcf7edffae3b7e02acb2259676be2154a1fc947463ee75c69",
+    "validation_sha256": "ec73eac9ce655fa963e8a6d488b1079fef5ce7f557ef990a78f56a5ad018c3bb",
+    "final_recheck_sha256": "74c3e9e0be44ecf906e952a7571134c65c5847a3683d5f1bb2c0a312efd7caed",
+    "rebuild_count": 1,
+    "remaining_findings": [],
+    "candidate_image_id": "sha256:86e190080f160cacb9331b511423339957b4d3d2989681a23c773bf29824709d"
+  },
+  "work/e14-b4-compose-a09-preflight-02": {
+    "status": "SUCCEEDED",
+    "job_id": "job-e7741dc76c644256a2e993820dfbb949",
+    "trace_id": "trace-499802de6a2b4b0cb716b53a718e9896",
+    "base_commit": "e825395a5f8006f1c57a115cc25ea5c7802863ee",
+    "target_commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+    "artifact_count": 205,
+    "result_sha256": "5040cdda2e6b7f938a3c8d45781a9a6323950a17237fb2154200a342bb5c40be",
+    "incremental_report_sha256": "eae1ce1d4b432142ee06f2566d33637fe1de0b61b3d428cfc0628bc2cf21ea1a",
+    "candidate_patch_sha256": "8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e",
+    "validation_sha256": "03cde85898308c894722eef18778d8e45ab781b0364e903e1023bb3d91ede6e5",
+    "final_recheck_sha256": "175bc98fd7e1217cd140f3d53b1326a7a02357bb67e40e78153cf34495f1dc08",
+    "rebuild_count": 6,
+    "remaining_findings": [
+      [
+        "REDUNDANT",
+        "main.o",
+        "unused.h"
+      ]
+    ],
+    "candidate_image_id": "sha256:4072b2cf06fc8659bce0d211ea0c28e804af26d0c6df4f18384348e99b3b5613"
+  },
+  "work/e14-b4-recovery-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-03bb8835f7384329bb1f9b14a8b17db7",
+    "trace_id": "trace-4a7edd5f2db241f3abf3edd6ce69d1a8",
+    "base_commit": "e825395a5f8006f1c57a115cc25ea5c7802863ee",
+    "target_commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+    "artifact_count": 205,
+    "result_sha256": "da33c4a731ebeced708929451df373cd026fd6264a318b142f416353973e4dbb",
+    "incremental_report_sha256": "a78dde1824ef09704749b9a1103514ee81631e6b9c3e576fde822040ed279068",
+    "candidate_patch_sha256": "8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e",
+    "validation_sha256": "9aac6f2c8640b4ba53495d272d4edd717b8317c067d55a8c584e6722af4a8d08",
+    "final_recheck_sha256": "1c11cfa50f4bb96b7656e2fd45efe4b54f5c3dd9a6214ff037025c1a0a8728c6",
+    "rebuild_count": 6,
+    "remaining_findings": [
+      [
+        "REDUNDANT",
+        "main.o",
+        "unused.h"
+      ]
+    ],
+    "candidate_image_id": "sha256:17ffc3554dc2aa00abd5982ddf00c7b50fdc7ee2e893770a5b229b5b4c3eb0f3"
+  }
+}
