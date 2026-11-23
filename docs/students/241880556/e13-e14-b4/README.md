@@ -28,6 +28,16 @@ B09 项目首次预跑在 EChecker 遇到 `CFLAGS ?=` 后返回 `UNSUPPORTED_FLA
 
 运行证据扫描 768 个文本，`hits=0, errors=0`；源码、历史、课程镜像及 B09/A09 候选镜像扫描均退出 0。摘要见 [runtime-scan.log](evidence/runtime-scan.log)。课程服务器上 B4 独立运行的原有 20 项 E11–E12 测试和新增 5 项 E13–E14 测试通过。
 
+## E13 跨组签收状态
+
+A09 已在 2026-11-23 的回复中正式签收 B09 本轮 E13 交付。A09 核对了四分片重组包（154,556,278 字节，SHA256 `1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33`）、包内 17 个文件、修复提交 `74eff064e1eae3e244b0acf80880c92fb4635e26` 及其 Target 父提交 `ba688c40d13cd8658e554f7544f1546d35b4b397`。C1 最终 MD=0、6/6 条修复边重建及输出验证通过；C2 为 `STALE_REPORT`，C3 为 `ARTIFACT_HASH_MISMATCH`，均无补丁产物；恢复输入后的新任务成功。A09 还复算确认兼容信封只增加 `source_report.bytes=3052`。签收原文目前由组内消息提供，最终门禁表仍需固定可访问的签收证据链接。
+
+A09 提出的两项非阻断文档建议：交付包 `SHA256SUMS` 为 CRLF，Linux 校验前需去除 `\r`；交付说明中的部分路径与包内扁平文件名不一致。两项均不影响本轮签收，后续交付说明应统一。
+
+## B4 分支 CI
+
+B4 集成代码提交 `5f5471e` 的 [E13–E14 integration gate 第三轮](https://github.com/llxxy-cn/devops-b09/actions/runs/45164694229) 已通过，`contracts` 和 `four-services` 两个 job 均为 `success`。前两轮分别暴露 runner 工作树所有权和非 root DRAFT 的 Docker 配置目录权限问题；修复后固定样例在四个真实容器中完成五阶段。此 CI 验证 B4 分支，正式门禁仍以合并后统一验收 SHA 为准。
+
 ## 原始证据包
 
 - 课程服务器：`/root/devops-submissions/241880556/e14-b4-preflight-20261123.tar.gz`
@@ -37,6 +47,6 @@ B09 项目首次预跑在 EChecker 遇到 `CFLAGS ?=` 后返回 `UNSUPPORTED_FLA
 
 ## 待完成的正式验收
 
-1. 审查并合并 B3 PR #17，完成 Issue #18 闭环；B1/A09 签收与 C1–C8、教师三项目在同一统一验收 SHA 上形成最终 E13 门禁。
+1. 审查并合并 B3 PR #17，完成 Issue #18 闭环；将已取得的 A09 签收与 C1–C8、教师三项目在同一统一验收 SHA 上形成最终 E13 门禁。
 2. B4 代码提交、PR 审查、CI 通过并合并后，在最终 B/A/编排 SHA 和镜像 ID 上重新跑固定样例、双方真实项目、受控超时与恢复，生成正式证据包。
 3. E13 门禁通过、阻断 Issue 为零且正式 E14 验收完成后，才在约定集成仓库决定 `v0.9-rc` 标签与 Release Notes。当前状态为“候选待发布”。
