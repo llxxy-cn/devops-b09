@@ -44,6 +44,7 @@ services:
     environment:
       E14_ROLE: draft
       PYTHONDONTWRITEBYTECODE: "1"
+      DOCKER_CONFIG: /tmp/e14-docker-config
     command: ["python3", "labs/e13e14/service.py"]
     ports: ["127.0.0.1:${E14_DRAFT_PORT:-18083}:8080"]
     volumes:
