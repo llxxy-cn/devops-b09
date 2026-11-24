@@ -1,0 +1,5 @@
+2026-11-24T10:33:01+08:00
+ 302023       1 11-18:15:30 docker run --rm --network bridge --group-add 999 -v /var/run/docker.sock:/var/run/docker.sock -e COURSE_HOST_ROOT=/root/devops-students/241880585/draft -p 127.0.0.1:18083:8080 --cap-add SYS_PTRACE --user 0:0 -e HOME=/tmp -e PYTHONPATH=/course/labs/e11e12:/course/labs/e8e10:/course/labs/e11e12/vendor:/app -v /root/devops-students/241880585/draft:/course -w /course course-e11e12:241880585 python3 labs/e11e12/server.py --host 0.0.0.0
+7c191277fddd40e34479dec5928477f472bf7a5c6a163b9080b784fa8c94b55b course-e11e12:241880556 Up 11 days nervous_panini
+d8ce3bf987b1b64d77ec16624b87b9a8e90d9e8cbecddc855883ce9b74de7edb course-e11e12:241880585 Up 11 days condescending_spence
+2c5cfb332e6b89eb79158e1de53e3957020d022a9ac324aed117b1eaaa9fce0c m.daocloud.io/docker.io/moby/buildkit:buildx-stable-1 Up 4 weeks buildx_buildkit_e5-2418805850

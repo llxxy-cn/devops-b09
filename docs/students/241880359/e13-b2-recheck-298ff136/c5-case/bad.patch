@@ -1,0 +1,7 @@
+--- a/main.c
++++ b/main.c
+@@ -8,3 +8,4 @@
+     printf("%d\n", VALUE + result - 1 + EXTRA);
+     return 0;
+ }
++#error C5_INJECTED_BUILD_FAILURE

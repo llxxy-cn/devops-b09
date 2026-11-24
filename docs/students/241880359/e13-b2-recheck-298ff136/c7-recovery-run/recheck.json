@@ -1,0 +1,71 @@
+{
+  "schema_version": "e11e12-1",
+  "job_id": "job-27f57e8a40914a2f9b9ef29adb20ec2a",
+  "trace_id": "trace-b246111f3b0f4df18d5ff6827c70dec8",
+  "kind": "recheck",
+  "commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+  "status": "SUCCEEDED",
+  "data": {
+    "validation": {
+      "accepted": true,
+      "checks": {
+        "patch_applies": true,
+        "build": true,
+        "test": true,
+        "edge_rebuilds": true,
+        "header_change": true,
+        "no_missing": true
+      },
+      "error": null,
+      "rollback": false,
+      "source_unchanged": false,
+      "image_id": "sha256:56e68f41503b7671d1fc6baff472ed5f008f292e043db722afbbde2818842f10"
+    },
+    "findings": [
+      {
+        "type": "REDUNDANT",
+        "target": "main.o",
+        "dependency": "unused.h",
+        "evidence": [
+          {
+            "source": "make_database",
+            "artifact": "make-db.txt",
+            "line": 1070,
+            "declaration": "main.o: main.c unused.h calculate.h config.h extra.h"
+          }
+        ],
+        "scope": "Not observed in this recipe job under this build configuration"
+      }
+    ],
+    "patched_makefile_sha256": "485b931a606e10cd44d519c6279e763a4193b17093049e6a917ad42c35544d4a",
+    "gcc_findings": [
+      {
+        "type": "REDUNDANT",
+        "target": "main.o",
+        "dependency": "unused.h"
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "uri": "artifact://job-27f57e8a40914a2f9b9ef29adb20ec2a/validation/validation.json",
+      "sha256": "f32638a948a69ad17a104c15373fc9466742714d3d0321e334ca3155a8053127",
+      "bytes": 339
+    },
+    {
+      "uri": "artifact://job-27f57e8a40914a2f9b9ef29adb20ec2a/final-full/findings.json",
+      "sha256": "bf18482ab9c7807008eeac8052c86130efa982a501cacdafb15ac382c8c096cd",
+      "bytes": 2573
+    },
+    {
+      "uri": "artifact://job-27f57e8a40914a2f9b9ef29adb20ec2a/validation/recheck.json",
+      "sha256": "f2b8c03185c5449d1a491abed08340a1d2e3c05ea28fee7668f1b0b57581e1f1",
+      "bytes": 1678
+    },
+    {
+      "uri": "artifact://job-27f57e8a40914a2f9b9ef29adb20ec2a/validation/edge-rebuilds.json",
+      "sha256": "6c43cb8ec4b592fc55e16b773bb6247e20d3d2ba4cd5567ce2c6409717f7ab21",
+      "bytes": 1430
+    }
+  ]
+}

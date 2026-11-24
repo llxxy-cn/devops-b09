@@ -1,0 +1,24 @@
+{
+  "image_id": "sha256:5c2018821b1fa09c02b05abb472419c289c813ce42905e55fd9ea397585ece54",
+  "project": "/course/work/api-jobs/job-c8ada5349d3247a4aced3b35b9307904/evidence/validation/sandbox",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--user",
+    "0:0",
+    "--mount",
+    "type=bind,source=/root/241880359/devops-b09/work/api-jobs/job-c8ada5349d3247a4aced3b35b9307904/evidence/validation/sandbox,target=/project",
+    "--workdir",
+    "/project",
+    "--entrypoint",
+    "gcc",
+    "sha256:5c2018821b1fa09c02b05abb472419c289c813ce42905e55fd9ea397585ece54",
+    "--version"
+  ],
+  "status": "SUCCEEDED"
+}
