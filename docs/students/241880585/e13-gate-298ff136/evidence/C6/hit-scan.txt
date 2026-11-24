@@ -1,0 +1,3 @@
+FOUND work/e13-gate-298ff136.Fdh9Zq/C6/probe.log:1 LLM/API Key sk-d***
+FOUND work/e13-gate-298ff136.Fdh9Zq/C6/probe.log:1 secret assignment sk-d***
+runtime log scan: text_files=1 hits=2 errors=0

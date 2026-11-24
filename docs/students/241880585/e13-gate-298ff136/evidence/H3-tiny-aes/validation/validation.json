@@ -1,0 +1,15 @@
+{
+  "accepted": true,
+  "checks": {
+    "patch_applies": true,
+    "build": true,
+    "test": true,
+    "edge_rebuilds": true,
+    "header_change": true,
+    "no_missing": true
+  },
+  "error": null,
+  "rollback": false,
+  "source_unchanged": false,
+  "image_id": "sha256:e85729f0eb8a5e22a95075502f48e2301c610f195a5d44773959095da9c45752"
+}

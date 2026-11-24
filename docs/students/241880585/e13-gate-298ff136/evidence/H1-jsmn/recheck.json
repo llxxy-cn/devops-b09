@@ -1,0 +1,50 @@
+{
+  "schema_version": "e11e12-1",
+  "job_id": "job-544f29f65def4678a0ae3c6abaade2af",
+  "trace_id": "trace-c5479675456f4c39b661fcbe2df04bc1",
+  "kind": "recheck",
+  "commit": "948a1d30cd758d32d45a50f788e5a95fb1d89c69",
+  "status": "SUCCEEDED",
+  "data": {
+    "validation": {
+      "accepted": true,
+      "checks": {
+        "patch_applies": true,
+        "build": true,
+        "test": true,
+        "edge_rebuilds": true,
+        "header_change": true,
+        "no_missing": true
+      },
+      "error": null,
+      "rollback": false,
+      "source_unchanged": false,
+      "image_id": "sha256:e328fdcb4e6bef0fc838f2f2b72f6242056ec53a2b915ec1ea72954dd9457d0e"
+    },
+    "findings": [],
+    "patched_makefile_sha256": "813303eba9962947839f8b7d46190fecbd71012cf15d1e5affe2c785863f194e",
+    "gcc_findings": []
+  },
+  "artifacts": [
+    {
+      "uri": "artifact://job-544f29f65def4678a0ae3c6abaade2af/validation/validation.json",
+      "sha256": "7529b43939fae65be26409d62a8dea5deaa890bc1f5f5dade42aac0ad6351eb4",
+      "bytes": 339
+    },
+    {
+      "uri": "artifact://job-544f29f65def4678a0ae3c6abaade2af/final-full/findings.json",
+      "sha256": "c6f47ad86f72cd27eb867e0025d4c88a0d10f128e7138b226ea47fdb37ad3d09",
+      "bytes": 2161
+    },
+    {
+      "uri": "artifact://job-544f29f65def4678a0ae3c6abaade2af/validation/recheck.json",
+      "sha256": "878866bdc72e31a625f3fc9be9342cefbe1c87bd4ed902487687e34298e567fe",
+      "bytes": 2354
+    },
+    {
+      "uri": "artifact://job-544f29f65def4678a0ae3c6abaade2af/validation/edge-rebuilds.json",
+      "sha256": "747cc5a6ece580df1d820cc9f25828deba573be8dd3f3d326e61bdf225c44b0c",
+      "bytes": 241
+    }
+  ]
+}

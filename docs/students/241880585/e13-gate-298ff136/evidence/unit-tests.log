@@ -1,0 +1,44 @@
+IMAGE=course-e11e12:241880585
+test_candidate_cannot_change_required_runtime_instruction (test_b1_draft_contract.B1DraftContractTests.test_candidate_cannot_change_required_runtime_instruction) ... ok
+test_missing_make_is_classified (test_b1_draft_contract.B1DraftContractTests.test_missing_make_is_classified) ... ok
+test_prepare_uses_reachable_debian_mirror (test_b1_draft_contract.B1DraftContractTests.test_prepare_uses_reachable_debian_mirror) ... ok
+test_prepare_uses_reachable_digest_pinned_base (test_b1_draft_contract.B1DraftContractTests.test_prepare_uses_reachable_digest_pinned_base) ... ok
+test_accept_current_report (test_contract.Contracts.test_accept_current_report) ... ok
+test_api_rejects_repo_outside_data (test_contract.Contracts.test_api_rejects_repo_outside_data) ... ok
+test_artifact_uses_relative_uri_and_content_hash (test_contract.Contracts.test_artifact_uses_relative_uri_and_content_hash) ... ok
+test_changed_artifact_is_rejected (test_contract.Contracts.test_changed_artifact_is_rejected) ... ok
+test_e11_b_fixed_report_accepts_matching_transfer_hash (test_contract.Contracts.test_e11_b_fixed_report_accepts_matching_transfer_hash) ... ok
+test_e11_b_fixed_report_keeps_legacy_request_compatibility (test_contract.Contracts.test_e11_b_fixed_report_keeps_legacy_request_compatibility) ... ok
+test_e11_b_fixed_report_rejects_changed_transfer_bytes (test_contract.Contracts.test_e11_b_fixed_report_rejects_changed_transfer_bytes) ... ok
+test_existing_evidence_not_overwritten (test_contract.Contracts.test_existing_evidence_not_overwritten) ... ok
+test_missing_project_compat_keeps_legacy_behavior (test_contract.Contracts.test_missing_project_compat_keeps_legacy_behavior) ... ok
+test_project_compat_accepts_minimal_root_make_profile (test_contract.Contracts.test_project_compat_accepts_minimal_root_make_profile) ... ok
+test_project_compat_rejects_invalid_fields (test_contract.Contracts.test_project_compat_rejects_invalid_fields) ... ok
+test_project_compat_requires_e11_b_and_expected_source (test_contract.Contracts.test_project_compat_requires_e11_b_and_expected_source) ... ok
+test_project_compat_requires_transfer_hash_before_draft (test_contract.Contracts.test_project_compat_requires_transfer_hash_before_draft) ... ok
+test_reject_failed_upstream (test_contract.Contracts.test_reject_failed_upstream) ... ok
+test_reject_old_commit (test_contract.Contracts.test_reject_old_commit) ... ok
+test_reject_schema (test_contract.Contracts.test_reject_schema) ... ok
+test_reject_wrong_artifact_kind (test_contract.Contracts.test_reject_wrong_artifact_kind) ... ok
+test_same_key_same_request_same_job (test_contract.Contracts.test_same_key_same_request_same_job) ... ok
+test_source_report_identity_accepts_exact_match (test_contract.Contracts.test_source_report_identity_accepts_exact_match) ... ok
+test_source_report_identity_rejects_invalid_expected_fields (test_contract.Contracts.test_source_report_identity_rejects_invalid_expected_fields) ... ok
+test_source_report_identity_rejects_mismatch (test_contract.Contracts.test_source_report_identity_rejects_mismatch) ... ok
+test_project_subdir_rejects_parent_traversal (test_e12_preflight.E12PreflightTests.test_project_subdir_rejects_parent_traversal) ... ok
+test_runtime_runs_exact_candidate_with_only_project_bind (test_e12_preflight.E12PreflightTests.test_runtime_runs_exact_candidate_with_only_project_bind) ... ok
+test_snapshot_keeps_commit_identity_in_project_subdirectory (test_e12_preflight.E12PreflightTests.test_snapshot_keeps_commit_identity_in_project_subdirectory) ... ok
+test_root_make_snapshot_does_not_require_config_header (test_e13_project_compat.E13ProjectCompatTests.test_root_make_snapshot_does_not_require_config_header) ... ok
+test_root_make_validation_skips_make_test_and_checks_every_repaired_edge (test_e13_project_compat.E13ProjectCompatTests.test_root_make_validation_skips_make_test_and_checks_every_repaired_edge) ... ok
+test_stale_report_is_rejected_before_draft (test_e13_project_compat.E13ProjectCompatTests.test_stale_report_is_rejected_before_draft) ... ok
+test_tampered_report_is_rejected_before_draft (test_e13_project_compat.E13ProjectCompatTests.test_tampered_report_is_rejected_before_draft) ... ok
+test_valid_root_make_request_uses_candidate_runtime_validation (test_e13_project_compat.E13ProjectCompatTests.test_valid_root_make_request_uses_candidate_runtime_validation) ... ok
+test_legacy_build_has_original_command_shape (test_offline_build.OfflineBuildTests.test_legacy_build_has_original_command_shape) ... ok
+test_offline_build_requires_explicit_local_base_and_make_path (test_offline_build.OfflineBuildTests.test_offline_build_requires_explicit_local_base_and_make_path) ... ok
+test_macro_repair_for_both_report_types (test_repair_report.RepairReportTests.test_macro_repair_for_both_report_types) ... ok
+test_stale_report_with_correct_hash_is_rejected (test_repair_report.RepairReportTests.test_stale_report_with_correct_hash_is_rejected) ... ok
+test_wrong_hash_is_rejected (test_repair_report.RepairReportTests.test_wrong_hash_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 7.147s
+
+OK
