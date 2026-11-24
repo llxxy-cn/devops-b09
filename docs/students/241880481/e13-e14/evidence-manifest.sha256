@@ -25,7 +25,7 @@ e1c3d2233d47ecd008ad45128c37f8431f2517e39bd94a2bdd5e7bd0d1b3b866  work/e13-b1-fo
 537811eef6f0aee44fdeec356df69f00a7d571de2783ad2dda0b24d0c128782f  work/e13-b1-formal-20261122-121914/recovery/run/result.json
 b0b14178305e91c5da00b8a31dc6f48fdf9655bc56f5e257e5ecfb089a17d9b6  work/e13-b1-formal-20261122-121914/independent-fixed-validation/console.log
 08cf6208d6555ab06e3dcb9cc417d60b80784f25ef6a225349d3a8fa74fab5c5  work/e13-b1-formal-20261122-121914/deliverables/a09-e13-project-fixed.bundle
-8b37610c68481e2b873233a21bddd6e39f6bffd021d94e3a4749d4a172c34f1e  work/e13-b1-formal-20261122-121914/deliverables/e13-a09-fixed-materials.tar.gz
+d5af6ccf3d7b9dcc5fbe5e77c07cf4b4df663a4239a8621eb93cb98961c5305e  work/e13-b1-formal-20261122-121914/deliverables/e13-a09-fixed-materials.tar.gz
 1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33  work/e13-b1-formal-20261122-121914/deliverables/a09-e13-b09-server-return-20261122-195038.tar.gz
 d79c913ac01b438572f9def11a2161d39a6a244594d738b4cfaa6895d801b5dd  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/a09-e13-project-fixed.bundle
 8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/candidate.patch
@@ -33,3 +33,15 @@ d79c913ac01b438572f9def11a2161d39a6a244594d738b4cfaa6895d801b5dd  work/server-ev
 85fd1aa62fbdbec19b9625e6ef559be8867a698c3541afdffa3e0abade0e2fe1  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/final-recheck.json
 abd07335a13f9681dafbeea5d925bda4cc0830167e38d65a94f77233c1cb9553  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/fixed.diff
 f9f4d6b0c2bae1dfcf1895a3eb83e6499a239c51f24e692e7d9fa38dcadb55e9  work/server-evidence/e13-b1-server-formal-20261122-195038/deliverables/validation.json
+076aff03f24558fe1bf34a1b7613bb9df9024f6a678d0725c030ecde78890137  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/assertions.log
+c135b8607b7132f8ee8b7c8069de784a614f71f8abf5f6b1590b2d219aeecb2e  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/tested-main-sha.txt
+6357fcdd54813e36fbe5d9ad7601e4414d530e700688e77a2d002d6755758e78  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/c1/run/result.json
+a0b309b7f00a9d773b5726011454273237698164388e98156ec6f3abd1233358  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/c1/run/validation/edge-rebuilds.json
+822c8789d56345565e1bdb14480f780b764403cd4fab3625b75d62765cc872d2  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/c1/run/final-full/findings.json
+61a3e51fb2ffb0d665a9c620fd66ddb79fb8215cb505773010deb1925b86e7fb  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/c2/run/result.json
+64ff11e3022d0f15cf3e55f63cad45eea8f7de38d321b2122de20266e3ed4eb3  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/c3/run/result.json
+92d7f5062ee44756e0c6899eea03a13d9e953da43a638593901cef5188478a51  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/recovery/run/result.json
+8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/deliverables/candidate.patch
+59aec0e40f504905f9c9985140463c635a74cef69afc8e676b4e2b7a87802be3  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/deliverables/validation.json
+822c8789d56345565e1bdb14480f780b764403cd4fab3625b75d62765cc872d2  work/server-evidence/post-merge-298ff13/e13-b1-server-formal-20261124-101140/deliverables/final-recheck.json
+23753210e75b0892663c35e052d7575cd5d00c042ef6ed82c606b9bbdb2abe89  work/e13-b1-post-merge-298ff13/e13-b1-server-formal-20261124-101140.tar.gz
