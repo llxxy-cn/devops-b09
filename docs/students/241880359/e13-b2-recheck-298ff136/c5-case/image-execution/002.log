@@ -1,0 +1,5 @@
+gcc -O0 -c main.c -o main.o
+main.c:11:2: error: #error C5_INJECTED_BUILD_FAILURE
+   11 | #error C5_INJECTED_BUILD_FAILURE
+      |  ^~~~~
+make: *** [Makefile:5: main.o] Error 1

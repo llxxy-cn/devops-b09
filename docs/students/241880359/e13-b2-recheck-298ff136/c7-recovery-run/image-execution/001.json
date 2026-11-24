@@ -1,0 +1,24 @@
+{
+  "image_id": "sha256:56e68f41503b7671d1fc6baff472ed5f008f292e043db722afbbde2818842f10",
+  "project": "/course/work/e13-b2-recheck-298ff136-kf978so_/c7-recovery-run/validation/sandbox",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--pull",
+    "never",
+    "--network",
+    "none",
+    "--user",
+    "0:0",
+    "--mount",
+    "type=bind,source=/root/241880359/devops-b09/work/e13-b2-recheck-298ff136-kf978so_/c7-recovery-run/validation/sandbox,target=/project",
+    "--workdir",
+    "/project",
+    "--entrypoint",
+    "make",
+    "sha256:56e68f41503b7671d1fc6baff472ed5f008f292e043db722afbbde2818842f10",
+    "clean"
+  ],
+  "status": "SUCCEEDED"
+}
