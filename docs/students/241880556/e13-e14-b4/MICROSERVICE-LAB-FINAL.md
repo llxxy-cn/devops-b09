@@ -36,7 +36,7 @@ B1 使用固定请求运行 `work/microservice-handoff-20261124/run-b09-real.sh 
 - B1 完整证据包：`/root/devops-submissions/241880481/e14-microservice-b1-b09-v09rc-20261124-01.tar.gz`，4,959,089 字节，SHA256 `2ffd7c1391f1b7297ee846d3e854e4a7820cebc13b16f25ef27d9560d22c637e`。B4 在服务器重新计算了大小和 SHA256，结果一致。
 - B4 在标签检出上重新执行 `python3 labs/e13e14/verify_e14.py work/microservice-b1-b09-v09rc-20261124-01`，得到 [verified.json](evidence/microservice-lab-v0.9-rc/verified.json) 所列结果。仓库中的精简索引文件从该服务器运行目录原样取回，不替换 B1 的完整包。
 
-本轮记录覆盖正常真实项目任务。故障、恢复与幂等场景由 B2 的记录说明，监控材料由 B3 提供；A09 原签收仍作为 E13 历史证据引用。
+本轮记录覆盖 `v0.9-rc` 上 B09 真实项目的正常任务。[B2 的 C4/C5/C7/C8 服务器专项复跑](../../241880359/e13-b2-recheck-298ff136/TEST_REPORT.md)使用 B09 代码基线 `298ff136…` 和 A09 项目，属于 E13 门禁证据；不能写成与 B1 相同 job、相同项目或同一版本的四服务故障实测。[B4 此前的 E14 四服务验收](FINAL-ACCEPTANCE-72fd0b7.md)在 `72fd0b7…` 上包含构建超时、EChecker 中断及新任务恢复，须按其原始被测提交引用。B2 报告明确注明 E14 四服务故障恢复另行记录；若期末实验要求在 `v0.9-rc` 上单独复现故障或幂等，需要独立任务和证据。监控材料由 B3 提供；A09 原签收仍作为 E13 历史证据引用。
 
 ## 标签后 CI 兼容修正
 
