@@ -1,0 +1,42 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 350B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/b09-e13-offline-python:3.13-slim@sha256:af8922b2323b530a21bb406e3f38cae8488ad32f92555f27ab15538a7feb40b4
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/b09-e13-offline-python:3.13-slim@sha256:af8922b2323b530a21bb406e3f38cae8488ad32f92555f27ab15538a7feb40b4
+#4 resolve docker.io/library/b09-e13-offline-python:3.13-slim@sha256:af8922b2323b530a21bb406e3f38cae8488ad32f92555f27ab15538a7feb40b4 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 242B done
+#5 DONE 0.0s
+
+#6 [3/5] COPY main.c helper.c config.h extra.h unused.h add.h sub.h calculate.h Makefile ./
+#6 CACHED
+
+#7 [4/5] RUN cp /opt/offline-toolchain/make /usr/bin/make && chmod 0755 /usr/bin/make
+#7 CACHED
+
+#8 [2/5] WORKDIR /work
+#8 CACHED
+
+#9 [5/5] RUN make app
+#9 CACHED
+
+#10 exporting to image
+#10 exporting layers done
+#10 exporting manifest sha256:b7c51c29db618d1561fd5f94ee894362943eb182b5394482f4e5a804e1f0c309 done
+#10 exporting config sha256:3e42ded943066f47b0df4aa6d4c6785b649d7766f2a75a4dba46a49fdedd2c9e done
+#10 exporting attestation manifest sha256:847de0bde84f8e1fdc4db221af1aad4cb5d64161d82f3af2179c26b156717a64 done
+#10 exporting manifest list sha256:56e68f41503b7671d1fc6baff472ed5f008f292e043db722afbbde2818842f10 done
+#10 naming to docker.io/library/e6-draft-replay:f129d2223e2447b5b746f5a5bdcf3526-2 done
+#10 unpacking to docker.io/library/e6-draft-replay:f129d2223e2447b5b746f5a5bdcf3526-2 0.0s done
+#10 DONE 0.1s

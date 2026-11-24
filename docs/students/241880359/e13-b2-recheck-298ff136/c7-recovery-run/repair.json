@@ -1,0 +1,59 @@
+{
+  "schema_version": "e11e12-1",
+  "job_id": "job-27f57e8a40914a2f9b9ef29adb20ec2a",
+  "trace_id": "trace-b246111f3b0f4df18d5ff6827c70dec8",
+  "kind": "repair",
+  "commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+  "status": "SUCCEEDED",
+  "data": {
+    "edits": [
+      {
+        "target": "main.o",
+        "dependency": "calculate.h",
+        "style": "direct"
+      },
+      {
+        "target": "main.o",
+        "dependency": "config.h",
+        "style": "direct"
+      },
+      {
+        "target": "main.o",
+        "dependency": "extra.h",
+        "style": "direct"
+      },
+      {
+        "target": "helper.o",
+        "dependency": "add.h",
+        "style": "direct"
+      },
+      {
+        "target": "helper.o",
+        "dependency": "calculate.h",
+        "style": "direct"
+      },
+      {
+        "target": "helper.o",
+        "dependency": "sub.h",
+        "style": "direct"
+      }
+    ],
+    "input_report": {
+      "uri": "artifact://job-27f57e8a40914a2f9b9ef29adb20ec2a/fixed-md.json",
+      "sha256": "fa822bb3d9b8d3837af84ca1a2f3c8491ec6a93d69a373456bcca9e98f463179",
+      "bytes": 2832
+    }
+  },
+  "artifacts": [
+    {
+      "uri": "artifact://job-27f57e8a40914a2f9b9ef29adb20ec2a/candidate.patch",
+      "sha256": "8634d2aa57acc132ddf21ef90fa087aca1a313aca37a7bc74bb9b5ce9bf29c6e",
+      "bytes": 353
+    },
+    {
+      "uri": "artifact://job-27f57e8a40914a2f9b9ef29adb20ec2a/repair-plan.json",
+      "sha256": "b3d2b1990d77cc409f29436654b0f40ee98e6df0b9211db9edfa2621bc1c2584",
+      "bytes": 518
+    }
+  ]
+}

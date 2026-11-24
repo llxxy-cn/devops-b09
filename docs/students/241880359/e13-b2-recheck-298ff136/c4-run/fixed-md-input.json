@@ -1,0 +1,125 @@
+{
+  "schema_version": "e11e12-1",
+  "kind": "fixed-md",
+  "status": "SUCCEEDED",
+  "commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+  "data": {
+    "schema_version": "e8e10-1",
+    "profile": "GCC_LOCAL_HEADERS_EXPLICIT_MAKE",
+    "commit": "ba688c40d13cd8658e554f7544f1546d35b4b397",
+    "key": {
+      "directives": {
+        "add.h": [],
+        "calculate.h": [],
+        "config.h": [
+          "#define VALUE 1"
+        ],
+        "extra.h": [
+          "#define EXTRA 0"
+        ],
+        "helper.c": [
+          "#include \"calculate.h\"",
+          "#include \"add.h\"",
+          "#include \"sub.h\""
+        ],
+        "main.c": [
+          "#include <stdio.h>",
+          "#include \"extra.h\"",
+          "#include \"config.h\"",
+          "#include \"calculate.h\""
+        ],
+        "sub.h": [],
+        "unused.h": []
+      },
+      "recipes": [
+        "\tgcc main.o helper.o -o app",
+        "\tgcc $(CFLAGS) -c main.c -o main.o",
+        "\tgcc $(CFLAGS) -c helper.c -o helper.o",
+        "\trm -f main.o helper.o app"
+      ],
+      "flags": "-O0",
+      "compiler": "gcc (Debian 14.2.0-19) 14.2.0"
+    },
+    "actual": {
+      "main.o": [
+        "calculate.h",
+        "config.h",
+        "extra.h",
+        "main.c"
+      ],
+      "helper.o": [
+        "add.h",
+        "calculate.h",
+        "helper.c",
+        "sub.h"
+      ]
+    },
+    "declared": {
+      "main.o": [
+        "main.c",
+        "unused.h"
+      ],
+      "helper.o": [
+        "helper.c"
+      ]
+    },
+    "findings": [
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "calculate.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "config.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "main.o",
+        "dependency": "extra.h"
+      },
+      {
+        "type": "REDUNDANT",
+        "target": "main.o",
+        "dependency": "unused.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "helper.o",
+        "dependency": "add.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "helper.o",
+        "dependency": "calculate.h"
+      },
+      {
+        "type": "MISSING",
+        "target": "helper.o",
+        "dependency": "sub.h"
+      }
+    ],
+    "added": [
+      [
+        "MISSING",
+        "main.o",
+        "extra.h"
+      ]
+    ],
+    "resolved": [],
+    "refreshed": [
+      "main.o",
+      "helper.o"
+    ],
+    "reused": [],
+    "elapsed_s": 0.009975342079997063
+  },
+  "source_report": {
+    "job_id": "job-131c4b1d8c34469aaa31f9e2a9da1736",
+    "trace_id": "trace-c224eaab92394b91bedfc2dea14ebc61",
+    "uri": "artifact://job-131c4b1d8c34469aaa31f9e2a9da1736/incremental-check.json",
+    "sha256": "504a3c505c1479c990f59143926247a2deb7415375de5d957a2d4938aefff224",
+    "bytes": 3052
+  }
+}

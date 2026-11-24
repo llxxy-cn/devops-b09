@@ -1,0 +1,62 @@
+[
+  {
+    "target": "helper.o",
+    "dependency": "add.h",
+    "before_mtime_ns": 1795488279707693881,
+    "after_mtime_ns": 1795488281211705728,
+    "rebuilt": true,
+    "output": "1",
+    "output_matches": true,
+    "passed": true
+  },
+  {
+    "target": "helper.o",
+    "dependency": "calculate.h",
+    "before_mtime_ns": 1795488281211705728,
+    "after_mtime_ns": 1795488282647717037,
+    "rebuilt": true,
+    "output": "1",
+    "output_matches": true,
+    "passed": true
+  },
+  {
+    "target": "helper.o",
+    "dependency": "sub.h",
+    "before_mtime_ns": 1795488282647717037,
+    "after_mtime_ns": 1795488284051728093,
+    "rebuilt": true,
+    "output": "1",
+    "output_matches": true,
+    "passed": true
+  },
+  {
+    "target": "main.o",
+    "dependency": "calculate.h",
+    "before_mtime_ns": 1795488282639716974,
+    "after_mtime_ns": 1795488285443739057,
+    "rebuilt": true,
+    "output": "1",
+    "output_matches": true,
+    "passed": true
+  },
+  {
+    "target": "main.o",
+    "dependency": "config.h",
+    "before_mtime_ns": 1795488285443739057,
+    "after_mtime_ns": 1795488286851750146,
+    "rebuilt": true,
+    "output": "1",
+    "output_matches": true,
+    "passed": true
+  },
+  {
+    "target": "main.o",
+    "dependency": "extra.h",
+    "before_mtime_ns": 1795488286851750146,
+    "after_mtime_ns": 1795488288255761204,
+    "rebuilt": true,
+    "output": "1",
+    "output_matches": true,
+    "passed": true
+  }
+]

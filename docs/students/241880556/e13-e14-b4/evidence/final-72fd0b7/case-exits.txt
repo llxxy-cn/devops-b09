@@ -1,0 +1,7 @@
+fixed-01 0
+b09-real-01 0
+a09-real-01 0
+a09-timeout-01 1
+a09-recovery-01 0
+b09-echecker-outage-01 1
+b09-outage-recovery-01 0
