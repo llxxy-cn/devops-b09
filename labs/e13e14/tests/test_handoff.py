@@ -40,6 +40,7 @@ class HandoffTests(unittest.TestCase):
         }
         stage_path = self.root / "incremental-check.json"
         stage_path.write_text(json.dumps(stage) + "\n")
+        self.stage_path = stage_path
         result = {
             "schema_version": "e11e12-1",
             "status": "SUCCEEDED",
@@ -58,6 +59,9 @@ class HandoffTests(unittest.TestCase):
         self.assertEqual(handoff["kind"], "fixed-md")
         self.assertEqual(handoff["data"]["commit"], self.sha)
         self.assertEqual(handoff["source_report"]["job_id"], self.job)
+        self.assertEqual(
+            handoff["source_report"]["bytes"], self.stage_path.stat().st_size
+        )
 
     def test_changed_inner_artifact_is_rejected(self):
         (self.root / "incremental-report.json").write_text('{"findings": ["changed"]}\n')

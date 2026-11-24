@@ -65,7 +65,7 @@ def classify_failure(text):
         return "INFRASTRUCTURE"
     return "OTHER_BUILD_ERROR"
 
-def auto_build(fixture, candidate, output, expected_output, timeout=300, verify_timeout=30):
+def auto_build(fixture, candidate, output, expected_output, timeout=300, verify_timeout=30, offline=None):
     if os.name != "posix":
         raise ValueError("Run inside the Linux service container")
     fixture, candidate, output = Path(fixture).resolve(), Path(candidate).resolve(), Path(output).resolve()
@@ -80,7 +80,15 @@ def auto_build(fixture, candidate, output, expected_output, timeout=300, verify_
     if any(p.is_symlink() for p in fixture.rglob("*")):
         raise ValueError("Symlink fixtures are unsupported")
     text = candidate.read_text(encoding="utf-8")
-    baseline = prepare_candidate((fixture / "Dockerfile.broken").read_text(encoding="utf-8"), text)
+    broken = (fixture / "Dockerfile.broken").read_text(encoding="utf-8")
+    if offline:
+        first = text.splitlines()[0]
+        broken_lines = broken.splitlines()
+        if not broken_lines or not first.startswith("FROM "):
+            raise ValueError("Offline candidate must have a FROM line")
+        broken_lines[0] = first.split("@", 1)[0]
+        broken = "\n".join(broken_lines) + "\n"
+    baseline = prepare_candidate(broken, text)
     output.mkdir(parents=True, exist_ok=True)
     run_id = uuid.uuid4().hex
     report = {"status": "RUNNING", "detector": "DRAFT_TEACHING_REPLAY", "trace_id": "e6-b-" + run_id,
@@ -100,6 +108,8 @@ def auto_build(fixture, candidate, output, expected_output, timeout=300, verify_
             path.write_text(dockerfile, encoding="utf-8")
             tag = f"e6-draft-replay:{run_id}-{number}"
             command = ["docker", "build", "--progress=plain", "-f", str(path), "-t", tag, str(project)]
+            if offline:
+                command.insert(2, "--pull=false")
             attempt = {"iteration": number, "tag": tag, "command": command}
             report["attempts"].append(attempt)
             code = execute(command, iteration / "build-stdout.log", iteration / "build-stderr.log", timeout)

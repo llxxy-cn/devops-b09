@@ -78,6 +78,7 @@ def make_handoff(result_path: Path, target_sha: str) -> dict:
             "trace_id": trace_id,
             "uri": stage_item["uri"],
             "sha256": stage_item["sha256"],
+            "bytes": stage_item["bytes"],
         },
     }
 
