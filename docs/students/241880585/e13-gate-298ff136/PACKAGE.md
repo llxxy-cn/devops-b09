@@ -18,4 +18,4 @@ sha256sum -c /root/devops-submissions/241880585/e13-gate-298ff136-Fdh9Zq.tar.gz.
 /root/devops-submissions/241880585/e13-gate-298ff136-Fdh9Zq.tar.gz: OK
 
 本索引在打包后补充，原证据包保持原字节与 SHA256。
-最终 main、运行代码等价性及最终 CI 记录在 PR #23 合并后补充。
+最终 main、运行代码等价性及最终 CI 已补齐，见 FINAL-MAIN.md。
