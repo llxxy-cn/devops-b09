@@ -21,7 +21,7 @@ HTTP 入口改为 ThreadingHTTPServer，以便业务执行期间继续响应抓�
 ## 部署
 
 个人独立 Compose 项目为 b09-ms-b3-241880585。
-业务端口为宿主回环 18681–18684，Prometheus 为 19090，Grafana 为 13000。
+业务端口为宿主回环 18681–18684，Prometheus 为 19190，Grafana 为 13100。
 四个业务镜像使用 E14_IMAGE 指定的已有课程镜像，Prometheus v3.5.0，Grafana 12.3.0。
 部署后保存实际镜像 ID 与 RepoDigests，镜像下载和容器验证尚需在课程服务器执行。
 Compose 文件使用 JSON 语法，属于合法 YAML，可由 docker compose 直接读取。
