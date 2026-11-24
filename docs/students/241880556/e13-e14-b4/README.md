@@ -1,6 +1,6 @@
 # E13–E14 B4 四服务集成记录
 
-负责人：241880556。状态：**最终 main 四服务集成复验通过，组级门禁与发布待完成**。[最终 main 复验](FINAL-ACCEPTANCE-72fd0b7.md)固定于 `72fd0b7b4bf354c60be3389c9bf2777966ce1b9e`。本页保留 2026-11-23 的先行预跑；当时运行的 B4 文件尚未提交，基于 B3 PR #17 的 `783561e907e6972e2d51c4237c5f8ef9b34ac2b3`。PR #17 合并后的候选提交复验见 [ACCEPTANCE.md](ACCEPTANCE.md)，其代码 SHA 为 `0be95525c9ac2e892765b71e7b81dc848d31bb7e`。
+负责人：241880556。**当前发布状态与交付清单见 [最终交付索引](FINAL-DELIVERY-v0.9-rc.md)。**本页保留 2026-11-23 的先行预跑；当时运行的 B4 文件尚未提交，基于 B3 PR #17 的 `783561e907e6972e2d51c4237c5f8ef9b34ac2b3`。PR #17 合并后的候选提交复验见 [ACCEPTANCE.md](ACCEPTANCE.md)，其代码 SHA 为 `0be95525c9ac2e892765b71e7b81dc848d31bb7e`；后续最终实测见 [FINAL-ACCEPTANCE-72fd0b7.md](FINAL-ACCEPTANCE-72fd0b7.md)。
 
 ## 输入和运行环境
 
@@ -45,7 +45,7 @@ B4 集成代码提交 `5f5471e` 的 [E13–E14 integration gate 第三轮](https
 - SHA256：`fa4076e2720a8b52be7c4871a5e78624a7ef10cbd2cb9f4261e5c0e865bbd197`
 - 两处已核对相同哈希；包内 `work/e14-b4-preflight-artifacts.sha256` 经 `sha256sum -c` 全部通过。包内保留原始输入、离线映射、失败轮次、成功轮次、四服务日志、扫描、镜像 ID 和代码文件哈希。
 
-## 待完成的组级验收与发布
+## 2026-11-23 记录的当时待办
 
 1. PR #17 已合并，Issue #18 已关闭；B1/B2/B3 仍需把 C1–C8、A09 签收、CI 和候选提交 `0be9552` 对齐成最终 E13 门禁，并固定签收原文的可访问链接。
 2. PR #19 审查并合并后，在新的 `main` 完整 SHA 上核对正式验收结果；本轮候选提交的教师项目与四服务复验及原始证据见 [ACCEPTANCE.md](ACCEPTANCE.md)。
