@@ -5,7 +5,9 @@ import os
 import sys
 import time
 import traceback
-from http.server import BaseHTTPRequestHandler, HTTPServer
+import threading
+from datetime import datetime, timezone
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 sys.path[:0] = ['/course/labs/e8e10', '/course/labs/e11e12/vendor', '/app']
@@ -14,8 +16,12 @@ from draft.autobuild import auto_build
 from buildchecker.fullcheck import full_check
 from repair_validation import compiler_flags, validate_repair
 
+from service_metrics import ServiceBusy, ServiceMetrics
+
 ROOT = Path('/course').resolve()
 ROLE = os.environ['E14_ROLE']
+METRICS = ServiceMetrics(ROLE)
+RUN_LOCK = threading.Lock()
 
 
 def local(value, area='work'):
@@ -119,7 +125,14 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
-        if self.path == '/health':
+        if self.path == '/metrics':
+            body = METRICS.render().encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/plain; version=0.0.4; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        elif self.path == '/health':
             self.reply(200, {'status': 'ok', 'role': ROLE})
         else:
             self.reply(404, {'error': 'NOT_FOUND'})
@@ -129,27 +142,54 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(404, {'error': 'NOT_FOUND'})
             return
         start = time.monotonic()
+        METRICS.start()
         data = {}
+        status = 'FAILED'
+        acquired = False
+        response_code = 422
+        error_code = None
         try:
             length = int(self.headers.get('Content-Length', '0'))
             if length < 1 or length > 100000:
                 raise ValueError('Invalid request size')
             data = json.loads(self.rfile.read(length))
+            if not isinstance(data, dict):
+                data = {}
+                raise ValueError('Expected a JSON object')
+            acquired = RUN_LOCK.acquire(blocking=False)
+            if not acquired:
+                raise ServiceBusy('Another service call is running')
+            print(json.dumps({
+                'timestamp': datetime.now(timezone.utc).isoformat(),
+                'role': ROLE, 'job_id': data.get('job_id'),
+                'trace_id': data.get('trace_id'), 'status': 'RUNNING',
+            }), flush=True)
             result = run(data)
-            print(json.dumps({'role': ROLE, 'job_id': data.get('job_id'),
-                              'trace_id': data.get('trace_id'), 'status': 'SUCCEEDED',
-                              'elapsed_ms': round((time.monotonic()-start)*1000)}), flush=True)
-            self.reply(200, result)
+            status = 'SUCCEEDED'
+            response_code = 200
         except Exception as exc:
             traceback.print_exc()
-            code = 'TIMEOUT' if 'TIMED_OUT' in str(exc) else type(exc).__name__.upper()
-            print(json.dumps({'role': ROLE, 'job_id': data.get('job_id'),
-                              'trace_id': data.get('trace_id'), 'status': 'FAILED',
-                              'error_code': code, 'elapsed_ms': round((time.monotonic()-start)*1000)}), flush=True)
-            self.reply(422, {'status': 'FAILED', 'role': ROLE, 'error_code': code, 'error': str(exc)})
+            error_code = 'TIMEOUT' if 'TIMED_OUT' in str(exc) else type(exc).__name__.upper()
+            if isinstance(exc, ServiceBusy):
+                error_code = 'SERVICE_BUSY'
+                response_code = 503
+            result = {'status': 'FAILED', 'role': ROLE,
+                      'error_code': error_code, 'error': str(exc)}
+        finally:
+            if acquired:
+                RUN_LOCK.release()
+            elapsed = time.monotonic() - start
+            METRICS.finish(status, elapsed)
+        print(json.dumps({
+            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'role': ROLE, 'job_id': data.get('job_id'),
+            'trace_id': data.get('trace_id'), 'status': status,
+            'error_code': error_code, 'elapsed_ms': round(elapsed * 1000),
+        }), flush=True)
+        self.reply(response_code, result)
 
 
 if __name__ == '__main__':
     if ROLE not in {'draft', 'buildchecker', 'echecker', 'mdfixer'}:
         raise SystemExit('Invalid E14_ROLE')
-    HTTPServer(('0.0.0.0', 8080), Handler).serve_forever()
+    ThreadingHTTPServer(('0.0.0.0', 8080), Handler).serve_forever()
