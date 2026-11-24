@@ -3,8 +3,8 @@ from pathlib import Path
 from pipeline import ROOT, save
 from lab import fixture,commit,scan
 
-DRAFT_BASE_TAG='m.daocloud.io/docker.io/library/python:3.13-slim'
-DRAFT_BASE_PIN=DRAFT_BASE_TAG+'@sha256:70729b46c69b4f1e97c4822c1af3df53a1476cf5ddc6c087c0c10bc3a5678c2f'
+DRAFT_BASE_TAG='python:3.13-slim'
+DRAFT_BASE_PIN=DRAFT_BASE_TAG+'@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74'
 DRAFT_APT_MIRROR_RUN=(
     "RUN sed -i "
     "-e 's|https\\?://deb.debian.org/debian-security|https://mirrors.tuna.tsinghua.edu.cn/debian-security|g' "

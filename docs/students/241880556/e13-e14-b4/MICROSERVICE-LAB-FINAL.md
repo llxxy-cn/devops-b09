@@ -37,3 +37,7 @@ B1 使用固定请求运行 `work/microservice-handoff-20261124/run-b09-real.sh 
 - B4 在标签检出上重新执行 `python3 labs/e13e14/verify_e14.py work/microservice-b1-b09-v09rc-20261124-01`，得到 [verified.json](evidence/microservice-lab-v0.9-rc/verified.json) 所列结果。仓库中的精简索引文件从该服务器运行目录原样取回，不替换 B1 的完整包。
 
 本轮记录覆盖正常真实项目任务。故障、恢复与幂等场景由 B2 的记录说明，监控材料由 B3 提供；A09 原签收仍作为 E13 历史证据引用。
+
+## 标签后 CI 兼容修正
+
+本记录的首次 PR 检查中，E11–E12 集成工作流在生成的教学样例上因 `m.daocloud.io` 无法解析旧基础镜像 digest 而失败，失败类型为 `INFRASTRUCTURE`，并非 B1 本轮项目或补丁的断言失败。后续提交将教学样例生成器的基础镜像改为同一工作流已成功构建课程镜像时使用的 Docker Hub digest。该修正发生在 `v0.9-rc` 标签之后；上述 B1 任务、原始证据包、标签目标和哈希均不变。
