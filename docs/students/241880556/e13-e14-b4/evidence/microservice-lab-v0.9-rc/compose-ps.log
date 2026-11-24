@@ -1,0 +1,5 @@
+NAME                               IMAGE                             COMMAND                  SERVICE        CREATED          STATUS                    PORTS
+b09-ms-rc-5338183-buildchecker-1   course-e11e12:e14-rc-5338183-b4   "python3 labs/e13e14…"   buildchecker   22 minutes ago   Up 22 minutes (healthy)   127.0.0.1:18581->8080/tcp
+b09-ms-rc-5338183-draft-1          course-e11e12:e14-rc-5338183-b4   "python3 labs/e13e14…"   draft          22 minutes ago   Up 22 minutes (healthy)   127.0.0.1:18583->8080/tcp
+b09-ms-rc-5338183-echecker-1       course-e11e12:e14-rc-5338183-b4   "python3 labs/e13e14…"   echecker       22 minutes ago   Up 22 minutes (healthy)   127.0.0.1:18582->8080/tcp
+b09-ms-rc-5338183-mdfixer-1        course-e11e12:e14-rc-5338183-b4   "python3 labs/e13e14…"   mdfixer        22 minutes ago   Up 22 minutes (healthy)   127.0.0.1:18584->8080/tcp
