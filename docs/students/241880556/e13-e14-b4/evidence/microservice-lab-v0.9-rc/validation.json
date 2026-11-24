@@ -1,0 +1,28 @@
+{
+  "accepted": true,
+  "checks": {
+    "patch_applies": true,
+    "build": true,
+    "test": true,
+    "output": true,
+    "edge_rebuilds": true,
+    "no_missing": true
+  },
+  "error": null,
+  "rollback": false,
+  "source_unchanged": false,
+  "edge_rebuilds": [
+    {
+      "target": "main.o",
+      "dependency": "extra.h",
+      "before_mtime_ns": 1795524427237421541,
+      "after_mtime_ns": 1795524428325427187,
+      "output": "hello E3",
+      "passed": true
+    }
+  ],
+  "test_command": [
+    "make",
+    "test"
+  ]
+}

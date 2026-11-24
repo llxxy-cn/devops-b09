@@ -1,0 +1,18 @@
+{
+  "work/microservice-b1-b09-v09rc-20261124-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-5cdec29e61bf4f629ace6a5dce190ad2",
+    "trace_id": "trace-21ce7e7b872f42baa177362e1571e61a",
+    "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+    "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+    "artifact_count": 180,
+    "result_sha256": "5d58644eaf06828923f0d3fb19ee6bd156fbdbd41269ecfb95063cfb83e00974",
+    "incremental_report_sha256": "2c81ea13bcfdea7c008b0efa0a3540d22196bfec3a927782f0a000c0a299a657",
+    "candidate_patch_sha256": "6fb5dc4d84f5d65bcf7edffae3b7e02acb2259676be2154a1fc947463ee75c69",
+    "validation_sha256": "531ff8b844267ec0401824398c41097cb6a2943051ace2b9cd81066af13b0371",
+    "final_recheck_sha256": "03f148dad07cfd311b5a274bc6f4fea8edb6e9626b19166899f0940b15114b63",
+    "rebuild_count": 1,
+    "remaining_findings": [],
+    "candidate_image_id": "sha256:972ca8adc6ed654c7363d2b410855caccbc504f455fe689cd1b4c1f0144a310a"
+  }
+}
