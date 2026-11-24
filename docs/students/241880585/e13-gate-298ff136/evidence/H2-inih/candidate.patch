@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ CFLAGS = -O0
+ app: main.o helper.o
+ 	gcc main.o helper.o -o app
+-main.o: main.c config.h unused.h
++main.o: main.c config.h unused.h extra.h
+ 	gcc $(CFLAGS) -c main.c -o main.o
+ helper.o: helper.c ini.h
+ 	gcc $(CFLAGS) -c helper.c -o helper.o

@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ 	gcc main.o helper.o -o app
+ main.o: main.c config.h
+ 	gcc $(CFLAGS) -c main.c -o main.o
+-helper.o: helper.c aes.h
++helper.o: helper.c aes.h extra.h
+ 	gcc $(CFLAGS) -c helper.c -o helper.o
+ .PHONY: clean
+ clean:
