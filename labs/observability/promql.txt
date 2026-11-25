@@ -1,0 +1,23 @@
+Service scrape availability
+up{job="b09-business"}
+
+Calls received since process start
+b09_service_tasks_started_total
+
+Completed calls by outcome
+b09_service_tasks_total
+
+Calls in progress
+b09_service_tasks_in_progress
+
+Successful service calls in 1 minute
+sum by (role) (increase(b09_service_tasks_total{status="SUCCEEDED"}[1m]))
+
+Failed service calls in 1 minute
+sum by (role) (increase(b09_service_tasks_total{status="FAILED"}[1m]))
+
+Service duration p95 in 5 minutes
+histogram_quantile(0.95, sum by (le, role) (rate(b09_service_task_duration_seconds_bucket[5m])))
+
+Mean service duration in 5 minutes
+sum by (role) (rate(b09_service_task_duration_seconds_sum[5m])) / sum by (role) (rate(b09_service_task_duration_seconds_count[5m]))

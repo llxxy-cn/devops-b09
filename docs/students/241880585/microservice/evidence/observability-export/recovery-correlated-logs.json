@@ -1,0 +1,98 @@
+[
+  {
+    "timestamp": "2026-11-25T06:13:14.515575+00:00",
+    "role": "mdfixer",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:13:15.680734+00:00",
+    "role": "mdfixer",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 1165
+  },
+  {
+    "timestamp": "2026-11-25T06:13:12.712965+00:00",
+    "role": "draft",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:13:14.163845+00:00",
+    "role": "draft",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 1451
+  },
+  {
+    "timestamp": "2026-11-25T06:13:14.483546+00:00",
+    "role": "echecker",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:13:14.513667+00:00",
+    "role": "echecker",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 30
+  },
+  {
+    "timestamp": "2026-11-25T06:13:14.167238+00:00",
+    "role": "buildchecker",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:13:14.350423+00:00",
+    "role": "buildchecker",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 183
+  },
+  {
+    "timestamp": "2026-11-25T06:13:14.352127+00:00",
+    "role": "buildchecker",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:13:14.481374+00:00",
+    "role": "buildchecker",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 129
+  },
+  {
+    "timestamp": "2026-11-25T06:13:15.682772+00:00",
+    "role": "buildchecker",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:13:15.820044+00:00",
+    "role": "buildchecker",
+    "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+    "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 137
+  }
+]
