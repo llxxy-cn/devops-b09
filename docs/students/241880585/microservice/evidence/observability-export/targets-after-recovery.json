@@ -1,0 +1,111 @@
+{
+  "status": "success",
+  "data": {
+    "activeTargets": [
+      {
+        "discoveredLabels": {
+          "__address__": "buildchecker:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "5s",
+          "__scrape_timeout__": "3s",
+          "job": "b09-business",
+          "service": "buildchecker"
+        },
+        "labels": {
+          "instance": "buildchecker:8080",
+          "job": "b09-business",
+          "service": "buildchecker"
+        },
+        "scrapePool": "b09-business",
+        "scrapeUrl": "http://buildchecker:8080/metrics",
+        "globalUrl": "http://buildchecker:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-25T06:17:49.141427134Z",
+        "lastScrapeDuration": 0.005991311,
+        "health": "up",
+        "scrapeInterval": "5s",
+        "scrapeTimeout": "3s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "echecker:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "5s",
+          "__scrape_timeout__": "3s",
+          "job": "b09-business",
+          "service": "echecker"
+        },
+        "labels": {
+          "instance": "echecker:8080",
+          "job": "b09-business",
+          "service": "echecker"
+        },
+        "scrapePool": "b09-business",
+        "scrapeUrl": "http://echecker:8080/metrics",
+        "globalUrl": "http://echecker:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-25T06:17:52.399333294Z",
+        "lastScrapeDuration": 0.001699613,
+        "health": "up",
+        "scrapeInterval": "5s",
+        "scrapeTimeout": "3s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "draft:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "5s",
+          "__scrape_timeout__": "3s",
+          "job": "b09-business",
+          "service": "draft"
+        },
+        "labels": {
+          "instance": "draft:8080",
+          "job": "b09-business",
+          "service": "draft"
+        },
+        "scrapePool": "b09-business",
+        "scrapeUrl": "http://draft:8080/metrics",
+        "globalUrl": "http://draft:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-25T06:17:49.475622836Z",
+        "lastScrapeDuration": 0.001690301,
+        "health": "up",
+        "scrapeInterval": "5s",
+        "scrapeTimeout": "3s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "mdfixer:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "5s",
+          "__scrape_timeout__": "3s",
+          "job": "b09-business",
+          "service": "mdfixer"
+        },
+        "labels": {
+          "instance": "mdfixer:8080",
+          "job": "b09-business",
+          "service": "mdfixer"
+        },
+        "scrapePool": "b09-business",
+        "scrapeUrl": "http://mdfixer:8080/metrics",
+        "globalUrl": "http://mdfixer:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-25T06:17:48.959843889Z",
+        "lastScrapeDuration": 0.00129452,
+        "health": "up",
+        "scrapeInterval": "5s",
+        "scrapeTimeout": "3s"
+      }
+    ],
+    "droppedTargets": [],
+    "droppedTargetCounts": {
+      "b09-business": 0
+    }
+  }
+}

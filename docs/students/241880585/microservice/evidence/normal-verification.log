@@ -1,0 +1,18 @@
+{
+  "work/b3-observability.QLuAhB/normal-01": {
+    "status": "SUCCEEDED",
+    "job_id": "job-7e963debfd474e0ebad8523366eed562",
+    "trace_id": "trace-5d76adacfb4c43cf9f1e3307852efee2",
+    "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+    "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+    "artifact_count": 180,
+    "result_sha256": "efddb18cb62242017d2fcaf0889de2c86c623f0d8c9c60342af3898414bc4567",
+    "incremental_report_sha256": "7dbc00d70bf4d1afc8edcca4bd3ac6b041666baf14dbe73ba284c34b78f5080b",
+    "candidate_patch_sha256": "6fb5dc4d84f5d65bcf7edffae3b7e02acb2259676be2154a1fc947463ee75c69",
+    "validation_sha256": "a20723db13884b1920f7fccce86be8ac5cc27fe6e5aaa043fef6c739ad7cf94c",
+    "final_recheck_sha256": "892f77d93cdded1b1b2d980fba6be76bbaeea956661b172434b4d098c1cd3cda",
+    "rebuild_count": 1,
+    "remaining_findings": [],
+    "candidate_image_id": "sha256:8c12ba27d1b25209a752aae1baf5971896f57022127996a9e374b1a92e24cee3"
+  }
+}

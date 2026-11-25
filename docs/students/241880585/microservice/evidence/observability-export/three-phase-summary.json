@@ -1,0 +1,61 @@
+{
+  "phases": {
+    "normal": {
+      "job_id": "job-7e963debfd474e0ebad8523366eed562",
+      "trace_id": "trace-5d76adacfb4c43cf9f1e3307852efee2",
+      "status": "SUCCEEDED",
+      "error": null,
+      "start_epoch": 1795537455.0,
+      "end_epoch": 1795537460.0,
+      "roles_observed": [
+        "buildchecker",
+        "draft",
+        "echecker",
+        "mdfixer"
+      ],
+      "log_events": 12
+    },
+    "fault": {
+      "job_id": "job-1fb28b45301246dc9ffbf5320c76abea",
+      "trace_id": "trace-dccbe4545b77421b96dbd257b86206b0",
+      "status": "FAILED",
+      "error": "<urlopen error [Errno 111] Connection refused>",
+      "start_epoch": 1795587156.0,
+      "end_epoch": 1795587172.0,
+      "roles_observed": [
+        "buildchecker",
+        "draft"
+      ],
+      "log_events": 6
+    },
+    "recovery": {
+      "job_id": "job-cd3d2ea68e344dc99f430274e3fe099f",
+      "trace_id": "trace-2ecce735912845a6a1485bb03a1584d4",
+      "status": "SUCCEEDED",
+      "error": null,
+      "start_epoch": 1795587192.0,
+      "end_epoch": 1795587195.0,
+      "roles_observed": [
+        "buildchecker",
+        "draft",
+        "echecker",
+        "mdfixer"
+      ],
+      "log_events": 12
+    }
+  },
+  "queries": {
+    "availability": "up{job=\"b09-business\"}",
+    "calls_started": "b09_service_tasks_started_total",
+    "calls_completed": "b09_service_tasks_total",
+    "calls_active": "b09_service_tasks_in_progress",
+    "success_increase": "sum by (role) (increase(b09_service_tasks_total{status=\"SUCCEEDED\"}[1m]))",
+    "failure_increase": "sum by (role) (increase(b09_service_tasks_total{status=\"FAILED\"}[1m]))",
+    "duration_p95": "histogram_quantile(0.95, sum by (le, role) (rate(b09_service_task_duration_seconds_bucket[5m])))",
+    "duration_mean": "sum by (role) (rate(b09_service_task_duration_seconds_sum[5m])) / sum by (role) (rate(b09_service_task_duration_seconds_count[5m]))"
+  },
+  "full_window_step_seconds": 6,
+  "fault_down_sample_verified": true,
+  "current_four_targets_up": true,
+  "metric_unit": "service invocation; complete pipeline task counts come from result.json"
+}
