@@ -1,0 +1,35 @@
+test_error_and_malformed_body_are_counted_and_recovery_succeeds (test_metrics_http.MetricsHTTPTests) ... {"timestamp": "2026-11-24T14:53:39.711755+00:00", "role": "echecker", "job_id": null, "trace_id": null, "status": "RUNNING"}
+Traceback (most recent call last):
+  File "service-handler", line 167, in do_POST
+  File "/root/devops-students/241880585/microservice-b3/tests/test_metrics_http.py", line 35, in run
+    raise ValueError('TIMED_OUT test')
+ValueError: TIMED_OUT test
+{"timestamp": "2026-11-24T14:53:39.711955+00:00", "role": "echecker", "job_id": null, "trace_id": null, "status": "FAILED", "error_code": "TIMEOUT", "elapsed_ms": 0}
+127.0.0.1 - - [24/Nov/2026 22:53:39] "POST /v1/run HTTP/1.1" 422 -
+Traceback (most recent call last):
+  File "service-handler", line 158, in do_POST
+ValueError: Expected a JSON object
+{"timestamp": "2026-11-24T14:53:39.712619+00:00", "role": "echecker", "job_id": null, "trace_id": null, "status": "FAILED", "error_code": "VALUEERROR", "elapsed_ms": 0}
+127.0.0.1 - - [24/Nov/2026 22:53:39] "POST /v1/run HTTP/1.1" 422 -
+{"timestamp": "2026-11-24T14:53:39.713116+00:00", "role": "echecker", "job_id": null, "trace_id": null, "status": "RUNNING"}
+{"timestamp": "2026-11-24T14:53:39.713140+00:00", "role": "echecker", "job_id": null, "trace_id": null, "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 0}
+127.0.0.1 - - [24/Nov/2026 22:53:39] "POST /v1/run HTTP/1.1" 200 -
+127.0.0.1 - - [24/Nov/2026 22:53:39] "GET /metrics HTTP/1.1" 200 -
+ok
+test_metrics_remain_available_during_work_and_busy_is_bounded (test_metrics_http.MetricsHTTPTests) ... {"timestamp": "2026-11-24T14:53:40.216212+00:00", "role": "echecker", "job_id": null, "trace_id": null, "status": "RUNNING"}
+127.0.0.1 - - [24/Nov/2026 22:53:40] "GET /metrics HTTP/1.1" 200 -
+127.0.0.1 - - [24/Nov/2026 22:53:40] "GET /health HTTP/1.1" 200 -
+Traceback (most recent call last):
+  File "service-handler", line 161, in do_POST
+service_metrics.ServiceBusy: Another service call is running
+{"timestamp": "2026-11-24T14:53:40.217538+00:00", "role": "echecker", "job_id": null, "trace_id": null, "status": "FAILED", "error_code": "SERVICE_BUSY", "elapsed_ms": 0}
+127.0.0.1 - - [24/Nov/2026 22:53:40] "POST /v1/run HTTP/1.1" 503 -
+{"timestamp": "2026-11-24T14:53:40.217771+00:00", "role": "echecker", "job_id": null, "trace_id": null, "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 2}
+127.0.0.1 - - [24/Nov/2026 22:53:40] "POST /v1/run HTTP/1.1" 200 -
+127.0.0.1 - - [24/Nov/2026 22:53:40] "GET /metrics HTTP/1.1" 200 -
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.012s
+
+OK

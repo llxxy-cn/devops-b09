@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "up",
+          "instance": "echecker:8080",
+          "job": "b09-business",
+          "service": "echecker"
+        },
+        "value": [
+          1795587472.678,
+          "1"
+        ]
+      }
+    ]
+  }
+}

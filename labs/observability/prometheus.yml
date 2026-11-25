@@ -1,0 +1,47 @@
+{
+  "global": {
+    "scrape_interval": "5s",
+    "evaluation_interval": "5s",
+    "scrape_timeout": "3s"
+  },
+  "scrape_configs": [
+    {
+      "job_name": "b09-business",
+      "metrics_path": "/metrics",
+      "static_configs": [
+        {
+          "targets": [
+            "buildchecker:8080"
+          ],
+          "labels": {
+            "service": "buildchecker"
+          }
+        },
+        {
+          "targets": [
+            "echecker:8080"
+          ],
+          "labels": {
+            "service": "echecker"
+          }
+        },
+        {
+          "targets": [
+            "draft:8080"
+          ],
+          "labels": {
+            "service": "draft"
+          }
+        },
+        {
+          "targets": [
+            "mdfixer:8080"
+          ],
+          "labels": {
+            "service": "mdfixer"
+          }
+        }
+      ]
+    }
+  ]
+}

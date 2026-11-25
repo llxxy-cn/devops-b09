@@ -1,0 +1,50 @@
+[
+  {
+    "timestamp": "2026-11-25T06:12:49.596880+00:00",
+    "role": "draft",
+    "job_id": "job-1fb28b45301246dc9ffbf5320c76abea",
+    "trace_id": "trace-dccbe4545b77421b96dbd257b86206b0",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:12:51.913563+00:00",
+    "role": "draft",
+    "job_id": "job-1fb28b45301246dc9ffbf5320c76abea",
+    "trace_id": "trace-dccbe4545b77421b96dbd257b86206b0",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 2317
+  },
+  {
+    "timestamp": "2026-11-25T06:12:51.927383+00:00",
+    "role": "buildchecker",
+    "job_id": "job-1fb28b45301246dc9ffbf5320c76abea",
+    "trace_id": "trace-dccbe4545b77421b96dbd257b86206b0",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:12:52.156816+00:00",
+    "role": "buildchecker",
+    "job_id": "job-1fb28b45301246dc9ffbf5320c76abea",
+    "trace_id": "trace-dccbe4545b77421b96dbd257b86206b0",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 229
+  },
+  {
+    "timestamp": "2026-11-25T06:12:52.158459+00:00",
+    "role": "buildchecker",
+    "job_id": "job-1fb28b45301246dc9ffbf5320c76abea",
+    "trace_id": "trace-dccbe4545b77421b96dbd257b86206b0",
+    "status": "RUNNING"
+  },
+  {
+    "timestamp": "2026-11-25T06:12:52.292483+00:00",
+    "role": "buildchecker",
+    "job_id": "job-1fb28b45301246dc9ffbf5320c76abea",
+    "trace_id": "trace-dccbe4545b77421b96dbd257b86206b0",
+    "status": "SUCCEEDED",
+    "error_code": null,
+    "elapsed_ms": 134
+  }
+]

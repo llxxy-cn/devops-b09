@@ -1,0 +1,11 @@
+full
+http://127.0.0.1:13100/d/b09-microservice?orgId=1&from=1795537395000&to=1795587471541&timezone=utc
+
+normal
+http://127.0.0.1:13100/d/b09-microservice?orgId=1&from=1795537395000&to=1795537520000&timezone=utc
+
+fault
+http://127.0.0.1:13100/d/b09-microservice?orgId=1&from=1795587096000&to=1795587232000&timezone=utc
+
+recovery
+http://127.0.0.1:13100/d/b09-microservice?orgId=1&from=1795587132000&to=1795587255000&timezone=utc

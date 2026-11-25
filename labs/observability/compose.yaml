@@ -1,0 +1,249 @@
+{
+  "services": {
+    "buildchecker": {
+      "image": "${E14_IMAGE:?set E14_IMAGE}",
+      "pull_policy": "never",
+      "restart": "unless-stopped",
+      "user": "0:0",
+      "working_dir": "/course",
+      "environment": {
+        "E14_ROLE": "buildchecker",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONUNBUFFERED": "1"
+      },
+      "volumes": [
+        "${E14_ROOT:?set E14_ROOT}:/course"
+      ],
+      "command": [
+        "python3",
+        "labs/e13e14/service.py"
+      ],
+      "ports": [
+        "127.0.0.1:18681:8080"
+      ],
+      "cpus": 1.0,
+      "mem_limit": "768m",
+      "pids_limit": 128,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2)"
+        ],
+        "interval": "5s",
+        "timeout": "3s",
+        "retries": 12
+      },
+      "cap_add": [
+        "SYS_PTRACE"
+      ]
+    },
+    "echecker": {
+      "image": "${E14_IMAGE:?set E14_IMAGE}",
+      "pull_policy": "never",
+      "restart": "unless-stopped",
+      "user": "0:0",
+      "working_dir": "/course",
+      "environment": {
+        "E14_ROLE": "echecker",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONUNBUFFERED": "1"
+      },
+      "volumes": [
+        "${E14_ROOT:?set E14_ROOT}:/course"
+      ],
+      "command": [
+        "python3",
+        "labs/e13e14/service.py"
+      ],
+      "ports": [
+        "127.0.0.1:18682:8080"
+      ],
+      "cpus": 1.0,
+      "mem_limit": "768m",
+      "pids_limit": 128,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2)"
+        ],
+        "interval": "5s",
+        "timeout": "3s",
+        "retries": 12
+      }
+    },
+    "draft": {
+      "image": "${E14_IMAGE:?set E14_IMAGE}",
+      "pull_policy": "never",
+      "restart": "unless-stopped",
+      "user": "0:0",
+      "working_dir": "/course",
+      "environment": {
+        "E14_ROLE": "draft",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONUNBUFFERED": "1",
+        "DOCKER_CONFIG": "/tmp/b3-docker-config"
+      },
+      "volumes": [
+        "${E14_ROOT:?set E14_ROOT}:/course",
+        "/var/run/docker.sock:/var/run/docker.sock"
+      ],
+      "command": [
+        "python3",
+        "labs/e13e14/service.py"
+      ],
+      "ports": [
+        "127.0.0.1:18683:8080"
+      ],
+      "cpus": 1.0,
+      "mem_limit": "768m",
+      "pids_limit": 128,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2)"
+        ],
+        "interval": "5s",
+        "timeout": "3s",
+        "retries": 12
+      }
+    },
+    "mdfixer": {
+      "image": "${E14_IMAGE:?set E14_IMAGE}",
+      "pull_policy": "never",
+      "restart": "unless-stopped",
+      "user": "0:0",
+      "working_dir": "/course",
+      "environment": {
+        "E14_ROLE": "mdfixer",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONUNBUFFERED": "1"
+      },
+      "volumes": [
+        "${E14_ROOT:?set E14_ROOT}:/course"
+      ],
+      "command": [
+        "python3",
+        "labs/e13e14/service.py"
+      ],
+      "ports": [
+        "127.0.0.1:18684:8080"
+      ],
+      "cpus": 1.0,
+      "mem_limit": "768m",
+      "pids_limit": 128,
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2)"
+        ],
+        "interval": "5s",
+        "timeout": "3s",
+        "retries": 12
+      }
+    },
+    "prometheus": {
+      "image": "prom/prometheus:v3.5.0",
+      "command": [
+        "--config.file=/etc/prometheus/prometheus.yml",
+        "--storage.tsdb.path=/prometheus",
+        "--storage.tsdb.retention.time=7d"
+      ],
+      "ports": [
+        "127.0.0.1:19190:9090"
+      ],
+      "volumes": [
+        "./prometheus.yml:/etc/prometheus/prometheus.yml:ro",
+        "prometheus-data:/prometheus"
+      ],
+      "depends_on": {
+        "buildchecker": {
+          "condition": "service_healthy"
+        },
+        "echecker": {
+          "condition": "service_healthy"
+        },
+        "draft": {
+          "condition": "service_healthy"
+        },
+        "mdfixer": {
+          "condition": "service_healthy"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "wget",
+          "-q",
+          "-O",
+          "/dev/null",
+          "http://127.0.0.1:9090/-/ready"
+        ],
+        "interval": "5s",
+        "timeout": "3s",
+        "retries": 24
+      }
+    },
+    "grafana": {
+      "image": "grafana/grafana:12.3.0",
+      "ports": [
+        "127.0.0.1:13100:3000"
+      ],
+      "environment": {
+        "GF_AUTH_ANONYMOUS_ENABLED": "true",
+        "GF_AUTH_ANONYMOUS_ORG_ROLE": "Viewer",
+        "GF_AUTH_DISABLE_LOGIN_FORM": "true",
+        "GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION": "true",
+        "GF_USERS_ALLOW_SIGN_UP": "false",
+        "GF_ANALYTICS_REPORTING_ENABLED": "false",
+        "GF_ANALYTICS_CHECK_FOR_UPDATES": "false"
+      },
+      "volumes": [
+        "./grafana/provisioning:/etc/grafana/provisioning:ro",
+        "./grafana/dashboards:/var/lib/grafana/dashboards:ro",
+        "grafana-data:/var/lib/grafana"
+      ],
+      "depends_on": {
+        "prometheus": {
+          "condition": "service_healthy"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "wget",
+          "-q",
+          "-O",
+          "/dev/null",
+          "http://127.0.0.1:3000/api/health"
+        ],
+        "interval": "5s",
+        "timeout": "3s",
+        "retries": 24
+      }
+    }
+  },
+  "volumes": {
+    "prometheus-data": {},
+    "grafana-data": {}
+  }
+}
