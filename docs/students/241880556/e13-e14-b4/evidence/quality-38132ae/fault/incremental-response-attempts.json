@@ -1,0 +1,20 @@
+[
+  {
+    "attempt": 1,
+    "started_at_utc": "2026-11-25T09:09:29.675944+00:00",
+    "error_code": "DOWNSTREAM_UNAVAILABLE",
+    "error": "<urlopen error [Errno 111] Connection refused>"
+  },
+  {
+    "attempt": 2,
+    "started_at_utc": "2026-11-25T09:09:29.926522+00:00",
+    "error_code": "DOWNSTREAM_UNAVAILABLE",
+    "error": "<urlopen error [Errno 111] Connection refused>"
+  },
+  {
+    "attempt": 3,
+    "started_at_utc": "2026-11-25T09:09:30.427327+00:00",
+    "error_code": "DOWNSTREAM_UNAVAILABLE",
+    "error": "<urlopen error [Errno 111] Connection refused>"
+  }
+]

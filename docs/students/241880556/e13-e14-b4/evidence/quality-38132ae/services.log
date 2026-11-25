@@ -1,0 +1,62 @@
+buildchecker-1  | 172.23.0.1 - - [25/Nov/2026 09:09:16] "GET /health HTTP/1.1" 200 -
+buildchecker-1  | 172.23.0.1 - - [25/Nov/2026 09:09:16] "GET /metrics HTTP/1.1" 200 -
+buildchecker-1  | 127.0.0.1 - - [25/Nov/2026 09:09:18] "GET /health HTTP/1.1" 200 -
+buildchecker-1  | 127.0.0.1 - - [25/Nov/2026 09:09:23] "GET /health HTTP/1.1" 200 -
+buildchecker-1  | 127.0.0.1 - - [25/Nov/2026 09:09:29] "GET /health HTTP/1.1" 200 -
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:29.193638+00:00", "role": "buildchecker", "job_id": "job-d8724483fcd044669aeda43b5c82df19", "trace_id": "trace-09453223548e4f59b7d4cef494fc0d01", "status": "RUNNING"}
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:29.484801+00:00", "role": "buildchecker", "job_id": "job-d8724483fcd044669aeda43b5c82df19", "trace_id": "trace-09453223548e4f59b7d4cef494fc0d01", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 291}
+buildchecker-1  | 172.23.0.1 - - [25/Nov/2026 09:09:29] "POST /v1/run HTTP/1.1" 200 -
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:29.486469+00:00", "role": "buildchecker", "job_id": "job-d8724483fcd044669aeda43b5c82df19", "trace_id": "trace-09453223548e4f59b7d4cef494fc0d01", "status": "RUNNING"}
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:29.673913+00:00", "role": "buildchecker", "job_id": "job-d8724483fcd044669aeda43b5c82df19", "trace_id": "trace-09453223548e4f59b7d4cef494fc0d01", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 187}
+buildchecker-1  | 172.23.0.1 - - [25/Nov/2026 09:09:29] "POST /v1/run HTTP/1.1" 200 -
+buildchecker-1  | 127.0.0.1 - - [25/Nov/2026 09:09:34] "GET /health HTTP/1.1" 200 -
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:38.208267+00:00", "role": "buildchecker", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "RUNNING"}
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:38.599531+00:00", "role": "buildchecker", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 391}
+buildchecker-1  | 172.23.0.1 - - [25/Nov/2026 09:09:38] "POST /v1/run HTTP/1.1" 200 -
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:38.601986+00:00", "role": "buildchecker", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "RUNNING"}
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:38.736526+00:00", "role": "buildchecker", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 135}
+buildchecker-1  | 172.23.0.1 - - [25/Nov/2026 09:09:38] "POST /v1/run HTTP/1.1" 200 -
+buildchecker-1  | 127.0.0.1 - - [25/Nov/2026 09:09:39] "GET /health HTTP/1.1" 200 -
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:39.942932+00:00", "role": "buildchecker", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "RUNNING"}
+buildchecker-1  | {"timestamp": "2026-11-25T09:09:40.070866+00:00", "role": "buildchecker", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 128}
+buildchecker-1  | 172.23.0.1 - - [25/Nov/2026 09:09:40] "POST /v1/run HTTP/1.1" 200 -
+draft-1         | 172.23.0.1 - - [25/Nov/2026 09:09:16] "GET /health HTTP/1.1" 200 -
+draft-1         | 172.23.0.1 - - [25/Nov/2026 09:09:16] "GET /metrics HTTP/1.1" 200 -
+draft-1         | 127.0.0.1 - - [25/Nov/2026 09:09:18] "GET /health HTTP/1.1" 200 -
+draft-1         | 127.0.0.1 - - [25/Nov/2026 09:09:23] "GET /health HTTP/1.1" 200 -
+draft-1         | {"timestamp": "2026-11-25T09:09:26.934698+00:00", "role": "draft", "job_id": "job-d8724483fcd044669aeda43b5c82df19", "trace_id": "trace-09453223548e4f59b7d4cef494fc0d01", "status": "RUNNING"}
+draft-1         | 127.0.0.1 - - [25/Nov/2026 09:09:28] "GET /health HTTP/1.1" 200 -
+draft-1         | 172.23.0.1 - - [25/Nov/2026 09:09:29] "POST /v1/run HTTP/1.1" 200 -
+draft-1         | {"timestamp": "2026-11-25T09:09:29.190839+00:00", "role": "draft", "job_id": "job-d8724483fcd044669aeda43b5c82df19", "trace_id": "trace-09453223548e4f59b7d4cef494fc0d01", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 2256}
+draft-1         | 127.0.0.1 - - [25/Nov/2026 09:09:34] "GET /health HTTP/1.1" 200 -
+draft-1         | {"timestamp": "2026-11-25T09:09:36.714437+00:00", "role": "draft", "job_id": "job-998a0fad3c024edf932b90d3d3dd4485", "trace_id": "trace-f862ecb5c1c4437c9cb9a1fe9720a2e5", "status": "RUNNING"}
+draft-1         | Traceback (most recent call last):
+draft-1         |   File "/course/labs/e13e14/service.py", line 167, in do_POST
+draft-1         |     result = run(data)
+draft-1         |   File "/course/labs/e13e14/service.py", line 54, in run
+draft-1         |     raise ValueError('DRAFT_' + result['status'] + ': ' + str(result.get('error')))
+draft-1         | ValueError: DRAFT_TIMED_OUT: Docker client command exceeded 0.01s
+draft-1         | {"timestamp": "2026-11-25T09:09:36.734184+00:00", "role": "draft", "job_id": "job-998a0fad3c024edf932b90d3d3dd4485", "trace_id": "trace-f862ecb5c1c4437c9cb9a1fe9720a2e5", "status": "FAILED", "error_code": "TIMEOUT", "elapsed_ms": 20}
+draft-1         | 172.23.0.1 - - [25/Nov/2026 09:09:36] "POST /v1/run HTTP/1.1" 422 -
+draft-1         | {"timestamp": "2026-11-25T09:09:36.832168+00:00", "role": "draft", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "RUNNING"}
+draft-1         | {"timestamp": "2026-11-25T09:09:38.205734+00:00", "role": "draft", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 1374}
+draft-1         | 172.23.0.1 - - [25/Nov/2026 09:09:38] "POST /v1/run HTTP/1.1" 200 -
+draft-1         | 127.0.0.1 - - [25/Nov/2026 09:09:39] "GET /health HTTP/1.1" 200 -
+echecker-1      | 172.23.0.1 - - [25/Nov/2026 09:09:16] "GET /health HTTP/1.1" 200 -
+echecker-1      | 172.23.0.1 - - [25/Nov/2026 09:09:16] "GET /metrics HTTP/1.1" 200 -
+echecker-1      | 127.0.0.1 - - [25/Nov/2026 09:09:17] "GET /health HTTP/1.1" 200 -
+echecker-1      | 127.0.0.1 - - [25/Nov/2026 09:09:23] "GET /health HTTP/1.1" 200 -
+echecker-1      | 127.0.0.1 - - [25/Nov/2026 09:09:36] "GET /health HTTP/1.1" 200 -
+echecker-1      | {"timestamp": "2026-11-25T09:09:38.739443+00:00", "role": "echecker", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "RUNNING"}
+echecker-1      | {"timestamp": "2026-11-25T09:09:38.777114+00:00", "role": "echecker", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 38}
+echecker-1      | 172.23.0.1 - - [25/Nov/2026 09:09:38] "POST /v1/run HTTP/1.1" 200 -
+mdfixer-1       | 172.23.0.1 - - [25/Nov/2026 09:09:16] "GET /health HTTP/1.1" 200 -
+mdfixer-1       | 172.23.0.1 - - [25/Nov/2026 09:09:16] "GET /metrics HTTP/1.1" 200 -
+mdfixer-1       | 127.0.0.1 - - [25/Nov/2026 09:09:19] "GET /health HTTP/1.1" 200 -
+mdfixer-1       | 127.0.0.1 - - [25/Nov/2026 09:09:24] "GET /health HTTP/1.1" 200 -
+mdfixer-1       | 127.0.0.1 - - [25/Nov/2026 09:09:29] "GET /health HTTP/1.1" 200 -
+mdfixer-1       | 127.0.0.1 - - [25/Nov/2026 09:09:35] "GET /health HTTP/1.1" 200 -
+mdfixer-1       | {"timestamp": "2026-11-25T09:09:38.778813+00:00", "role": "mdfixer", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "RUNNING"}
+mdfixer-1       | 172.23.0.1 - - [25/Nov/2026 09:09:39] "POST /v1/run HTTP/1.1" 200 -
+mdfixer-1       | {"timestamp": "2026-11-25T09:09:39.941083+00:00", "role": "mdfixer", "job_id": "job-4cac1194352348d4bb3714ae5fcb817e", "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566", "status": "SUCCEEDED", "error_code": null, "elapsed_ms": 1162}
+mdfixer-1       | 127.0.0.1 - - [25/Nov/2026 09:09:40] "GET /health HTTP/1.1" 200 -
