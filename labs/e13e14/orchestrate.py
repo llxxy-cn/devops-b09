@@ -11,6 +11,7 @@ import time
 import urllib.error
 import urllib.request
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 PORTS = {
@@ -131,6 +132,7 @@ def call(role, payload, evidence):
     attempts = []
     attempt_log = evidence.with_name(evidence.stem + '-attempts.json')
     for number in range(1, MAX_CONNECT_ATTEMPTS + 1):
+        started_at_utc = datetime.now(timezone.utc).isoformat()
         try:
             with urllib.request.urlopen(req, timeout=720) as resp:
                 data = json.load(resp)
@@ -142,7 +144,8 @@ def call(role, payload, evidence):
                 response = {}
             code = response.get('error_code') if isinstance(response, dict) else None
             code = code or f'HTTP_{exc.code}'
-            attempts.append({'attempt': number, 'http': exc.code, 'error_code': code})
+            attempts.append({'attempt': number, 'started_at_utc': started_at_utc,
+                             'http': exc.code, 'error_code': code})
             retry = exc.code == 503 and code == 'SERVICE_BUSY' and number < MAX_CONNECT_ATTEMPTS
             if retry:
                 time.sleep(RETRY_DELAYS[number - 1])
@@ -155,7 +158,8 @@ def call(role, payload, evidence):
             refused = isinstance(reason, ConnectionRefusedError) or (
                 isinstance(reason, OSError) and reason.errno == errno.ECONNREFUSED)
             code = 'DOWNSTREAM_UNAVAILABLE' if refused else 'DOWNSTREAM_TRANSPORT_ERROR'
-            attempts.append({'attempt': number, 'error_code': code, 'error': str(exc)})
+            attempts.append({'attempt': number, 'started_at_utc': started_at_utc,
+                             'error_code': code, 'error': str(exc)})
             if refused and number < MAX_CONNECT_ATTEMPTS:
                 time.sleep(RETRY_DELAYS[number - 1])
                 continue
@@ -164,17 +168,20 @@ def call(role, payload, evidence):
             raise ServiceCallError(role, code, number, str(exc)) from exc
         except TimeoutError as exc:
             code = 'DOWNSTREAM_TIMEOUT'
-            attempts.append({'attempt': number, 'error_code': code, 'error': str(exc)})
+            attempts.append({'attempt': number, 'started_at_utc': started_at_utc,
+                             'error_code': code, 'error': str(exc)})
             save(evidence, {'role': role, 'error_code': code, 'error': str(exc)})
             save(attempt_log, attempts)
             raise ServiceCallError(role, code, number, str(exc)) from exc
         if not isinstance(data, dict):
             code = 'INVALID_SERVICE_RESPONSE'
-            attempts.append({'attempt': number, 'http': 200, 'error_code': code})
+            attempts.append({'attempt': number, 'started_at_utc': started_at_utc,
+                             'http': 200, 'error_code': code})
             save(evidence, {'role': role, 'error_code': code, 'error': 'Expected a JSON object'})
             save(attempt_log, attempts)
             raise ServiceCallError(role, code, number, 'Expected a JSON object')
-        attempts.append({'attempt': number, 'http': 200, 'status': data.get('status')})
+        attempts.append({'attempt': number, 'started_at_utc': started_at_utc,
+                         'http': 200, 'status': data.get('status')})
         save(evidence, data)
         save(attempt_log, attempts)
         if data.get('status') != 'SUCCEEDED':
