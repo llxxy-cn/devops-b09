@@ -1,11 +1,13 @@
 """Run E14's four Compose services on one pinned teaching project."""
 import argparse
+import errno
 import hashlib
 import json
 import os
 import re
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 import uuid
@@ -18,6 +20,16 @@ PORTS = {
     'mdfixer': int(os.environ.get('E14_MDFIXER_PORT', '18084')),
 }
 ROOT = Path(__file__).resolve().parents[2]
+MAX_CONNECT_ATTEMPTS = 3
+RETRY_DELAYS = (0.25, 0.5)
+
+
+class ServiceCallError(Exception):
+    def __init__(self, role, error_code, attempts, message):
+        super().__init__(f'{role}: {message}')
+        self.role = role
+        self.error_code = error_code
+        self.attempts = attempts
 
 
 def save(path, data):
@@ -116,17 +128,59 @@ def call(role, payload, evidence):
     req = urllib.request.Request(f'http://127.0.0.1:{PORTS[role]}/v1/run',
                                  data=json.dumps(payload).encode(),
                                  headers={'Content-Type': 'application/json'})
-    try:
-        with urllib.request.urlopen(req, timeout=720) as resp:
-            data = json.load(resp)
-    except urllib.error.HTTPError as exc:
-        body = exc.read().decode(errors='replace')
-        save(evidence, {'role': role, 'http': exc.code, 'error': body})
-        raise ValueError(f'{role} HTTP {exc.code}: {body}') from exc
-    save(evidence, data)
-    if data['status'] != 'SUCCEEDED':
-        raise ValueError(f'{role} did not succeed')
-    return data
+    attempts = []
+    attempt_log = evidence.with_name(evidence.stem + '-attempts.json')
+    for number in range(1, MAX_CONNECT_ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=720) as resp:
+                data = json.load(resp)
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode(errors='replace')
+            try:
+                response = json.loads(body)
+            except json.JSONDecodeError:
+                response = {}
+            code = response.get('error_code') if isinstance(response, dict) else None
+            code = code or f'HTTP_{exc.code}'
+            attempts.append({'attempt': number, 'http': exc.code, 'error_code': code})
+            retry = exc.code == 503 and code == 'SERVICE_BUSY' and number < MAX_CONNECT_ATTEMPTS
+            if retry:
+                time.sleep(RETRY_DELAYS[number - 1])
+                continue
+            save(evidence, {'role': role, 'http': exc.code, 'error_code': code, 'error': body})
+            save(attempt_log, attempts)
+            raise ServiceCallError(role, code, number, f'HTTP {exc.code}: {body}') from exc
+        except urllib.error.URLError as exc:
+            reason = exc.reason
+            refused = isinstance(reason, ConnectionRefusedError) or (
+                isinstance(reason, OSError) and reason.errno == errno.ECONNREFUSED)
+            code = 'DOWNSTREAM_UNAVAILABLE' if refused else 'DOWNSTREAM_TRANSPORT_ERROR'
+            attempts.append({'attempt': number, 'error_code': code, 'error': str(exc)})
+            if refused and number < MAX_CONNECT_ATTEMPTS:
+                time.sleep(RETRY_DELAYS[number - 1])
+                continue
+            save(evidence, {'role': role, 'error_code': code, 'error': str(exc)})
+            save(attempt_log, attempts)
+            raise ServiceCallError(role, code, number, str(exc)) from exc
+        except TimeoutError as exc:
+            code = 'DOWNSTREAM_TIMEOUT'
+            attempts.append({'attempt': number, 'error_code': code, 'error': str(exc)})
+            save(evidence, {'role': role, 'error_code': code, 'error': str(exc)})
+            save(attempt_log, attempts)
+            raise ServiceCallError(role, code, number, str(exc)) from exc
+        if not isinstance(data, dict):
+            code = 'INVALID_SERVICE_RESPONSE'
+            attempts.append({'attempt': number, 'http': 200, 'error_code': code})
+            save(evidence, {'role': role, 'error_code': code, 'error': 'Expected a JSON object'})
+            save(attempt_log, attempts)
+            raise ServiceCallError(role, code, number, 'Expected a JSON object')
+        attempts.append({'attempt': number, 'http': 200, 'status': data.get('status')})
+        save(evidence, data)
+        save(attempt_log, attempts)
+        if data.get('status') != 'SUCCEEDED':
+            code = data.get('error_code') or 'DOWNSTREAM_FAILED'
+            raise ServiceCallError(role, code, number, 'service did not succeed')
+        return data
 
 
 def execute(request, out):
@@ -209,6 +263,11 @@ def execute(request, out):
         result['status'] = 'SUCCEEDED'
     except Exception as exc:
         result.update(status='FAILED', error=str(exc))
+        if isinstance(exc, ServiceCallError):
+            result.update(error_code=exc.error_code, failed_service=exc.role,
+                          attempt_count=exc.attempts)
+        else:
+            result['error_code'] = type(exc).__name__.upper()
     result['artifacts'] = [{'uri': path.relative_to(out).as_posix(), 'sha256': digest(path),
                             'bytes': path.stat().st_size} for path in sorted(out.rglob('*'))
                            if path.is_file() and '.git' not in path.parts and not path.is_symlink()]
@@ -224,6 +283,9 @@ def main():
     result = execute(json.loads(args.request.read_text(encoding='utf-8')), args.out.resolve())
     print(json.dumps({'status': result['status'], 'job_id': result['job_id'],
                       'stages': [x['name'] for x in result['stages']],
+                      'error_code': result.get('error_code'),
+                      'failed_service': result.get('failed_service'),
+                      'attempt_count': result.get('attempt_count'),
                       'error': result.get('error')}, ensure_ascii=False))
     return 0 if result['status'] == 'SUCCEEDED' else 1
 
