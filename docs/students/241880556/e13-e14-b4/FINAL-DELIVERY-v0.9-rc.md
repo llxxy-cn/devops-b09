@@ -25,3 +25,7 @@
 本索引记录发布结果及期末报告材料。[MICROSERVICE-LAB-FINAL.md](MICROSERVICE-LAB-FINAL.md)是标签环境上的 B1 真实项目新任务；[FINAL-ACCEPTANCE-72fd0b7.md](FINAL-ACCEPTANCE-72fd0b7.md)固定此前 B4 最终实测的输入与原始结果。[ACCEPTANCE.md](ACCEPTANCE.md)是 2026-11-23 的候选验收记录；[README.md](README.md)保留更早的集成预跑；[RELEASE_NOTES_DRAFT.md](RELEASE_NOTES_DRAFT.md)是当时的候选说明草案。这些历史记录中的“待发布”与旧提交号仅描述各自运行当时的状态。
 
 本索引在标签创建后补充到 `main`，不改动标签、原始报告、证据包或其哈希。
+
+## 组级期末提交材料（2026-11-25 整合）
+
+组级 [期末报告正文](../../../../docs/final-report/MICROSERVICE-LAB-REPORT.md)、[PDF](../../../../docs/final-report/B09-Microservice-Lab-期末报告.pdf)、[20 分钟汇报与备用证据索引](../../../../docs/final-report/20-MINUTE-DEMO.md)、[AI 使用说明](../../../../docs/final-report/AI_USAGE.md)已整理。报告正文八页，另含封面、目录及证据附录。四人完整证据包随组级离线提交包提供；B1、B3、B4 包在本机重新核对大小与 SHA256，B2 包在仓库内重新核对。报告按各自实际被测提交区分四轮任务，不将本索引最初的 2026-11-24 状态改写为新实测。
