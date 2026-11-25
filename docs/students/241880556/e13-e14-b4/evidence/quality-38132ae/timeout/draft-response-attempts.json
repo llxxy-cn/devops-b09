@@ -1,0 +1,8 @@
+[
+  {
+    "attempt": 1,
+    "started_at_utc": "2026-11-25T09:09:36.711161+00:00",
+    "http": 422,
+    "error_code": "TIMEOUT"
+  }
+]

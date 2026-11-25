@@ -1,0 +1,12 @@
+{
+  "accepted": false,
+  "checks": {},
+  "error": "git apply --check /root/241880556/devops-b09-microservice-b4-38132ae/work/b4-quality-38132ae-20261125/bad-candidate.patch exited 1; see apply-check.log",
+  "rollback": true,
+  "source_unchanged": true,
+  "edge_rebuilds": [],
+  "test_command": [
+    "make",
+    "test"
+  ]
+}

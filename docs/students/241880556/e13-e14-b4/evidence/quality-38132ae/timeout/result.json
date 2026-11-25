@@ -1,0 +1,220 @@
+{
+  "schema_version": "e14-compose-1",
+  "job_id": "job-998a0fad3c024edf932b90d3d3dd4485",
+  "trace_id": "trace-f862ecb5c1c4437c9cb9a1fe9720a2e5",
+  "status": "FAILED",
+  "stages": [],
+  "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+  "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+  "error": "draft: HTTP 422: {\"status\": \"FAILED\", \"role\": \"draft\", \"error_code\": \"TIMEOUT\", \"error\": \"DRAFT_TIMED_OUT: Docker client command exceeded 0.01s\"}\n",
+  "error_code": "TIMEOUT",
+  "failed_service": "draft",
+  "attempt_count": 1,
+  "artifacts": [
+    {
+      "uri": "base-project/fixtures/e11e12-b1-real/.dockerignore",
+      "sha256": "e91d2c20f19aa7f956d31d836de07b57edde6a63e58d2cb70c774a97f3e1f935",
+      "bytes": 19
+    },
+    {
+      "uri": "base-project/fixtures/e11e12-b1-real/Dockerfile.broken",
+      "sha256": "48d8ea53d277e3151b3e6d8f918bb1face3ea009e9376781a8567afd447b42b3",
+      "bytes": 127
+    },
+    {
+      "uri": "base-project/fixtures/e11e12-b1-real/Makefile",
+      "sha256": "1cadea746eca417a58a96057feb906ee36a4ad666851cd2ed095186677646643",
+      "bytes": 398
+    },
+    {
+      "uri": "base-project/fixtures/e11e12-b1-real/README.md",
+      "sha256": "907ff67119525c64f8f5431fdddbff72beb2c6588b4aee7a31b751242893aee6",
+      "bytes": 387
+    },
+    {
+      "uri": "base-project/fixtures/e11e12-b1-real/config.h",
+      "sha256": "680ec68eaf1d64e290f39e2f4ee9fade74c2aa460a475e8efa2b6d538a99c786",
+      "bytes": 74
+    },
+    {
+      "uri": "base-project/fixtures/e11e12-b1-real/helper.c",
+      "sha256": "96e1d4bd91edbfba856a1257523bf4224eecc72d86e6b11561b0514f310baddd",
+      "bytes": 102
+    },
+    {
+      "uri": "base-project/fixtures/e11e12-b1-real/helper.h",
+      "sha256": "adea639e9eff45c4e173d8f9944860076ff960b1920ca3ae6a8af387df838799",
+      "bytes": 77
+    },
+    {
+      "uri": "base-project/fixtures/e11e12-b1-real/main.c",
+      "sha256": "dc1185f523ae997f348f2067ce73f5d26e47d3c3ea034d9a66301948a0f585fd",
+      "bytes": 102
+    },
+    {
+      "uri": "draft-build/iter-01/Dockerfile",
+      "sha256": "37dbb7b8e0106cd3519cdb09b6d34b716dc675476ee45715e67f102a2c03bd13",
+      "bytes": 199
+    },
+    {
+      "uri": "draft-build/iter-01/build-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "uri": "draft-build/iter-01/build-stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "uri": "draft-build/project/.dockerignore",
+      "sha256": "e91d2c20f19aa7f956d31d836de07b57edde6a63e58d2cb70c774a97f3e1f935",
+      "bytes": 19
+    },
+    {
+      "uri": "draft-build/project/Dockerfile.broken",
+      "sha256": "48d8ea53d277e3151b3e6d8f918bb1face3ea009e9376781a8567afd447b42b3",
+      "bytes": 127
+    },
+    {
+      "uri": "draft-build/project/Makefile",
+      "sha256": "1cadea746eca417a58a96057feb906ee36a4ad666851cd2ed095186677646643",
+      "bytes": 398
+    },
+    {
+      "uri": "draft-build/project/README.md",
+      "sha256": "907ff67119525c64f8f5431fdddbff72beb2c6588b4aee7a31b751242893aee6",
+      "bytes": 387
+    },
+    {
+      "uri": "draft-build/project/config.h",
+      "sha256": "680ec68eaf1d64e290f39e2f4ee9fade74c2aa460a475e8efa2b6d538a99c786",
+      "bytes": 74
+    },
+    {
+      "uri": "draft-build/project/extra.h",
+      "sha256": "64cb137fb6b39bd3119c7c28562d4df04995b44e2cfcfc04ce0e36c0bbf2d9b1",
+      "bytes": 66
+    },
+    {
+      "uri": "draft-build/project/helper.c",
+      "sha256": "96e1d4bd91edbfba856a1257523bf4224eecc72d86e6b11561b0514f310baddd",
+      "bytes": 102
+    },
+    {
+      "uri": "draft-build/project/helper.h",
+      "sha256": "adea639e9eff45c4e173d8f9944860076ff960b1920ca3ae6a8af387df838799",
+      "bytes": 77
+    },
+    {
+      "uri": "draft-build/project/main.c",
+      "sha256": "df5bc4f2ef9fc492cdfc5e1a05a86939eac7073d5623d5b7096db8d1c1ebe3d1",
+      "bytes": 157
+    },
+    {
+      "uri": "draft-build/result.json",
+      "sha256": "1c92fd493b0081ad86dd9771d0b3c9c66b282b314a791bafbf3e08889de52680",
+      "bytes": 1636
+    },
+    {
+      "uri": "draft-response-attempts.json",
+      "sha256": "ed575833924b07e285fd8e275066dfc20fccc56aa18b3491f9452bbfe3cc3c31",
+      "bytes": 133
+    },
+    {
+      "uri": "draft-response.json",
+      "sha256": "88e5fa8f9487bfe98199e27d51eba06d09de347add1386a757888dabf201b65c",
+      "bytes": 225
+    },
+    {
+      "uri": "logs/base-project-checkout.log",
+      "sha256": "d5b0f79953df2f037fed1429fe28f35689ca06dd54232cf0f1f5556d2ddafdbc",
+      "bytes": 68
+    },
+    {
+      "uri": "logs/base-project-clone.log",
+      "sha256": "d9ad9d34f80b9fa944a9eb941ccd575cfed71d6c110071213be5ff2a4eda62ee",
+      "bytes": 129
+    },
+    {
+      "uri": "logs/base-project-resolve.log",
+      "sha256": "a277e1e1ff1c1edac9cb1bbf9d4d9e00f0b783039a87c7e5d3227abf6eea82b3",
+      "bytes": 41
+    },
+    {
+      "uri": "logs/base-project-sparse.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "uri": "logs/target-project-checkout.log",
+      "sha256": "5f249717df9796aaacb13a84a411a9645518d9b431d1976aa553185a76bb97b1",
+      "bytes": 71
+    },
+    {
+      "uri": "logs/target-project-clone.log",
+      "sha256": "bcb44dcb44d412d0789e11429cac572ac402608bd3e816bedafe3826052c46ad",
+      "bytes": 131
+    },
+    {
+      "uri": "logs/target-project-resolve.log",
+      "sha256": "a4e4739e30b36816b681728f3a649edb1202fb6766d0cdb79b49c7c09c5cdea4",
+      "bytes": 41
+    },
+    {
+      "uri": "logs/target-project-sparse.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "uri": "request.json",
+      "sha256": "d35900c879d47478e7183b66dea1b6295d71f51514c1da0452b48b91c46d2a0b",
+      "bytes": 388
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/.dockerignore",
+      "sha256": "e91d2c20f19aa7f956d31d836de07b57edde6a63e58d2cb70c774a97f3e1f935",
+      "bytes": 19
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/Dockerfile.broken",
+      "sha256": "48d8ea53d277e3151b3e6d8f918bb1face3ea009e9376781a8567afd447b42b3",
+      "bytes": 127
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/Makefile",
+      "sha256": "1cadea746eca417a58a96057feb906ee36a4ad666851cd2ed095186677646643",
+      "bytes": 398
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/README.md",
+      "sha256": "907ff67119525c64f8f5431fdddbff72beb2c6588b4aee7a31b751242893aee6",
+      "bytes": 387
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/config.h",
+      "sha256": "680ec68eaf1d64e290f39e2f4ee9fade74c2aa460a475e8efa2b6d538a99c786",
+      "bytes": 74
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/extra.h",
+      "sha256": "64cb137fb6b39bd3119c7c28562d4df04995b44e2cfcfc04ce0e36c0bbf2d9b1",
+      "bytes": 66
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/helper.c",
+      "sha256": "96e1d4bd91edbfba856a1257523bf4224eecc72d86e6b11561b0514f310baddd",
+      "bytes": 102
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/helper.h",
+      "sha256": "adea639e9eff45c4e173d8f9944860076ff960b1920ca3ae6a8af387df838799",
+      "bytes": 77
+    },
+    {
+      "uri": "target-project/fixtures/e11e12-b1-real/main.c",
+      "sha256": "df5bc4f2ef9fc492cdfc5e1a05a86939eac7073d5623d5b7096db8d1c1ebe3d1",
+      "bytes": 157
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "mode": "e12",
+  "repo": "/course/data/e14-b4-b09/repo",
+  "project_subdir": "fixtures/e11e12-b1-real",
+  "base": "30ffe4c41492334478a2446a8be0662d3f31d478",
+  "target": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+  "candidate": "/course/data/e14-b4-b09/candidate.Dockerfile",
+  "expected_output": "hello E3",
+  "test_command": [
+    "make",
+    "test"
+  ],
+  "build_timeout": 0.01
+}

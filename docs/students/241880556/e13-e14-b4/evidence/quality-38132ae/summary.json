@@ -1,0 +1,35 @@
+{
+  "code_commit": "38132ae89492d58f9dbf934a2310b7e91cc53d01",
+  "fault": {
+    "job_id": "job-d8724483fcd044669aeda43b5c82df19",
+    "trace_id": "trace-09453223548e4f59b7d4cef494fc0d01",
+    "status": "FAILED",
+    "error_code": "DOWNSTREAM_UNAVAILABLE",
+    "failed_service": "echecker",
+    "attempt_count": 3
+  },
+  "timeout": {
+    "job_id": "job-998a0fad3c024edf932b90d3d3dd4485",
+    "trace_id": "trace-f862ecb5c1c4437c9cb9a1fe9720a2e5",
+    "status": "FAILED",
+    "error_code": "TIMEOUT",
+    "failed_service": "draft",
+    "attempt_count": 1
+  },
+  "recovery": {
+    "job_id": "job-4cac1194352348d4bb3714ae5fcb817e",
+    "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566",
+    "status": "SUCCEEDED"
+  },
+  "checks": {
+    "fixed_code": true,
+    "fault_terminal": true,
+    "fault_attempts": true,
+    "timeout_terminal": true,
+    "recovery_success": true,
+    "bad_patch_rejected": true,
+    "source_repo_unchanged": true,
+    "code_worktree_unchanged": true
+  },
+  "failures": []
+}

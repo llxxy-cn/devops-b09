@@ -1,0 +1,18 @@
+{
+  "/root/241880556/devops-b09-microservice-b4-38132ae/work/b4-quality-38132ae-20261125/recovery": {
+    "status": "SUCCEEDED",
+    "job_id": "job-4cac1194352348d4bb3714ae5fcb817e",
+    "trace_id": "trace-04b597c31eea48f18b9454e44f7cf566",
+    "base_commit": "30ffe4c41492334478a2446a8be0662d3f31d478",
+    "target_commit": "a7e3b644ca9b1b9d0b26bd41e839fcbf5ea1c293",
+    "artifact_count": 186,
+    "result_sha256": "436277a62a8a00b3b498b29288a305b0274608e6082c68273f59e67b77314885",
+    "incremental_report_sha256": "b46048579f3c1df15874ab1843872a3b0483f62426f8b19cd325ca3c82505957",
+    "candidate_patch_sha256": "6fb5dc4d84f5d65bcf7edffae3b7e02acb2259676be2154a1fc947463ee75c69",
+    "validation_sha256": "b6226cf3286857ae4e275fa1ed952c1d2ed8d8a5c69c33be57f6ef3686208aea",
+    "final_recheck_sha256": "1354cd9e7d55419afd8449a760302098cd976e9088d887455105e50526b27be1",
+    "rebuild_count": 1,
+    "remaining_findings": [],
+    "candidate_image_id": "sha256:5ccf4449565a19b7726dcc2c0190afa4af89e3a9f74e98f7b7507b2adf5e40eb"
+  }
+}
