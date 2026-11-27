@@ -26,6 +26,6 @@
 
 本索引在标签创建后补充到 `main`，不改动标签、原始报告、证据包或其哈希。
 
-## 组级期末提交材料（2026-11-25 整合）
+## 组级期末提交材料（2026-11-27 整合）
 
-组级 [期末报告正文](../../../../docs/final-report/MICROSERVICE-LAB-REPORT.md)、[PDF](../../../../docs/final-report/B09-Microservice-Lab-期末报告.pdf)、[20 分钟汇报与备用证据索引](../../../../docs/final-report/20-MINUTE-DEMO.md)、[AI 使用说明](../../../../docs/final-report/AI_USAGE.md)已整理。报告正文八页，另含封面、目录及证据附录。四人完整证据包随组级离线提交包提供；B1、B3、B4 包在本机重新核对大小与 SHA256，B2 包在仓库内重新核对。报告按各自实际被测提交区分四轮任务，不将本索引最初的 2026-11-24 状态改写为新实测。
+组级 [期末报告正文](../../../../docs/final-report/MICROSERVICE-LAB-REPORT.md)、[PDF](../../../../docs/final-report/B09-Microservice-Lab-期末报告.pdf)、[可编辑 Word](../../../../docs/final-report/Microservice-Lab-期末项目报告-可编辑.docx)、[20 分钟汇报与备用证据索引](../../../../docs/final-report/20-MINUTE-DEMO.md)、[AI 使用说明](../../../../docs/final-report/AI_USAGE.md)已整理。报告共七页，含封面、目录及证据索引。四人完整证据包与成员2教学样例部署补充包随组级离线提交包提供，各包大小和 SHA256 均已核对；不同任务保留各自的实际被测提交。

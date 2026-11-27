@@ -1,6 +1,6 @@
 # B09 Microservice Lab 期末项目报告
 
-**项目组**：B09　　**日期**：2026 年 11 月 25 日
+**项目组**：B09　　**日期**：2026 年 11 月 27 日
 
 **组员**：B1 刘欣雨（241880481）；B2 黄新迪（241880359）；B3 丁卓（241880585）；B4 韩尚真（241880556）。
 
@@ -22,9 +22,9 @@ B09 项目以真实 Git 仓库中的缺失依赖为实验对象，将构建检�
 
 B1 的 `v0.9-rc` 标签环境为 Compose 项目 `b09-ms-rc-5338183`，配置文件 `labs/e13e14/compose.yaml`。四服务的宿主回环健康端口依次为 BuildChecker 18581、EChecker 18582、DRAFT 18583、MDFixer 18584；容器内均监听 8080。Compose 配置对四服务设置 `/health` 检查、CPU/内存/PID 限额和内部网络访问。运行镜像别名为 `course-e11e12:e14-rc-5338183-b4`，镜像 ID 为 `sha256:b6eb148da0a6248be7410d5faea4f7f22945f10cccea8f72e66ab5d51809be3b`，服务源码由对应检出挂载。[E1]
 
-B3 的监控轮次使用独立项目 `b09-ms-b3-241880585` 和 `labs/observability/compose.yaml`，在四业务服务之外启动 Prometheus v3.5.0 与 Grafana 12.3.0。四业务端口为 18681–18684，Prometheus 为 19190，Grafana 为 13100，均绑定宿主回环。Prometheus 通过 Compose 内部服务名抓取四个 `/metrics`，Grafana 数据源使用 `http://prometheus:9090`。B3 保存 Compose 状态、镜像 ID 与 digest、Targets 响应和面板导出。[E3]
+B2 在课程教学样例上复现了 Compose 部署。样例由 API、worker、Prometheus 和 Grafana 组成，API 通过内部服务名访问 worker，并等待 worker 健康后启动。首次部署后，在同一服务器重新解压原始实验包，以独立项目、网络、数据卷和端口完成第二次运行；两轮均保存镜像身份、服务状态、健康响应、启动日志和 Targets。复现轮次中 API 与 worker 均为 healthy，Prometheus 的两个业务目标均为 up。该样例的部署记录与下文 E14 四业务服务的任务记录分别归档。
 
-B3 在后续提交中为四业务服务接入 `/metrics`；B4 的容错轮次继承该实现，四服务 `/health` 和 `/metrics` 均返回 200。各轮部署与代码身份见第 3 节。[E3、E4]
+B3 为四业务服务接入 `/metrics`，并使用独立项目 `b09-ms-b3-241880585` 和 `labs/observability/compose.yaml` 部署 Prometheus v3.5.0 与 Grafana 12.3.0。四业务端口为 18681–18684，Prometheus 为 19190，Grafana 为 13100，均绑定宿主回环。Prometheus 通过 Compose 内部服务名抓取业务指标，Grafana 数据源使用 `http://prometheus:9090`。Compose 状态、镜像 ID 与 digest、Targets 响应和面板导出均已保存。[E3]
 
 <!-- pagebreak -->
 
@@ -83,7 +83,7 @@ B4 本轮四项重试测试、两项 HTTP 指标测试通过；服务健康与�
 
 ## 7. 问题定位与工程改进
 
-B3 为四服务增加指标端点与独立的 Prometheus/Grafana 部署。针对长时间业务执行对 HTTP 入口的占用，B3 将入口改为线程化处理，并使用非阻塞锁保护业务执行；并发繁忙请求以 503 `SERVICE_BUSY` 返回。健康检查与指标抓取在任务执行期间仍可响应。[E3]
+针对长时间业务执行对 HTTP 入口的占用，B3 将入口改为线程化处理，并使用非阻塞锁保护业务执行；并发繁忙请求以 503 `SERVICE_BUSY` 返回。健康检查与指标抓取在任务执行期间仍可响应。[E3]
 
 停机取证显示 EChecker 连接拒绝与任务失败相对应。B4 在此基础上加入最多三次的有界重试及 `error_code`、`failed_service`、`attempt_count` 字段，使调用方日志、任务终态与重试轨迹形成一致的故障记录。超时场景保留单次尝试。[E3、E4]
 
@@ -97,14 +97,14 @@ B3 为四服务增加指标端点与独立的 Prometheus/Grafana 部署。针对
 
 | 成员 | 主要贡献与可核对产物 |
 | --- | --- |
-| B1 刘欣雨（241880481） | 固定 B09 Base/Target 和候选 Dockerfile；在标签环境执行真实项目五阶段，保存请求、job/trace、补丁、复验与完整证据包。 |
-| B2 黄新迪（241880359） | 整理部署与复现材料；在 E13 统一基线上复跑超时、错误补丁、恢复和任务 API 幂等，保存请求、日志与源仓库完整性。 |
-| B3 丁卓（241880585） | 实现四服务指标、Prometheus/Grafana 配置与 PromQL；完成正常、停机、恢复三阶段监控取证、关联日志及八张截图。 |
+| B1 刘欣雨（241880481） | 设计并提交真实C/Make项目及缺失依赖基线，完成E13根目录Make交接与C1–C3回归；在标签环境执行五阶段任务，保存补丁、复验与证据包。 |
+| B2 黄新迪（241880359） | 完成教学样例两轮部署与同机隔离复现，保存 Compose、镜像、健康检查及 Targets；在 E13 统一基线上复跑超时、错误补丁、恢复和任务 API 幂等，保存请求、日志与源仓库完整性。 |
+| B3 丁卓（241880585） | 修正E13依赖重建验证，完成三个教师项目复验并建立C6安全门禁；实现四服务指标和Prometheus/Grafana监控，完成三阶段取证。 |
 | B4 韩尚真（241880556） | 固定标签环境与证据索引；审查 B3 PR；实现有界重试和错误字段；复测停机、超时、恢复和错误补丁，整理本报告与提交包。 |
 
 复现从第 3 节指定的代码提交开始。设置 `E14_ROOT` 为检出目录绝对路径、`E14_IMAGE` 为对应镜像后，运行 `docker compose -f labs/e13e14/compose.yaml -p <项目名> config --quiet` 与 `up -d --wait`，核对四服务 `/health`。监控实验使用 `labs/observability/compose.yaml` 启动四服务、Prometheus 和 Grafana，检查四个 Targets 与八个面板。真实任务请求、候选 Dockerfile、编排参数和 `verify_e14.py` 核验记录均见完整证据包。[E1、E3]
 
-交付包包含本报告 PDF、项目源码快照、`AI_USAGE.md`、四人完整证据包及 SHA256 清单。源码提交由 `SOURCE-REVISION.txt` 标明，`MANIFEST.sha256` 对交付文件逐项校验。演示使用健康检查、Targets、正常任务结果和故障恢复记录；截图与原始日志提供相同任务的复核路径。[E1–E4]
+交付包包含本报告 PDF、项目源码快照、`AI_USAGE.md`、四人完整证据包、成员2部署补充包及 SHA256 清单。源码提交由 `SOURCE-REVISION.txt` 标明，`MANIFEST.sha256` 对交付文件逐项校验。演示使用健康检查、Targets、正常任务结果和故障恢复记录；截图与原始日志提供相同任务的复核路径。[E1–E4]
 
 <!-- pagebreak -->
 
@@ -112,7 +112,7 @@ B3 为四服务增加指标端点与独立的 Prometheus/Grafana 部署。针对
 
 E1　B1 五阶段记录：`docs/students/241880556/e13-e14-b4/MICROSERVICE-LAB-FINAL.md`；完整包：`e14-microservice-b1-b09-v09rc-20261124-01.tar.gz`，4,959,089 字节，SHA256：`2ffd7c1391f1b7297ee846d3e854e4a7820cebc13b16f25ef27d9560d22c637e`。
 
-E2　B2 E13 专项记录：`docs/students/241880359/e13-b2-recheck-298ff136/TEST_REPORT.md`；完整包：`b09-e13-b2-recheck-298ff136-20261124-105225.tar.gz`。
+E2　B2 E13 专项记录：`docs/students/241880359/e13-b2-recheck-298ff136/TEST_REPORT.md`，完整包 `b09-e13-b2-recheck-298ff136-20261124-105225.tar.gz`；教学样例部署与同机隔离复现：`docs/students/241880359/microservice-deploy/PACKAGE.md`，补充包 `B2-Microservice-Deploy-20261126-213726.tar.gz`，118,136 字节，SHA256：`8de8a205db69f5cd3faf02b9a8c4df8910f4374658afebd1fdc4e278a02f3445`。
 
 E3　B3 监控记录：`docs/students/241880585/microservice/可观测性报告.md`；截图与原始查询位于同目录 `evidence/`；完整包：`B3-Microservice-Monitoring-20261125-151724.tar.gz`。
 
