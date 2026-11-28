@@ -177,7 +177,9 @@ def make_cover(story: list) -> None:
         ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
     ]))
     story += [table, Spacer(1, 35 * mm)]
-    story.append(Paragraph("2026 年 11 月 25 日", ParagraphStyle(
+    date_match = re.search(r"\*\*日期\*\*：([^\n]+)", SOURCE.read_text(encoding="utf-8"))
+    report_date = date_match.group(1).strip() if date_match else "2026 年 11 月 27 日"
+    story.append(Paragraph(report_date, ParagraphStyle(
         "date", fontName="SimSun", fontSize=11, leading=18,
         textColor=colors.black, alignment=TA_CENTER)))
     story.append(PageBreak())

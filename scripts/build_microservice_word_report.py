@@ -181,7 +181,7 @@ def add_table(doc, markdown: list[str]) -> None:
     if rows[0][0] == "成员":
         rows = [
             ["成员", "负责内容", "可核对产物"],
-            ["成员1", "真实项目与E13交接", "C/Make基线、C1–C3回归、五阶段请求、补丁与复验"],
+            ["成员1", "真实项目与E13交叉联调", "C/Make基线；6条依赖修复及6/6逐边验证；C2/C3拒绝与恢复；A09签收及合并后回归；E14五阶段请求、补丁与复验"],
             ["成员2", "样例部署与专项验证", "两轮Compose部署、同机隔离复现、超时恢复与幂等记录"],
             ["成员3", "E13门禁与监控", "依赖及三项目复验、C6门禁、四服务指标、面板与三阶段日志"],
             ["成员4", "容错与质量验收", "有界重试、错误码、故障恢复复测、报告与提交包"],
@@ -226,7 +226,7 @@ def add_table(doc, markdown: list[str]) -> None:
 
 def add_evidence_index(doc) -> None:
     entries = [
-        ("成员1", "v0.9-rc真实项目五阶段记录；完整证据包4,959,089字节；SHA256：2ffd7c1391f1b7297ee846d3e854e4a7820cebc13b16f25ef27d9560d22c637e。", "docs/students/241880556/e13-e14-b4/MICROSERVICE-LAB-FINAL.md"),
+        ("成员1", "E13合并后回归包22,261,646字节，SHA256：23753210e75b0892663c35e052d7575cd5d00c042ef6ed82c606b9bbdb2abe89；原交付由A09于2026年11月23日签收，补充回归不替换原签收对象。E14标签环境真实项目五阶段完整包4,959,089字节，SHA256：2ffd7c1391f1b7297ee846d3e854e4a7820cebc13b16f25ef27d9560d22c637e。", "docs/students/241880481/e13-e14/POST-MERGE-REGRESSION-20261124.md"),
         ("成员2", "E13超时、错误补丁、恢复和幂等专项包15,620,441字节，SHA256：e7e4a3bebe62e3e8306a548a033831e3121edb8bd0919886ad4e6688824a00d6；教学样例两轮部署与同机隔离复现补充包118,136字节，SHA256：8de8a205db69f5cd3faf02b9a8c4df8910f4374658afebd1fdc4e278a02f3445。", "docs/students/241880359/e13-b2-recheck-298ff136/TEST_REPORT.md"),
         ("成员3", "四服务监控记录、PromQL、关联日志、八张截图和完整证据包；SHA256：2dfe80765cdf6ab24833188c22d7edb045cc1a4b75ad5e09b8b23e5a972cb918。", "docs/students/241880585/microservice/可观测性报告.md"),
         ("成员4", "容错与质量复测记录、仓库完整性记录和完整证据包；SHA256：3ef9eb5e1c8da342c0d021e9a14de4ba6b39a3943527eb8ec87f1728e19936fd。", "docs/students/241880556/e13-e14-b4/MICROSERVICE-LAB-B4-QUALITY.md"),
@@ -234,7 +234,14 @@ def add_evidence_index(doc) -> None:
     for name, detail, path in entries:
         p = doc.add_paragraph(style="Evidence Entry")
         add_inline(p, f"{name}（", 10.5)
-        add_link(p, "E13记录" if name == "成员2" else "仓库记录", path)
+        add_link(p, "E13回归" if name == "成员1" else ("E13记录" if name == "成员2" else "仓库记录"), path)
+        if name == "成员1":
+            add_inline(p, "、", 10.5)
+            add_link(p, "正式联调", "docs/students/241880481/e13-e14/formal/README.md")
+            add_inline(p, "、", 10.5)
+            add_link(p, "A09签收", "evidence/students/241880481/e13-e14/A09-SIGNOFF-20261123.md")
+            add_inline(p, "、", 10.5)
+            add_link(p, "E14记录", "docs/students/241880556/e13-e14-b4/MICROSERVICE-LAB-FINAL.md")
         if name == "成员2":
             add_inline(p, "、", 10.5)
             add_link(p, "部署记录", "docs/students/241880359/microservice-deploy/PACKAGE.md")
