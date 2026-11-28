@@ -18,7 +18,7 @@ B09 项目以真实 Git 仓库中的缺失依赖为实验对象，将构建检�
 
 ## 2. 系统架构与部署编排
 
-四个业务服务通过 Docker Compose 部署，均提供 `POST /v1/run` 与 `/health`。宿主机编排脚本 `labs/e13e14/orchestrate.py` 提交阶段请求，收集任务信封、阶段报告和产物。DRAFT 使用固定候选 Dockerfile 构建隔离环境；BuildChecker 执行完整构建和最终复验；EChecker 比对 Base/Target 的增量依赖；MDFixer 生成并验证 Makefile 补丁。服务间通过 Compose 内部服务名通信，阶段结果以 job_id、trace_id 关联。[E1]
+四个业务服务通过 Docker Compose 部署，均提供 `POST /v1/run` 与 `/health`。宿主机编排脚本 `labs/e13e14/orchestrate.py` 提交阶段请求，收集任务信封、阶段报告和产物。DRAFT 使用固定候选 Dockerfile 构建隔离环境；BuildChecker 执行完整构建和最终复验；EChecker 比对 Base/Target 的增量依赖；MDFixer 生成并验证 Makefile 补丁。B1 的标签轮次由宿主机编排器通过映射到回环地址的 HTTP 端口调用四服务，阶段产物通过共享挂载目录传递，并以 job_id、trace_id 关联。[E1]
 
 B1 的 `v0.9-rc` 标签环境为 Compose 项目 `b09-ms-rc-5338183`，配置文件 `labs/e13e14/compose.yaml`。四服务的宿主回环健康端口依次为 BuildChecker 18581、EChecker 18582、DRAFT 18583、MDFixer 18584；容器内均监听 8080。Compose 配置对四服务设置 `/health` 检查、CPU/内存/PID 限额和内部网络访问。运行镜像别名为 `course-e11e12:e14-rc-5338183-b4`，镜像 ID 为 `sha256:b6eb148da0a6248be7410d5faea4f7f22945f10cccea8f72e66ab5d51809be3b`，服务源码由对应检出挂载。[E1]
 
@@ -34,10 +34,15 @@ B3 为四业务服务接入 `/metrics`，并使用独立项目 `b09-ms-b3-241880
 
 | 责任与场景 | 实际被测代码提交 | 项目与范围 |
 | --- | --- | --- |
+| B1 E13 交叉联调回归 | `298ff1366cdd2f4314cce625492fa813f484893f` | A09 项目；C1–C3及恢复；C1 153项产物 |
 | B1 正常五阶段 | `5338183c7178122476b84c65b6a7010ca6598a61`（`v0.9-rc`） | B09 真实项目；180 项产物 |
 | B2 E13 专项 | `298ff1366cdd2f4314cce625492fa813f484893f` | A09 项目；超时、错误补丁、恢复、API 幂等 |
 | B3 监控三阶段 | `cad9b1bee2a9e2633e4af1cad42a8b6a3d3a858b` | B09 真实项目；四服务指标、Prometheus、Grafana |
 | B4 容错复测 | `38132ae89492d58f9dbf934a2310b7e91cc53d01` | B09 真实项目；有限重试、超时、恢复与错误补丁 |
+
+B1 另负责 A09 正式项目的 E13 交叉联调，并在 PR #20 合并后的上述统一基线上完成服务器回归。A09 项目 Base 为 `e825395a5f8006f1c57a115cc25ea5c7802863ee`，Target 为 `ba688c40d13cd8658e554f7544f1546d35b4b397`。C1 终态为 `SUCCEEDED`，153 项产物核验通过；6 条缺失依赖全部修复，逐边重建及输出验证 6/6 通过，程序输出 `1`，最终 MD=0、RD=1，保留 `REDUNDANT(main.o, unused.h)`。C2 旧报告返回 `STALE_REPORT`，C3 篡改报告返回 `ARTIFACT_HASH_MISMATCH`，均在 DRAFT 前拒绝且没有生成补丁；恢复正确输入后，新任务成功，脚本 `FAILURES=0`。[E1]
+
+A09 于 2026 年 11 月 23 日正式签收 B1 的原交付包，关联交付提交 `cbf90cce6fcb4950c6326704bd970f9ed80693bb`，包 SHA256 为 `1a1419b6359448b7e39033899d287ed85fd44d0ca054299e238cc55d1645ba33`。11 月 24 日合并后回归为补充证据，不替换原签收对象。该轮 A09 项目的结果与第 4 节 B09 项目的 E14 五阶段结果分别记录。[E1]
 
 B3 PR #27 的合并提交为 `90d77a983074996482da7a634c61bafecb588fcc`；B4 PR #28 的合并提交为 `c02ccd1c7bcd4e0dcd19a00ad704a09019bea8fd`。B4 的 12 项 CI、四项重试测试和两项 HTTP 指标测试均通过。[E3、E4]
 
@@ -97,7 +102,7 @@ B4 本轮四项重试测试、两项 HTTP 指标测试通过；服务健康与�
 
 | 成员 | 主要贡献与可核对产物 |
 | --- | --- |
-| B1 刘欣雨（241880481） | 设计并提交真实C/Make项目及缺失依赖基线，完成E13根目录Make交接与C1–C3回归；在标签环境执行五阶段任务，保存补丁、复验与证据包。 |
+| B1 刘欣雨（241880481） | 设计并提交真实C/Make项目及缺失依赖基线，适配A09根目录Make项目并完成E13交叉联调：修复6条缺失依赖、逐边验证6/6通过，完成C2/C3拒绝与恢复、A09签收及合并后回归；在标签环境执行本组项目E14五阶段任务，保存补丁、复验与证据包。 |
 | B2 黄新迪（241880359） | 完成教学样例两轮部署与同机隔离复现，保存 Compose、镜像、健康检查及 Targets；在 E13 统一基线上复跑超时、错误补丁、恢复和任务 API 幂等，保存请求、日志与源仓库完整性。 |
 | B3 丁卓（241880585） | 修正E13依赖重建验证，完成三个教师项目复验并建立C6安全门禁；实现四服务指标和Prometheus/Grafana监控，完成三阶段取证。 |
 | B4 韩尚真（241880556） | 固定标签环境与证据索引；审查 B3 PR；实现有界重试和错误字段；复测停机、超时、恢复和错误补丁，整理本报告与提交包。 |
@@ -110,7 +115,7 @@ B4 本轮四项重试测试、两项 HTTP 指标测试通过；服务健康与�
 
 ## 附录：证据索引
 
-E1　B1 五阶段记录：`docs/students/241880556/e13-e14-b4/MICROSERVICE-LAB-FINAL.md`；完整包：`e14-microservice-b1-b09-v09rc-20261124-01.tar.gz`，4,959,089 字节，SHA256：`2ffd7c1391f1b7297ee846d3e854e4a7820cebc13b16f25ef27d9560d22c637e`。
+E1　B1 E13 正式联调：`docs/students/241880481/e13-e14/formal/README.md`；A09 原交付签收：`evidence/students/241880481/e13-e14/A09-SIGNOFF-20261123.md`；合并后回归：`docs/students/241880481/e13-e14/POST-MERGE-REGRESSION-20261124.md`，对应补充包 `e13-b1-server-formal-20261124-101140.tar.gz`，22,261,646 字节，SHA256：`23753210e75b0892663c35e052d7575cd5d00c042ef6ed82c606b9bbdb2abe89`。B1 E14 五阶段记录：`docs/students/241880556/e13-e14-b4/MICROSERVICE-LAB-FINAL.md`；完整包：`e14-microservice-b1-b09-v09rc-20261124-01.tar.gz`，4,959,089 字节，SHA256：`2ffd7c1391f1b7297ee846d3e854e4a7820cebc13b16f25ef27d9560d22c637e`。
 
 E2　B2 E13 专项记录：`docs/students/241880359/e13-b2-recheck-298ff136/TEST_REPORT.md`，完整包 `b09-e13-b2-recheck-298ff136-20261124-105225.tar.gz`；教学样例部署与同机隔离复现：`docs/students/241880359/microservice-deploy/PACKAGE.md`，补充包 `B2-Microservice-Deploy-20261126-213726.tar.gz`，118,136 字节，SHA256：`8de8a205db69f5cd3faf02b9a8c4df8910f4374658afebd1fdc4e278a02f3445`。
 
